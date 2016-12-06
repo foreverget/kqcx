@@ -300,9 +300,8 @@
 				<version>${jsp.api.version}</version>
 				<scope>provided</scope>
 			</dependency>
-			
-			<!-- 16.xStream可以轻易的将Java对象和xml文档相互转换，
-				而且可以修改某个特定的属性和节点名称，而且也支持json的转换； -->
+
+			<!-- 16.xStream可以轻易的将Java对象和xml文档相互转换， 而且可以修改某个特定的属性和节点名称，而且也支持json的转换； -->
 			<dependency>
 				<groupId>com.thoughtworks.xstream</groupId>
 				<artifactId>xstream</artifactId>
@@ -315,16 +314,16 @@
 				<version>${logback.version}</version>
 			</dependency>
 			<!-- 18.配置redis -->
-			<dependency>  
-        		<groupId>org.springframework.data</groupId>  
-        		<artifactId>spring-data-redis</artifactId>  
-        		<version>${spring-data-redis.version}</version>  
-    		</dependency>
-    		<dependency>  
-        		<groupId>redis.clients</groupId>  
-        		<artifactId>jedis</artifactId>  
-        		<version>${jedis.version}</version>  
-    		</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${spring-data-redis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>
@@ -336,7 +335,7 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:oxm="http://www.springframework.org/schema/oxm" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/oxm 
+						http://www.springframework.org/schema/oxm/spring-oxm-3.2.xsd 
+						http://www.springframework.org/schema/util 
+						http://www.springframework.org/schema/util/spring-util-3.2.xsd
+						http://www.springframework.org/schema/mvc 
+             http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+             http://www.springframework.org/schema/aop 
+			 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+             ">
+	<!-- 静态资源文件 -->
+	<mvc:resources location="/index.html" mapping="index.html" />
+
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+	
+	<context:component-scan
+		base-package="com.dc.kq.*.controller*" />
+		
+	<!-- 配置拦截器	（拦截请求）-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean
+            class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean
+                     class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                            <value>application/xml;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean
+                        class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                    <constructor-arg>
+                        <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+                            <property name="streamDriver">
+                                <bean class="com.thoughtworks.xstream.io.xml.DomDriver" />
+                            </property>
+                            <property name="encoding" value="utf-8"></property>
+                            <property name="autodetectAnnotations" value="true" />
+                        </bean>
+                    </constructor-arg>
+                </bean>
+            </list>
+        </property>
+    </bean>
+	<!--ContentNegotiatingViewResolver是根据客户提交的MimeType(如 text/html,application/xml)
+		来跟服务端的一组viewResover的MimeType相比较,
+		如果符合,即返回viewResover的数据.
+		而 /user/123.xml, ContentNegotiatingViewResolver会首先将 .xml 
+		根据mediaTypes属性将其转换成 application/xml -->
+<!--     <bean -->
+<!-- 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"> -->
+<!-- 		<property name="defaultContentType" value="text/html" /> -->
+<!-- 		<property name="mediaTypes"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="html" value="text/html" /> -->
+<!-- 				<entry key="json" value="application/json" /> -->
+<!-- 				<entry key="xml" value="application/xml" /> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+<!-- 		<property name="viewResolvers"> -->
+<!-- 			<list> -->
+<!-- 				<bean -->
+<!-- 					class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 					<property name="viewClass" -->
+<!-- 						value="org.springframework.web.servlet.view.JstlView" /> -->
+<!-- 					<property name="prefix" value="/WEB-INF/jsp/" /> -->
+<!-- 					<property name="suffix" value=".jsp" /> -->
+<!-- 				</bean> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+<!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 ，以.jsp结尾的文件都需要在/jsp/文件夹下 -->    
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/jsp/" p:suffix=".jsp" />
+</beans>

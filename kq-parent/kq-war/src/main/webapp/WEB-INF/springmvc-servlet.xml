@@ -84,6 +84,6 @@
 <!-- 	</bean> -->
 
 	<!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 ，以.jsp结尾的文件都需要在/jsp/文件夹下 -->    
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/jsp/" p:suffix=".jsp" />
+<!-- 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/jsp/" p:suffix=".jsp" /> -->
 	
 </beans>

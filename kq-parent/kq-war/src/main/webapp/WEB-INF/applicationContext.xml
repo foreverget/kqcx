@@ -16,6 +16,6 @@
 	<import resource="classpath*:spring/*.xml" />
 
 	<!-- 加载微信公众号配置 -->
-	<util:properties id="wxProperties" location="classpath:/wx.properties" />
+<!-- 	<util:properties id="wxProperties" location="classpath:/wx.properties" /> -->
     
 </beans>

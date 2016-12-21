@@ -8,7 +8,7 @@ public class BaseResponse {
 	/**
 	 * 錯誤碼 0：正確  ，其他表示錯誤
 	 */
-	private  String code;
+	private  int code= 0;
 	/**
 	 * 返回信息
 	 */
@@ -17,10 +17,10 @@ public class BaseResponse {
 	 * 返回内容
 	 */
 	private Object value;
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 	public String getMessage() {
@@ -35,5 +35,4 @@ public class BaseResponse {
 	public void setValue(Object value) {
 		this.value = value;
 	}
-	
 }

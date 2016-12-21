@@ -1,5 +1,6 @@
 package com.dc.kq.pinche.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.UserInfo;
+import com.dc.kq.pinche.service.UserService;
 
 /**
  * 用户controller
@@ -17,6 +19,8 @@ import com.dc.kq.pinche.dmo.UserInfo;
 @Controller
 @RequestMapping("/user/")
 public class UserController {
+	@Autowired
+	private UserService userService;
 	/**
 	 * 根据openId验证用户
 	 * 
@@ -27,7 +31,7 @@ public class UserController {
 	@RequestMapping("checkUser.json")
 	@ResponseBody
 	public BaseResponse checkUser(String openId, String valueKey) {
-		return null;
+		return userService.selectUserByOpenId(openId);
 	}
 
 	/**
@@ -39,7 +43,7 @@ public class UserController {
 	@RequestMapping("registe.json")
 	@ResponseBody
 	public BaseResponse registe(@RequestBody UserInfo userInfo) {
-		return null;
+		return userService.registeUser(userInfo);
 	}
 
 	/**
@@ -51,7 +55,7 @@ public class UserController {
 	@RequestMapping("userInfo.json")
 	@ResponseBody
 	public BaseResponse userInfo(long userId) {
-		return null;
+		return userService.selectUserByUserId(userId);
 	}
 
 	/**
@@ -64,7 +68,7 @@ public class UserController {
 	 * @return
 	 */
 	public BaseResponse saveUser(long userId, String key, String value, String keyValue) {
-		return null;
+		return userService.saveUser(userId, key, keyValue);
 	}
 
 	

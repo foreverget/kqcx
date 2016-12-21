@@ -1,4 +1,4 @@
-package com.dc.kq.pinche.common;
+package com.dc.kq.pinche.service;
 
 import org.springframework.stereotype.Service;
 

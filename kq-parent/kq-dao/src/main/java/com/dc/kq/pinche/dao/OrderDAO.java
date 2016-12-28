@@ -7,4 +7,6 @@ package com.dc.kq.pinche.dao;
  *
  */
 public interface OrderDAO {
+	
+	
 }

@@ -2,14 +2,16 @@ package com.dc.kq.pinche.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.common.Constants;
-import com.dc.kq.pinche.dao.AddrDAO;
+import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.CarDAO;
-import com.dc.kq.pinche.dmo.AddrInfo;
 import com.dc.kq.pinche.dmo.CarInfo;
 
 /**
@@ -20,7 +22,7 @@ import com.dc.kq.pinche.dmo.CarInfo;
  */
 @Service("carServiceImpl")
 public class CarServiceImpl implements CarService {
-
+	public static Logger LOGGER = LoggerFactory.getLogger(CarServiceImpl.class);
 	@Autowired
 	private CarDAO carDao;
 
@@ -34,11 +36,21 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public BaseResponse getCarList(long userId, int pageNo) {
 		BaseResponse resp = new BaseResponse();
-		int startPage = Constants.PAGE_SIZE * pageNo;
-		List<CarInfo> list = carDao.selectCarListByParam(userId, startPage, Constants.PAGE_SIZE);
-		resp.setValue(list);
+		try {
+			int startPage = Constants.PAGE_SIZE * pageNo;
+			List<CarInfo> list = carDao.selectCarListByParam(userId, startPage, Constants.PAGE_SIZE);
+			if (!CollectionUtils.isEmpty(list)) {
+				resp.setValue(list);
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+				LOGGER.info("getCarList ::: " + ResponseEnum.LIST_EMPTY.getMemo());
+			}
+		} catch (Exception e) {
+			LOGGER.error("getCarList error ", e);
+		}
 		return resp;
 	}
+
 	/**
 	 * 保存车辆信息
 	 * 
@@ -48,8 +60,12 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public BaseResponse save(CarInfo carInfo) {
 		BaseResponse resp = new BaseResponse();
-		long id = carDao.insert(carInfo);
-		resp.setValue(id);
+		try {
+			long id = carDao.insert(carInfo);
+			resp.setValue(id);
+		} catch (Exception e) {
+			LOGGER.error("save car error ", e);
+		}
 		return resp;
 	}
 
@@ -61,10 +77,14 @@ public class CarServiceImpl implements CarService {
 	 * @return
 	 */
 	@Override
-	public BaseResponse delete(long userId,long id) {
+	public BaseResponse delete(long userId, long id) {
 		BaseResponse resp = new BaseResponse();
-		carDao.delete(userId,id);
+		try {
+			carDao.delete(userId, id);
+		} catch (Exception e) {
+			LOGGER.error("delete car error ", e);
+		}
 		return resp;
 	}
-	
+
 }

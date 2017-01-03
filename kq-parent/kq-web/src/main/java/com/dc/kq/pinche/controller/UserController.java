@@ -1,5 +1,8 @@
 package com.dc.kq.pinche.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,7 @@ import com.dc.kq.pinche.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+
 	/**
 	 * 根据openId验证用户
 	 * 
@@ -71,5 +75,4 @@ public class UserController {
 		return userService.saveUser(userId, key, keyValue);
 	}
 
-	
 }

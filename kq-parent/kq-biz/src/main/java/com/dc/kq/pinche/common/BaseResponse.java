@@ -17,6 +17,11 @@ public class BaseResponse {
 	 * 返回内容
 	 */
 	private Object value;
+	
+	public void setEnum(ResponseEnum responseEnum){
+		this.setCode(responseEnum.getCode());
+		this.setMessage(responseEnum.getMemo());
+	}
 	public int getCode() {
 		return code;
 	}

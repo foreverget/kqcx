@@ -52,6 +52,7 @@
 		<logback.version>1.0.13</logback.version>
 		<spring-data-redis.version>1.6.4.RELEASE</spring-data-redis.version>
 		<jedis.version>2.8.0</jedis.version>
+		<slf4j.version>1.6.4</slf4j.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -313,6 +314,11 @@
 				<artifactId>logback-classic</artifactId>
 				<version>${logback.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
 			<!-- 18.配置redis -->
 			<dependency>
 				<groupId>org.springframework.data</groupId>
@@ -359,6 +365,10 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
 

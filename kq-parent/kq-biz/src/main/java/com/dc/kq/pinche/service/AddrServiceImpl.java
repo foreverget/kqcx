@@ -1,13 +1,16 @@
 package com.dc.kq.pinche.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.common.Constants;
+import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.AddrDAO;
 import com.dc.kq.pinche.dmo.AddrInfo;
 
@@ -19,6 +22,7 @@ import com.dc.kq.pinche.dmo.AddrInfo;
  */
 @Service("addrServiceImpl")
 public class AddrServiceImpl implements AddrService {
+	public static Logger LOGGER = LoggerFactory.getLogger(AddrServiceImpl.class);
 
 	@Autowired
 	private AddrDAO addrDao;
@@ -33,9 +37,18 @@ public class AddrServiceImpl implements AddrService {
 	@Override
 	public BaseResponse getAddrList(long userId, int pageNo) {
 		BaseResponse resp = new BaseResponse();
-		int startPage = Constants.PAGE_SIZE * pageNo;
-		List<AddrInfo> list = addrDao.selectAddrListByParam(userId, startPage, Constants.PAGE_SIZE);
-		resp.setValue(list);
+		try {
+			int startPage = Constants.PAGE_SIZE * pageNo;
+			List<AddrInfo> list = addrDao.selectAddrListByParam(userId, startPage, Constants.PAGE_SIZE);
+			if (!CollectionUtils.isEmpty(list)) {
+				resp.setValue(list);
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+				LOGGER.info("getAddrList ::: " + ResponseEnum.LIST_EMPTY.getMemo());
+			}
+		} catch (Exception e) {
+			LOGGER.error("selectUserByOpenId error ", e);
+		}
 		return resp;
 	}
 
@@ -48,8 +61,12 @@ public class AddrServiceImpl implements AddrService {
 	@Override
 	public BaseResponse save(AddrInfo addrInfo) {
 		BaseResponse resp = new BaseResponse();
-		long id = addrDao.insert(addrInfo);
-		resp.setValue(id);
+		try {
+			long id = addrDao.insert(addrInfo);
+			resp.setValue(id);
+		} catch (Exception e) {
+			LOGGER.error("save addr error ", e);
+		}
 		return resp;
 	}
 
@@ -61,9 +78,13 @@ public class AddrServiceImpl implements AddrService {
 	 * @return
 	 */
 	@Override
-	public BaseResponse delete(long userId,long id) {
+	public BaseResponse delete(long userId, long id) {
 		BaseResponse resp = new BaseResponse();
-		addrDao.delete(userId,id);
+		try {
+			addrDao.delete(userId, id);
+		} catch (Exception e) {
+			LOGGER.error("delete addr error ", e);
+		}
 		return resp;
 	}
 }

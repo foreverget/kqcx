@@ -1,5 +1,6 @@
 package com.dc.kq.pinche.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.service.OrderService;
 
 /**
  * 订单controller
@@ -17,6 +19,11 @@ import com.dc.kq.pinche.dmo.OrderInfo;
 @Controller
 @RequestMapping("/order/")
 public class OrderController {
+	
+	@Autowired
+	private OrderService orderService;
+	
+	
 	/**
 	 * 用户订单查询
 	 * 
@@ -51,16 +58,14 @@ public class OrderController {
 	/**
 	 * 出车发布
 	 * 
-	 * @param orderId
-	 * @param type
-	 * @param opUserId
+	 * @param orderInfo
 	 * @param keyValue
 	 * @return
 	 */
 	@RequestMapping("releaseOrder.json")
 	@ResponseBody
 	public BaseResponse releaseOrder(@RequestBody OrderInfo orderInfo, String keyValue) {
-		return null;
+		return orderService.doReleaseOrder(orderInfo);
 	}
 
 	/**

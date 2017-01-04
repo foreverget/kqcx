@@ -38,10 +38,18 @@ public interface OrderService {
 	/**
 	 * 车主发布出车单
 	 * 
-	 * @param order
+	 * @param orderInfo 订单信息
 	 * @return
 	 */
-	public BaseResponse doReleaseOrder(OrderInfo order);
+	public BaseResponse doReleaseOrder(OrderInfo orderInfo);
+	
+	/**
+	 * 车主取消出车单
+	 * 
+	 * @param orderId 订单ID
+	 * @return
+	 */
+	public BaseResponse doCancelOrderByDriver(String orderId);
 	
 	/**
 	 * 乘客约车,展示当前出车单列表
@@ -54,9 +62,18 @@ public interface OrderService {
 	/**
 	 * 乘客进行约车
 	 * 
-	 * @param orderId
+	 * @param orderId 订单ID
 	 * @return
 	 */
 	public BaseResponse doBookOrder(String orderId);
+	
+	/**
+	 * 乘客取消已约车，由车主调用，乘客无法操作该功能
+	 * 
+	 * @param orderId 订单ID
+	 * @param userId 乘客ID
+	 * @return
+	 */
+	public BaseResponse doCancelOrderByPassenger(String orderId,String userId);
 	
 }

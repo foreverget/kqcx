@@ -8,7 +8,7 @@ package com.dc.kq.pinche.dmo;
  */
 public class OrderPassenger {
 	/**
-	 * 主键2
+	 * 主键
 	 */
 	private long id;
 	/**
@@ -22,11 +22,12 @@ public class OrderPassenger {
 	/**
 	 * 状态
 	 */
-	private int status;
+	private String status;
 	/**
 	 * 乘车人数
 	 */
 	private int count;
+	
 	public long getId() {
 		return id;
 	}
@@ -45,10 +46,10 @@ public class OrderPassenger {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public int getCount() {

@@ -61,11 +61,12 @@ public interface OrderService {
 	
 	/**
 	 * 乘客进行约车
-	 * 
+	 * @param userId 用户ID
 	 * @param orderId 订单ID
+	 * @param count 预定座位数
 	 * @return
 	 */
-	public BaseResponse doBookOrder(String orderId);
+	public BaseResponse doBookOrder(String userId, String orderId, String count);
 	
 	/**
 	 * 乘客取消已约车，由车主调用，乘客无法操作该功能

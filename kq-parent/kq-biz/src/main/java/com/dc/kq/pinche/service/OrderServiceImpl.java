@@ -8,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.dc.kq.pinche.common.BaseResponse;
+import com.dc.kq.pinche.common.Constants;
 import com.dc.kq.pinche.dao.OrderDAO;
+import com.dc.kq.pinche.dao.OrderPassengerDAO;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.dmo.OrderPassenger;
 
 /**
  * 订单service实现类
@@ -24,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderDAO orderDao;
+	
+	@Autowired
+	private OrderPassengerDAO orderPassengerDao;
 	
 	@Override
 	public BaseResponse myBookOrderList(String dateType) {
@@ -87,8 +93,40 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public BaseResponse doBookOrder(String orderId) {
-		return null;
+	public BaseResponse doBookOrder(String userId, String orderId, String count) {
+		BaseResponse resp = new BaseResponse();
+		if (Integer.valueOf(count) <= 0) {
+			resp.setValue("预约失败预约座位数需大于0");
+			LOGGER.error("doBookOrder error userId=" + userId + " orderId=" + orderId + " count=" + count);
+			return resp;
+		}
+		// 获取订单
+		OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
+		if(null==orderInfo){
+			resp.setValue("预约失败无法查到"+orderId+"订单信息");
+			LOGGER.error("doBookOrder error orderId=" + orderId);
+			return resp;
+		}
+		// 当前剩余座位数大于等于预约座位数
+		if (orderInfo.getPassengerNum() >= Integer.valueOf(count)) {
+			// 修改订单剩余乘客数
+			orderInfo.setPassengerNum(orderInfo.getPassengerNum() - Integer.valueOf(count));
+			// 如果订单剩余乘客数为0，订单已满
+			if(orderInfo.getPassengerNum()==0){
+				orderInfo.setStatus(Constants.ORDER_STATUS_FULL);
+			}
+			// 更新订单
+			
+			// 添加乘客订单关系
+			OrderPassenger orderPassenger = new OrderPassenger();
+			orderPassenger.setUserId(Long.valueOf(userId));
+			orderPassenger.setOrderId(Long.valueOf(orderId));
+			orderPassenger.setStatus(Constants.ORDER_PASSENGER_STATUS_OK);
+			orderPassenger.setCount(Integer.valueOf(count));
+			orderPassengerDao.insert(orderPassenger);
+			resp.setValue("预约成功");
+		}
+		return resp;
 	}
 
 	@Override

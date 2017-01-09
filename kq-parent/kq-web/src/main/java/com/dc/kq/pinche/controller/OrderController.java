@@ -90,9 +90,9 @@ public class OrderController {
 	 * @param keyValue
 	 * @return
 	 */
-	@RequestMapping("firmOrder.json")
+	@RequestMapping("bookOrder.json")
 	@ResponseBody
-	public BaseResponse firmOrder(long userId, long orderId, int count, String keyValue) {
-		return null;
+	public BaseResponse bookOrder(String userId, String orderId, String count, String keyValue) {
+		return orderService.doBookOrder(userId, orderId, count);
 	}
 }

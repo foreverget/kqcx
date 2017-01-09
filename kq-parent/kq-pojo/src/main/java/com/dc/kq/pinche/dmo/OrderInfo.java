@@ -53,7 +53,7 @@ public class OrderInfo {
 	/**
 	 * 状态
 	 */
-	private int status;
+	private String status;
 	/**
 	 * 订单积分
 	 */
@@ -139,10 +139,10 @@ public class OrderInfo {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public BigDecimal getScore() {

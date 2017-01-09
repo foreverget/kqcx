@@ -37,7 +37,7 @@ public class OrderServiceTest {
 		orderInfo.setPrice(new BigDecimal(5));
 		orderInfo.setScore(new BigDecimal(2));
 		orderInfo.setStart("潞城地铁D口");
-		orderInfo.setStatus(1);
+		orderInfo.setStatus("1");
 		orderInfo.setTakeTime("2016-01-09 11:20");
 		orderInfo.setUserId(1000);
 		orderInfo.setVersion(1);

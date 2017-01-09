@@ -19,16 +19,16 @@ public interface OrderDAO {
 	 * @return
 	 */
 	
-	@Insert({ "INSERT INTO pc_order (user_id, driver_name, mobile, setout_time, ",
-			"start, end, plates, person_num, price, status, score, ",
+	@Insert({ "INSERT INTO pc_order (user_id, driver_name, mobile, take_time, ",
+			"start, end, plates, passenger_num, price, status, score, ",
 			"create_time, create_by, version, update_time, update_by)",
-			"VALUES ( #{user_id,jdbcType=BIGINT},#{driver_name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},#{setout_time,jdbcType=DATE},", 
-			"#{start,jdbcType=VARCHAR},#{end,jdbcType=VARCHAR}, #{plates,jdbcType=VARCHAR},#{person_num,jdbcType=INTGER},",
-			"#{price,jdbcType=INTEGER},#{status,jdbcType=VARCHAR},#{score,jdbcType=INTEGER},",
-			"#{create_time,jdbcType=DATE},#{create_by,jdbcType=BIGINT},#{version,jdbcType=INTEGER},",
-			"#{update_time,jdbcType=DATE},#{update_by,jdbcType=BIGINT})",
+			"VALUES ( #{userId,jdbcType=BIGINT},#{driverName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},#{takeTime,jdbcType=VARCHAR},", 
+			"#{start,jdbcType=VARCHAR},#{end,jdbcType=VARCHAR}, #{plates,jdbcType=VARCHAR},#{passengerNum,jdbcType=INTEGER},",
+			"#{price,jdbcType=DECIMAL},#{status,jdbcType=VARCHAR},#{score,jdbcType=DECIMAL},",
+			"#{createTime},#{createBy,jdbcType=VARCHAR},#{version,jdbcType=INTEGER},",
+			"#{updateTime},#{updateBy,jdbcType=VARCHAR})",
 			})
-	@Options(keyProperty = "id", useGeneratedKeys = true)
+	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")  
 	long insert(OrderInfo orderInfo);
 	
 }

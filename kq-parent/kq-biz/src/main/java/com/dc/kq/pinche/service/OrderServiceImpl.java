@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dao.OrderDAO;
@@ -37,11 +39,33 @@ public class OrderServiceImpl implements OrderService {
 	public BaseResponse myHistoryOrderList(String orderType) {
 		return null;
 	}
-
+	
+	@Transactional
 	@Override
 	public BaseResponse doReleaseOrder(OrderInfo orderInfo) {
 		
 		BaseResponse resp = new BaseResponse();
+		// 校验订单信息是否符合
+		OrderInfo nOrderInfo = checkAndBuildOrder(orderInfo);
+		try {
+			long id = orderDao.insert(nOrderInfo);
+			resp.setValue(id);
+		} catch (Exception e) {
+			resp.setValue("发布失败");
+			LOGGER.error("save order error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return resp;
+		
+	}
+	
+	/**
+	 * 检查及组装最终订单实体
+	 * 
+	 * @param orderInfo
+	 * @return
+	 */
+	private OrderInfo checkAndBuildOrder(OrderInfo orderInfo){
 		// 出车时间
 		// 始
 		// 终
@@ -54,16 +78,7 @@ public class OrderServiceImpl implements OrderService {
 		// 司机姓名
 		// 联系电话
 		
-		// 校验订单信息是否符合
-		
-		try {
-			long id = orderDao.insert(orderInfo);
-			resp.setValue(id);
-		} catch (Exception e) {
-			resp.setValue("发布失败");
-			LOGGER.error("save order error ", e);
-		}
-		return resp;
+		return orderInfo;
 	}
 
 	@Override

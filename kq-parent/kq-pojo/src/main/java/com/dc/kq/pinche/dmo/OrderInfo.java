@@ -1,5 +1,8 @@
 package com.dc.kq.pinche.dmo;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * 订单信息
  * 
@@ -24,9 +27,9 @@ public class OrderInfo {
 	 */
 	private String mobile;
 	/**
-	 * 乘车时间
+	 * 乘车时间(出发时间)
 	 */
-	private long takeTime;
+	private String takeTime;
 	/**
 	 * 起点
 	 */
@@ -42,11 +45,11 @@ public class OrderInfo {
 	/**
 	 * 拼车人数
 	 */
-	private int personNum;
+	private int passengerNum;
 	/**
 	 * 单价
 	 */
-	private int price;
+	private BigDecimal price;
 	/**
 	 * 状态
 	 */
@@ -54,27 +57,27 @@ public class OrderInfo {
 	/**
 	 * 订单积分
 	 */
-	private int score;
+	private BigDecimal score;
 	/**
 	 * 创建时间
 	 */
-	private long createTime;
+	private Date createTime;
 	/**
 	 * 创建人
 	 */
-	private long createBy;
+	private String createBy;
 	/**
 	 * 版本号
 	 */
-	private long version;
+	private int version;
 	/**
 	 * 更新时间
 	 */
-	private long updateTime;
+	private Date updateTime;
 	/**
 	 * 更新人
 	 */
-	private long updateBy;
+	private String updateBy;
 	
 	public long getId() {
 		return id;
@@ -100,10 +103,10 @@ public class OrderInfo {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public long getTakeTime() {
+	public String getTakeTime() {
 		return takeTime;
 	}
-	public void setTakeTime(long takeTime) {
+	public void setTakeTime(String takeTime) {
 		this.takeTime = takeTime;
 	}
 	public String getStart() {
@@ -124,16 +127,16 @@ public class OrderInfo {
 	public void setPlates(String plates) {
 		this.plates = plates;
 	}
-	public int getPersonNum() {
-		return personNum;
+	public int getPassengerNum() {
+		return passengerNum;
 	}
-	public void setPersonNum(int personNum) {
-		this.personNum = personNum;
+	public void setPassengerNum(int passengerNum) {
+		this.passengerNum = passengerNum;
 	}
-	public int getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public int getStatus() {
@@ -142,40 +145,40 @@ public class OrderInfo {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getScore() {
+	public BigDecimal getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(BigDecimal score) {
 		this.score = score;
 	}
-	public long getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(long createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
-	public void setCreateBy(long createBy) {
+	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
-	public long getUpdateTime() {
+	public Date getUpdateTime() {
 		return updateTime;
 	}
-	public void setUpdateTime(long updateTime) {
+	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	public long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
-	public void setUpdateBy(long updateBy) {
+	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
 }

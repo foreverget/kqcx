@@ -145,6 +145,7 @@ public class OrderServiceImpl implements OrderService {
 		return resp;
 	}
 
+	@Transactional
 	@Override
 	public BaseResponse doCancelOrderByDriver(String orderId) {
 		BaseResponse resp = new BaseResponse();
@@ -168,6 +169,7 @@ public class OrderServiceImpl implements OrderService {
 		return resp;
 	}
 
+	@Transactional
 	@Override
 	public BaseResponse doCancelOrderByPassenger(String orderId, String userId) {
 		BaseResponse resp = new BaseResponse();

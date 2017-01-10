@@ -42,7 +42,21 @@ public class OrderServiceTest {
 		orderInfo.setUserId(1000);
 		orderInfo.setVersion(1);
 		orderService.doReleaseOrder(orderInfo);
-		
+	}
+	
+	@Test
+	public void doBookOrderTest(){
+		orderService.doBookOrder("1000", "6", "1");
+	}
+	
+	@Test
+	public void doCancelOrderByDriverTest(){
+		orderService.doCancelOrderByDriver("6");
+	}
+	
+	@Test
+	public void doCancelOrderByPassengerTest(){
+		orderService.doCancelOrderByPassenger("6", "1000");
 	}
 	
 

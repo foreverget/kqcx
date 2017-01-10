@@ -1,12 +1,14 @@
 package com.dc.kq.pinche.dmo;
 
+import com.dc.kq.pinche.base.BaseEntity;
+
 /**
  * 乘客订单关系表
  * 
  * @author xiaogang
  *
  */
-public class OrderPassenger {
+public class OrderPassenger extends BaseEntity{
 	/**
 	 * 主键
 	 */

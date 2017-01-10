@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
 import com.dc.kq.pinche.dmo.OrderInfo;
@@ -16,6 +17,7 @@ import com.dc.kq.pinche.dmo.OrderInfo;
  *
  */
 public interface OrderDAO {
+	
 	/**
 	 * 新增订单信息
 	 * 
@@ -41,7 +43,7 @@ public interface OrderDAO {
 	 * @param orderId
 	 * @return
 	 */
-	@Select({ "SELECT", "user_id, driver_name, mobile, take_time, ",
+	@Select({ "SELECT", "id,user_id, driver_name, mobile, take_time, ",
 			"start, end, plates, passenger_num, price, status, score, ",
 			"create_time, create_by, version, update_time, update_by ", "FROM pc_order ",
 			"WHERE id = #{orderId,jdbcType=BIGINT}" })
@@ -63,5 +65,30 @@ public interface OrderDAO {
 			@Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.DATE),
 			@Result(column = "update_by", property = "updateBy", jdbcType = JdbcType.VARCHAR) })
 	OrderInfo selectOrderById(long orderId);
+	
+	/**
+	 * 根据订单ID更新订单信息
+	 * 
+	 * @param orderInfo
+	 * @return
+	 */
+	@Update({ "<script> ", "UPDATE pc_order <set> ",
+			"<if test=\"userId != null\">user_id=#{userId},</if>",
+			"<if test=\"driverName != null\">driver_name=#{driverName},</if>",
+			"<if test=\"mobile != null\">mobile=#{mobile},</if>",
+			"<if test=\"takeTime != null\">take_time=#{takeTime},</if>",
+			"<if test=\"start != null\">start=#{start},</if>",
+			"<if test=\"end != null\">end=#{end},</if>",
+			"<if test=\"plates != null\">plates=#{plates},</if>",
+			"<if test=\"passengerNum != null\">passenger_num=#{passengerNum},</if>",
+			"<if test=\"price != null\">price=#{price},</if>", 
+			"<if test=\"status != null\">status=#{status},</if>",
+			"<if test=\"score != null\">score=#{score},</if>",
+			"<if test=\"version != null\">version=#{version},</if>",
+			"<if test=\"updateTime != null\">update_time=#{updateTime},</if>",
+			"<if test=\"updateBy != null\">update_by=#{updateBy}</if>",
+			"</set> where id=#{id} ",
+			"</script>" })
+	int updateOrderById(OrderInfo orderInfo);
 	
 }

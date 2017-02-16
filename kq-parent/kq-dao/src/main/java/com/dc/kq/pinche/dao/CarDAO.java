@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 
-import com.dc.kq.pinche.dmo.AddrInfo;
 import com.dc.kq.pinche.dmo.CarInfo;
 
 /**

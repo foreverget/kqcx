@@ -24,6 +24,11 @@ public class OrderController {
 	private OrderService orderService;
 	
 	
+	@RequestMapping("test")
+	public String doTest(){
+		return "test";
+	}
+	
 	/**
 	 * 用户订单查询
 	 * 

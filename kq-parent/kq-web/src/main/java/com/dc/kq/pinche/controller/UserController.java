@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.UserInfo;
+import com.dc.kq.pinche.request.UserInfoRequest;
 import com.dc.kq.pinche.service.UserService;
 
 /**
@@ -19,8 +20,13 @@ import com.dc.kq.pinche.service.UserService;
 @Controller
 @RequestMapping("/user/")
 public class UserController {
+	/**
+	 * 审核通过
+	 */
+	private final int STATUS_AUDIT_SUCCESS = 1;
 	@Autowired
 	private UserService userService;
+
 	/**
 	 * 根据openId验证用户
 	 * 
@@ -35,15 +41,33 @@ public class UserController {
 	}
 
 	/**
+	 * 跳转到注册页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping("toRegister")
+	public String toRegister() {
+		return "user/register";
+	}
+
+	/**
 	 * 注册
 	 * 
 	 * @param userInfo
 	 * @return
 	 */
-	@RequestMapping("registe.json")
+	@RequestMapping("register.json")
 	@ResponseBody
-	public BaseResponse registe(@RequestBody UserInfo userInfo) {
-		return userService.registeUser(userInfo);
+	public BaseResponse register(@RequestBody UserInfoRequest userInfo) {
+		UserInfo info = new UserInfo();
+		info.setName(userInfo.getName());
+		info.setMobile(userInfo.getMobile());
+		info.setAddr(userInfo.getAddr());
+		info.setEmail(userInfo.getEmail());
+		info.setGender(userInfo.getGender());
+		info.setOpenId(userInfo.getOpenId());
+		info.setStatus(STATUS_AUDIT_SUCCESS);// TODO 目前初始为审核通过
+		return userService.registerUser(info);
 	}
 
 	/**
@@ -71,5 +95,4 @@ public class UserController {
 		return userService.saveUser(userId, key, keyValue);
 	}
 
-	
 }

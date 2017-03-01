@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
-	public BaseResponse registeUser(UserInfo userInfo) {
+	public BaseResponse registerUser(UserInfo userInfo) {
 		BaseResponse resp = new BaseResponse();
 		try {
 			long id = userDao.insert(userInfo);

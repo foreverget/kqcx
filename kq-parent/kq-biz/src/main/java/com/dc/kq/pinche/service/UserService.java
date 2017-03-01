@@ -32,7 +32,7 @@ public interface UserService {
 	 * @param userInfo
 	 * @return
 	 */
-	public BaseResponse registeUser(UserInfo userInfo);
+	public BaseResponse registerUser(UserInfo userInfo);
 
 	/**
 	 * 保存用户信息

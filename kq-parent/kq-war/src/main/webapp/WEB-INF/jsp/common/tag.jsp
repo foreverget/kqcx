@@ -11,3 +11,5 @@
 <script type="text/javascript">
 	var _ctx = "${ctx}";
 </script>
+
+<script src="${ctx }/resource/js/util.js"></script>

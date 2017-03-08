@@ -22,7 +22,6 @@
 	<mvc:resources mapping="/resource/**" location="/resource/"
 		cache-period="31556926" />
 
-
 	<!-- 启用spring mvc 注解 -->
 	<context:annotation-config />
 
@@ -70,13 +69,6 @@
 			</list>
 		</property>
 	</bean>
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
-			<bean class="com.dc.kq.pinche.interceptor.WeXinInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
 
 	<!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 ，以.jsp结尾的文件都需要在/jsp/文件夹下 -->
 	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 

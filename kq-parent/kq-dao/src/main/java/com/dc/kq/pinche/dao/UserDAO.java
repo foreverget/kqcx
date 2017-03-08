@@ -72,12 +72,12 @@ public interface UserDAO {
 	/**
 	 * 修改用户信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param key
 	 * @param value
 	 * @return
 	 */
 	@Update({
-			"UPDATE pc_user set  #{key,jdbcType=VARCHAR} = #{value,jdbcType=VARCHAR} WHERE id = #{userId,jdbcType=BIGINT} " })
-	int updateUser(@Param("userId") long userId, @Param("key") String key, @Param("value") String value);
+			"UPDATE pc_user set  #{key,jdbcType=VARCHAR} = #{value,jdbcType=VARCHAR} WHERE open_id= #{openId,jdbcType=VARCHAR} " })
+	int updateUser(@Param("openId") String openId, @Param("key") String key, @Param("value") String value);
 }

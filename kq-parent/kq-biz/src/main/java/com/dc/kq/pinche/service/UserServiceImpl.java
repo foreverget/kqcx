@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dc.kq.pinche.common.BaseResponse;
-import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.UserDAO;
 import com.dc.kq.pinche.dmo.UserInfo;
 
@@ -30,20 +29,8 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
-	public BaseResponse selectUserByOpenId(String openId) {
-		BaseResponse resp = new BaseResponse();
-		try {
-			UserInfo userInfo = userDao.selectUserByOpenId(openId);
-			if (null != userInfo) {
-				resp.setValue(userInfo);
-			} else {
-				resp.setEnum(ResponseEnum.LIST_EMPTY);
-				LOGGER.info("selectUserByOpenId ::: " + ResponseEnum.LIST_EMPTY.getMemo());
-			}
-		} catch (Exception e) {
-			LOGGER.error("selectUserByOpenId error ", e);
-		}
-		return resp;
+	public UserInfo selectUserByOpenId(String openId) {
+		return userDao.selectUserByOpenId(openId);
 	}
 
 	/**
@@ -53,20 +40,14 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
-	public BaseResponse selectUserByUserId(long userId) {
-		BaseResponse resp = new BaseResponse();
+	public UserInfo selectUserByUserId(long userId) {
+		UserInfo userInfo  =  new UserInfo();
 		try {
-			UserInfo userInfo = userDao.selectUserByUserId(userId);
-			if (null != userInfo) {
-				resp.setValue(userInfo);
-			} else {
-				resp.setEnum(ResponseEnum.LIST_EMPTY);
-				LOGGER.info("selectUserByUserId ::: " + ResponseEnum.LIST_EMPTY.getMemo());
-			}
+			userInfo = userDao.selectUserByUserId(userId);
 		} catch (Exception e) {
 			LOGGER.error("selectUserByUserId error ", e);
 		}
-		return resp;
+		return userInfo;
 	}
 
 	/**
@@ -90,16 +71,16 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 保存用户信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param key
 	 * @param value
 	 * @return
 	 */
 	@Override
-	public BaseResponse saveUser(long userId, String key, String value) {
+	public BaseResponse saveUser(String openId, String key, String value) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			userDao.updateUser(userId, key, value);
+			userDao.updateUser(openId, key, value);
 		} catch (Exception e) {
 			LOGGER.error("saveUser error ", e);
 		}

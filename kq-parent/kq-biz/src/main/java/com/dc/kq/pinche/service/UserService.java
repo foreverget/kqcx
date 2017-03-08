@@ -16,7 +16,7 @@ public interface UserService {
 	 * @param openId
 	 * @return
 	 */
-	public BaseResponse selectUserByOpenId(String openId);
+	public UserInfo selectUserByOpenId(String openId);
 
 	/**
 	 * 根据userId查询用户信息
@@ -24,7 +24,7 @@ public interface UserService {
 	 * @param userId
 	 * @return
 	 */
-	public BaseResponse selectUserByUserId(long userId);
+	public UserInfo selectUserByUserId(long userId);
 
 	/**
 	 * 注册用户
@@ -37,10 +37,10 @@ public interface UserService {
 	/**
 	 * 保存用户信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param key
 	 * @param value
 	 * @return
 	 */
-	public BaseResponse saveUser(long userId, String key, String value);
+	public BaseResponse saveUser(String openId, String key, String value);
 }

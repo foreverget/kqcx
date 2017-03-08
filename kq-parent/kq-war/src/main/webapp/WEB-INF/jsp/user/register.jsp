@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title></title>
+<title>注册</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="${ctx}/resource/weuix/style/weui.css" />
@@ -16,7 +16,7 @@
 
 <body ontouchstart style="background-color: #f8f8f8;">
 	<form id="form">
-
+		<input type="hidden" name="openId" value="${openId}">
 		<div class="weui_cells_title">填写个人信息</div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">

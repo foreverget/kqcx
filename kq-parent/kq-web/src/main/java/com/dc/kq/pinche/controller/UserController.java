@@ -1,5 +1,7 @@
 package com.dc.kq.pinche.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,18 +29,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	/**
-	 * 根据openId验证用户
-	 * 
-	 * @param openId
-	 * @param valueKey
-	 * @return
-	 */
-	@RequestMapping("checkUser.json")
-	@ResponseBody
-	public BaseResponse checkUser(String openId, String valueKey) {
-		return userService.selectUserByOpenId(openId);
-	}
 
 	/**
 	 * 跳转到注册页面
@@ -46,7 +36,8 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("toRegister")
-	public String toRegister() {
+	public String toRegister(HttpServletRequest request,String openId) {
+		request.setAttribute("openId", openId);
 		return "user/register";
 	}
 
@@ -56,7 +47,7 @@ public class UserController {
 	 * @param userInfo
 	 * @return
 	 */
-	@RequestMapping("register.json")
+	@RequestMapping("register")
 	@ResponseBody
 	public BaseResponse register(@RequestBody UserInfoRequest userInfo) {
 		UserInfo info = new UserInfo();
@@ -76,23 +67,25 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping("userInfo.json")
-	@ResponseBody
-	public BaseResponse userInfo(long userId) {
-		return userService.selectUserByUserId(userId);
+	@RequestMapping("toUserInfo")
+	public String toUserInfo(HttpServletRequest request,String openId) {
+		UserInfo userInfo = userService.selectUserByOpenId(openId);
+		request.setAttribute("userInfo", userInfo);
+		request.setAttribute("openId", openId);
+		return "user/userInfo";
 	}
 
 	/**
 	 * 保存个人信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param key
 	 * @param value
 	 * @param keyValue
 	 * @return
 	 */
-	public BaseResponse saveUser(long userId, String key, String value, String keyValue) {
-		return userService.saveUser(userId, key, keyValue);
+	public BaseResponse saveUser(String openId, String key, String value, String keyValue) {
+		return userService.saveUser(openId, key, keyValue);
 	}
 
 }

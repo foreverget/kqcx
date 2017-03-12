@@ -1,7 +1,7 @@
 package com.dc.kq.pinche.service;
 
 import com.dc.kq.pinche.common.BaseResponse;
-import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.request.OrderInfoRequest;
 
 /**
  * 订单service
@@ -38,10 +38,10 @@ public interface OrderService {
 	/**
 	 * 车主发布出车单
 	 * 
-	 * @param orderInfo 订单信息
+	 * @param orderInfoRequest 订单信息
 	 * @return
 	 */
-	public BaseResponse doReleaseOrder(OrderInfo orderInfo);
+	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest);
 	
 	/**
 	 * 车主取消出车单

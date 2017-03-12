@@ -1,5 +1,7 @@
 package com.dc.kq.pinche.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.request.OrderInfoRequest;
 import com.dc.kq.pinche.service.OrderService;
 
 /**
@@ -23,10 +26,17 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	
-	@RequestMapping("test")
-	public String doTest(){
-		return "test";
+	/**
+	 * 跳转到出车发布页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toRelease")
+	public String toRelease(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/release";
 	}
 	
 	/**
@@ -61,16 +71,15 @@ public class OrderController {
 	}
 
 	/**
-	 * 出车发布
+	 * 出车发布请求
 	 * 
-	 * @param orderInfo
-	 * @param keyValue
+	 * @param orderInfoRequest
 	 * @return
 	 */
-	@RequestMapping("releaseOrder.json")
+	@RequestMapping("release")
 	@ResponseBody
-	public BaseResponse releaseOrder(@RequestBody OrderInfo orderInfo, String keyValue) {
-		return orderService.doReleaseOrder(orderInfo);
+	public BaseResponse release(@RequestBody OrderInfoRequest orderInfoRequest) {
+		return orderService.doReleaseOrder(orderInfoRequest);
 	}
 
 	/**

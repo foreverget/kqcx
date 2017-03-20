@@ -76,7 +76,7 @@ $("#formSubmitBtn").on("click", function() {
 						 }
 					},
 					error : function(error) {
-						$.alert("网络异常","错误");
+						$.toptips("网络异常","warning");
 					}
 				});
 			}, function() {

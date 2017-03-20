@@ -1,5 +1,8 @@
 package com.dc.kq.pinche.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
@@ -65,6 +68,37 @@ public interface OrderDAO {
 			@Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.DATE),
 			@Result(column = "update_by", property = "updateBy", jdbcType = JdbcType.VARCHAR) })
 	OrderInfo selectOrderById(long orderId);
+	
+	/**
+	 * 根据参数查询订单数据
+	 * 
+	 * @param orderId
+	 * @return
+	 */
+	@Select({ "SELECT", "id,open_id, name, mobile, go_time, ",
+			"start_addr, end_addr, plates, req_num, price, status, score, ",
+			"create_time, create_by, version, update_time, update_by ", "FROM pc_order ",
+			"WHERE 1 = 1"
+			//??
+	})
+	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.BIGINT),
+			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "mobile", property = "mobile", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "go_time", property = "goTime", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "start_addr", property = "startAddr", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "end_addr", property = "endAddr", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "plates", property = "plates", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "req_num", property = "reqNum", jdbcType = JdbcType.INTEGER),
+			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
+			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
+			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.DATE),
+			@Result(column = "create_by", property = "createBy", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "version", property = "version", jdbcType = JdbcType.INTEGER),
+			@Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.DATE),
+			@Result(column = "update_by", property = "updateBy", jdbcType = JdbcType.VARCHAR) })
+	List<OrderInfo> selectOrderByParams(Map<String, Object> params, String dateType);
 	
 	/**
 	 * 根据订单ID更新订单信息

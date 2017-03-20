@@ -1,5 +1,9 @@
 package com.dc.kq.pinche.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +41,19 @@ public class OrderController {
 	public String toRelease(HttpServletRequest request, String openId) {
 		request.setAttribute("openId", openId);
 		return "order/release";
+	}
+	
+	/**
+	 * 跳转到乘车页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toTake")
+	public String toTake(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/take";
 	}
 	
 	/**
@@ -85,14 +102,24 @@ public class OrderController {
 	/**
 	 * 我要约车列表页面
 	 * 
-	 * @param orderInfo
-	 * @param keyValue
+	 * @param request
+	 * @param openId
 	 * @return
 	 */
-	@RequestMapping("orderList.json")
+	@RequestMapping("getOrderList")
 	@ResponseBody
-	public BaseResponse orderList(@RequestBody OrderInfo orderInfo, String keyValue) {
-		return null;
+	public BaseResponse getOrderList(HttpServletRequest request,String openId) {
+		BaseResponse r = new BaseResponse();
+		String page = request.getParameter("page");
+		String size = request.getParameter("size");
+		String dateType = request.getParameter("dateType");
+		Map<String ,Object> params = new HashMap<String,Object>();
+		params.put("page", page);
+		params.put("size", size);
+		List<OrderInfo> orderList = orderService.findReleaseOrderList(params, dateType);
+		request.setAttribute("orderList", orderList);
+		r.setValue(orderList);
+		return r;
 	}
 
 	/**

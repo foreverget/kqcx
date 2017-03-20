@@ -1,6 +1,8 @@
 package com.dc.kq.pinche.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,8 +104,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public BaseResponse findReleaseOrderList(String dateType) {
-		return null;
+	public List<OrderInfo> findReleaseOrderList(Map<String, Object> params, String dateType) {
+		List<OrderInfo> orderList = orderDao.selectOrderByParams(params, dateType);
+		return orderList;
 	}
 
 	@Transactional

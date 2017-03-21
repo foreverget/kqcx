@@ -1,7 +1,11 @@
 package com.dc.kq.pinche.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.request.OrderInfoRequest;
 
 /**
  * 订单service
@@ -38,10 +42,10 @@ public interface OrderService {
 	/**
 	 * 车主发布出车单
 	 * 
-	 * @param orderInfo 订单信息
+	 * @param orderInfoRequest 订单信息
 	 * @return
 	 */
-	public BaseResponse doReleaseOrder(OrderInfo orderInfo);
+	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest);
 	
 	/**
 	 * 车主取消出车单
@@ -57,7 +61,7 @@ public interface OrderService {
 	 * @param dateType 1、今天 2、明天 3、后天
 	 * @return
 	 */
-	public BaseResponse findReleaseOrderList(String dateType);
+	public List<OrderInfo> findReleaseOrderList(Map<String,Object> params,String dateType);
 	
 	/**
 	 * 乘客进行约车

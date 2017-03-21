@@ -1,6 +1,8 @@
 package com.dc.kq.pinche.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import com.dc.kq.pinche.dao.OrderDAO;
 import com.dc.kq.pinche.dao.OrderPassengerDAO;
 import com.dc.kq.pinche.dmo.OrderInfo;
 import com.dc.kq.pinche.dmo.OrderPassenger;
+import com.dc.kq.pinche.request.OrderInfoRequest;
 
 /**
  * 订单service实现类
@@ -50,11 +53,10 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Transactional
 	@Override
-	public BaseResponse doReleaseOrder(OrderInfo orderInfo) {
-		
+	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest) {
 		BaseResponse resp = new BaseResponse();
 		// 校验订单信息是否符合
-		OrderInfo nOrderInfo = checkAndBuildOrder(orderInfo);
+		OrderInfo nOrderInfo = checkAndBuildOrder(orderInfoRequest);
 		try {
 			long id = orderDao.insert(nOrderInfo);
 			resp.setValue(id);
@@ -73,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 	 * @param orderInfo
 	 * @return
 	 */
-	private OrderInfo checkAndBuildOrder(OrderInfo orderInfo){
+	private OrderInfo checkAndBuildOrder(OrderInfoRequest orderInfoRequest){
 		// 出车时间
 		// 始
 		// 终
@@ -87,13 +89,24 @@ public class OrderServiceImpl implements OrderService {
 		// 联系电话
 		
 		// 检查是否重复发布
-		
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setOpenId(orderInfoRequest.getOpenId());
+		orderInfo.setName(orderInfoRequest.getName());
+		orderInfo.setGoTime(orderInfoRequest.getGoTime());
+		orderInfo.setStartAddr(orderInfoRequest.getStartAddr());
+		orderInfo.setEndAddr(orderInfoRequest.getEndAddr());
+		orderInfo.setMemo(orderInfoRequest.getMemo());
+		orderInfo.setPlates(orderInfoRequest.getPlates());
+		orderInfo.setReqNum(orderInfoRequest.getReqNum());
+		orderInfo.setPrice(orderInfoRequest.getPrice());
+		orderInfo.setMobile(orderInfoRequest.getMobile());
 		return orderInfo;
 	}
 
 	@Override
-	public BaseResponse findReleaseOrderList(String dateType) {
-		return null;
+	public List<OrderInfo> findReleaseOrderList(Map<String, Object> params, String dateType) {
+		List<OrderInfo> orderList = orderDao.selectOrderByParams(params, dateType);
+		return orderList;
 	}
 
 	@Transactional
@@ -115,11 +128,11 @@ public class OrderServiceImpl implements OrderService {
 			return resp;
 		}
 		// 当前剩余座位数大于等于预约座位数
-		if (orderInfo.getPassengerNum() >= Integer.valueOf(count)) {
+		if (orderInfo.getReqNum() >= Integer.valueOf(count)) {
 			// 修改订单剩余乘客数
-			orderInfo.setPassengerNum(orderInfo.getPassengerNum() - Integer.valueOf(count));
+			orderInfo.setReqNum(orderInfo.getReqNum() - Integer.valueOf(count));
 			// 如果订单剩余乘客数为0，订单已满
-			if(orderInfo.getPassengerNum()==0){
+			if(orderInfo.getReqNum()==0){
 				orderInfo.setStatus(Constants.ORDER_STATUS_FULL);
 			}
 			// 更新订单
@@ -184,7 +197,7 @@ public class OrderServiceImpl implements OrderService {
 			// 更新出车订单座位数及状态
 			OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
 			// 归还座位
-			orderInfo.setPassengerNum(orderInfo.getPassengerNum() + orderPassenger.getCount());
+			orderInfo.setReqNum(orderInfo.getReqNum() + orderPassenger.getCount());
 			// 状态改为已发布 未满 
 			orderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
 			orderInfo.setUpdateTime(new Date());

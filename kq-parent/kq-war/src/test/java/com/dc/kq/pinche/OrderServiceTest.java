@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.request.OrderInfoRequest;
 import com.dc.kq.pinche.service.OrderService;
 /**
  * 订单测试
@@ -26,20 +26,19 @@ public class OrderServiceTest {
 	
 	@Test
 	public void doReleaseOrderTest(){
-		OrderInfo orderInfo = new OrderInfo();
+		OrderInfoRequest orderInfo = new OrderInfoRequest();
 		orderInfo.setCreateBy("zhangwei");
 		orderInfo.setCreateTime(new Date());
-		orderInfo.setDriverName("张伟");
-		orderInfo.setEnd("孔雀城紫藤园南门");
+		orderInfo.setName("张伟");
+		orderInfo.setEndAddr("孔雀城紫藤园南门");
 		orderInfo.setMobile("15911142542");
-		orderInfo.setPassengerNum(4);
+		orderInfo.setReqNum(4);
 		orderInfo.setPlates("京888888");
 		orderInfo.setPrice(new BigDecimal(5));
-		orderInfo.setScore(new BigDecimal(2));
-		orderInfo.setStart("潞城地铁D口");
+		orderInfo.setStartAddr("潞城地铁D口");
 		orderInfo.setStatus("1");
-		orderInfo.setTakeTime("2016-01-09 11:20");
-		orderInfo.setUserId(1000);
+		orderInfo.setGoTime("2016-01-09 11:20");
+		orderInfo.setOpenId(1000);
 		orderInfo.setVersion(1);
 		orderService.doReleaseOrder(orderInfo);
 	}

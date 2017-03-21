@@ -1,4 +1,4 @@
-package com.dc.kq.pinche.dmo;
+package com.dc.kq.pinche.request;
 
 import java.math.BigDecimal;
 
@@ -10,15 +10,8 @@ import com.dc.kq.pinche.base.BaseEntity;
  * @author xiaogang
  *
  */
-public class OrderInfo extends BaseEntity{
-	/**
-	 * 主键
-	 */
-	private long id;
-	/**
-	 * 订单积分
-	 */
-	private BigDecimal score;	
+public class OrderInfoRequest extends BaseEntity{
+	
 	/**
 	 * 发布者
 	 */
@@ -64,31 +57,7 @@ public class OrderInfo extends BaseEntity{
 	 */
 	private String status;
 	
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-	/**
-	 * @return the score
-	 */
-	public BigDecimal getScore() {
-		return score;
-	}
-	/**
-	 * @param score the score to set
-	 */
-	public void setScore(BigDecimal score) {
-		this.score = score;
-	}
+	
 	/**
 	 * @return the openId
 	 */
@@ -222,4 +191,5 @@ public class OrderInfo extends BaseEntity{
 		this.status = status;
 	}
 	
+
 }

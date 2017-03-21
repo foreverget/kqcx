@@ -1,5 +1,11 @@
 package com.dc.kq.pinche.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.request.OrderInfoRequest;
 import com.dc.kq.pinche.service.OrderService;
 
 /**
@@ -23,10 +30,30 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
+	/**
+	 * 跳转到出车发布页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toRelease")
+	public String toRelease(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/release";
+	}
 	
-	@RequestMapping("test")
-	public String doTest(){
-		return "test";
+	/**
+	 * 跳转到乘车页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toTake")
+	public String toTake(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/take";
 	}
 	
 	/**
@@ -61,29 +88,38 @@ public class OrderController {
 	}
 
 	/**
-	 * 出车发布
+	 * 出车发布请求
 	 * 
-	 * @param orderInfo
-	 * @param keyValue
+	 * @param orderInfoRequest
 	 * @return
 	 */
-	@RequestMapping("releaseOrder.json")
+	@RequestMapping("release")
 	@ResponseBody
-	public BaseResponse releaseOrder(@RequestBody OrderInfo orderInfo, String keyValue) {
-		return orderService.doReleaseOrder(orderInfo);
+	public BaseResponse release(@RequestBody OrderInfoRequest orderInfoRequest) {
+		return orderService.doReleaseOrder(orderInfoRequest);
 	}
 
 	/**
 	 * 我要约车列表页面
 	 * 
-	 * @param orderInfo
-	 * @param keyValue
+	 * @param request
+	 * @param openId
 	 * @return
 	 */
-	@RequestMapping("orderList.json")
+	@RequestMapping("getOrderList")
 	@ResponseBody
-	public BaseResponse orderList(@RequestBody OrderInfo orderInfo, String keyValue) {
-		return null;
+	public BaseResponse getOrderList(HttpServletRequest request,String openId) {
+		BaseResponse r = new BaseResponse();
+		String page = request.getParameter("page");
+		String size = request.getParameter("size");
+		String dateType = request.getParameter("dateType");
+		Map<String ,Object> params = new HashMap<String,Object>();
+		params.put("page", page);
+		params.put("size", size);
+		List<OrderInfo> orderList = orderService.findReleaseOrderList(params, dateType);
+		request.setAttribute("orderList", orderList);
+		r.setValue(orderList);
+		return r;
 	}
 
 	/**

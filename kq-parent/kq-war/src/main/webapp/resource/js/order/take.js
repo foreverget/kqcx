@@ -10,9 +10,8 @@ $(function() {
 	var page_ht = 1;
 	// 全部 页数 
 	var page_qb = 1;
-	
 	// 每页展示5个
-	var size = 20;
+	var size = 5;
 	var itemIndex = 0;
 	var down_action = '';
 	var up_action = '';
@@ -24,9 +23,10 @@ $(function() {
 		autoLoad : true,
 		// 加载更多
 		loadDownFn : function(me) {
+			// alert(itemIndex);
 			switch (itemIndex) {
 				case 0:
-					down_action = 'http://ons.me/tools/dropload/json.php?page=' + page_td + '&size=' + size;
+					down_action = _ctx+'/order/getOrderList?page=' + page_td + '&size=' + size;
 					divId = '#td';
 					break;
 				case 1:
@@ -50,6 +50,7 @@ $(function() {
 				url : down_action,
 				dataType : 'json',
 				success : function(data) {
+					//alert(JSON.stringify(data.value));
 					var date_desc;
 					switch (itemIndex) {
 						case 0:
@@ -71,23 +72,30 @@ $(function() {
 						default:
 							;
 					};
-					
-					var arrLen = data.length;
+					var arrLen = data.value.length;
+					//alert('arrLen='+arrLen);
 					if (arrLen > 0) {
 						for (var i = 0; i < arrLen; i++) {
-							result += '<a href="cell4_.html" class="weui_media_box weui_media_appmsg">'
+							result += '<a href="#" class="weui_media_box weui_media_appmsg">'
 									+ '<div class="weui_media_hd weui-updown">'
-									+ '<img class="weui_media_appmsg_thumb lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAYAAADNkKWqAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8wNS8xNrqrthwAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAEMElEQVR4nO3UQQEAEADAQPRvqIESxPDYXYK9Nvc+dwAErd8BAL8YIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBA1gPYJgYfB4WzDQAAAABJRU5ErkJggg==" alt="" data-img="'+data[i].pic+'">'
+									+ '<img class="weui_media_appmsg_thumb lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAYAAADNkKWqAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8wNS8xNrqrthwAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAEMElEQVR4nO3UQQEAEADAQPRvqIESxPDYXYK9Nvc+dwAErd8BAL8YIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBAlgECWQYIZBkgkGWAQJYBAlkGCGQZIJBlgECWAQJZBghkGSCQZYBA1gPYJgYfB4WzDQAAAABJRU5ErkJggg==" alt="center" data-img="'+_ctx+'/resource/images/list_bg_img.png">'
 									+ '</div>'
 									+ '<div class="weui_media_bd">'
 									+ '<h4 class="weui_media_title">'
-									+ data[i].id
-									+ ' '
-									+ data[i].title
+									+ '始：'+data.value[i].startAddr
 									+ '</h4>'
-									+ '<p class="weui_media_desc">'
-									+ data[i].date
-									+ '</p>'
+									+ '<h4 class="weui_media_title">'
+									+ '终：'+data.value[i].endAddr
+									+ '</h4>'
+					                +'<div class="weui_cell_bd weui_cell_primary">'
+				                    +'<p>出发时间：'+data.value[i].goTime+'</p>'
+				                    +'</div>'
+					                +'<div class="weui_cell_bd weui_cell_primary">'
+				                    +'<p>单价：'+data.value[i].price+' 元/位</p>'
+				                    +'</div>'
+					                +'<div class="weui_cell_bd weui_cell_primary">'
+				                    +'<p>空余：'+data.value[i].reqNum+' 座位</p>'
+				                    +'</div>'
 									+ '</div>'
 									+ '</a>';
 						}
@@ -120,19 +128,21 @@ $(function() {
 					}, 1000);
 				},
 				error : function(xhr, type) {
-					$.toptips("网络异常","warning");
+					$.toptips("请求异常","warning");
 					// 即使加载出错，也需要重置下
 					me.resetload();
+					return;
 				}
 			});
 		},
 		// 刷新
 		loadUpFn : function(me) {
 			var date_desc;
+			alert(itemIndex);
 			switch (itemIndex) {
 				case 0:
 					date_desc='【今天】';
-					up_action = 'http://ximan.github.io/dropload/examples/json/update.json';
+					up_action =  _ctx+'/order/getOrderList';
 					divId = '#td';
 					break;
 				case 1:

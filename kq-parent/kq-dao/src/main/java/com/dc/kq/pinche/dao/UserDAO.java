@@ -78,6 +78,6 @@ public interface UserDAO {
 	 * @return
 	 */
 	@Update({
-			"UPDATE pc_user set  #{key,jdbcType=VARCHAR} = #{value,jdbcType=VARCHAR} WHERE open_id= #{openId,jdbcType=VARCHAR} " })
+			"UPDATE pc_user set  ${key} = #{value,jdbcType=VARCHAR} WHERE open_id= #{openId,jdbcType=VARCHAR} " })
 	int updateUser(@Param("openId") String openId, @Param("key") String key, @Param("value") String value);
 }

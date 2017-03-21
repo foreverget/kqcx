@@ -1,5 +1,7 @@
 package com.dc.kq.pinche.service;
 
+import java.util.List;
+
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.CarInfo;
 
@@ -11,13 +13,22 @@ import com.dc.kq.pinche.dmo.CarInfo;
  */
 public interface CarService {
 	/**
-	 * 根据用户Id获取车辆列表
+	 * 根据oepnid和汽车ID查询车辆信息
 	 * 
-	 * @param userId
+	 * @param openId
+	 * @param id
+	 * @return
+	 */
+	public CarInfo getCarInfoByParam(String openId, long id);
+
+	/**
+	 * 根据openId获取车辆列表
+	 * 
+	 * @param openId
 	 * @param pageNo
 	 * @return
 	 */
-	public BaseResponse getCarList(long userId, int pageNo);
+	public List<CarInfo> getCarList(String openId);
 
 	/**
 	 * 保存车辆信息
@@ -34,5 +45,5 @@ public interface CarService {
 	 * @param id
 	 * @return
 	 */
-	public BaseResponse delete(long userId,long id);
+	public BaseResponse delete(long userId, long id);
 }

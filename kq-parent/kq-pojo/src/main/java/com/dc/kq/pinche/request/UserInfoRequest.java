@@ -26,12 +26,16 @@ public class UserInfoRequest {
 	/**
 	 * 性别
 	 */
-	private int gender;
+	private String gender;
 
 	/**
 	 * 微信Id
 	 */
 	private String openId;
+
+	private String key;
+
+	private String value;
 
 	public String getName() {
 		return name;
@@ -65,11 +69,11 @@ public class UserInfoRequest {
 		this.email = email;
 	}
 
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
@@ -80,4 +84,21 @@ public class UserInfoRequest {
 	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 }

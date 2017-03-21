@@ -29,14 +29,13 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-
 	/**
 	 * 跳转到注册页面
 	 * 
 	 * @return
 	 */
 	@RequestMapping("toRegister")
-	public String toRegister(HttpServletRequest request,String openId) {
+	public String toRegister(HttpServletRequest request, String openId) {
 		request.setAttribute("openId", openId);
 		return "user/register";
 	}
@@ -68,7 +67,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("toUserInfo")
-	public String toUserInfo(HttpServletRequest request,String openId) {
+	public String toUserInfo(HttpServletRequest request, String openId) {
 		UserInfo userInfo = userService.selectUserByOpenId(openId);
 		request.setAttribute("userInfo", userInfo);
 		request.setAttribute("openId", openId);
@@ -76,16 +75,29 @@ public class UserController {
 	}
 
 	/**
-	 * 保存个人信息
+	 * 跳转到修改个人信息页面
 	 * 
-	 * @param openId
-	 * @param key
-	 * @param value
-	 * @param keyValue
+	 * @param userId
 	 * @return
 	 */
-	public BaseResponse saveUser(String openId, String key, String value, String keyValue) {
-		return userService.saveUser(openId, key, keyValue);
+	@RequestMapping("toUpdateUserInfo")
+	public String toUpdateUserInfo(HttpServletRequest request, String key, String value, String openId) {
+		request.setAttribute("key", key);
+		request.setAttribute("value", value);
+		request.setAttribute("openId", openId);
+		return "user/updateUserInfo";
+	}
+
+	/**
+	 * 保存个人信息
+	 * 
+	 * @param userInfo
+	 * @return
+	 */
+	@RequestMapping("saveUser")
+	@ResponseBody
+	public BaseResponse saveUser(@RequestBody UserInfoRequest userInfo) {
+		return userService.saveUser(userInfo);
 	}
 
 }

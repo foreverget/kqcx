@@ -1,5 +1,9 @@
 package com.dc.kq.pinche.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,17 +27,17 @@ public class AddrController {
 	private AddrService addrService;
 
 	/**
-	 * 获取常用地址信息
+	 * 跳转到编辑常用地址页面
 	 * 
-	 * @param userId
-	 * @param pageNo
-	 * @param valueKey
 	 * @return
 	 */
-	@RequestMapping("addrList.json")
-	@ResponseBody
-	public BaseResponse addrList(long userId, int pageNo, String valueKey) {
-		return addrService.getAddrList(userId, pageNo);
+	@RequestMapping("toUpdateAddr")
+	public String toUpdateAddr(HttpServletRequest request, String openId) {
+		// 获取常用地址列表
+		List<AddrInfo> list = addrService.getAddrList(openId);
+		request.setAttribute("list", list);
+		request.setAttribute("openId", openId);
+		return "addr/updateAddr";
 	}
 
 	/**
@@ -45,23 +49,22 @@ public class AddrController {
 	 * @param valueKey
 	 * @return
 	 */
-	@RequestMapping("save.json")
+	@RequestMapping("saveAddr")
 	@ResponseBody
-	public BaseResponse save(@RequestBody AddrInfo addrInfo, String valueKey) {
+	public BaseResponse save(@RequestBody AddrInfo addrInfo) {
 		return addrService.save(addrInfo);
 	}
 
 	/**
 	 * 删除地址信息
 	 * 
-	 * @param userId
-	 * @param addrId
-	 * @param valueKey
+	 * @param openId
+	 * @param id
 	 * @return
 	 */
-	@RequestMapping("delete.json")
+	@RequestMapping("deleteAddr")
 	@ResponseBody
-	public BaseResponse delete(long userId, long id, String valueKey) {
-		return addrService.delete(userId,id);
+	public BaseResponse deleteAddr(String openId,long id) {
+		return addrService.delete(openId, id);
 	}
 }

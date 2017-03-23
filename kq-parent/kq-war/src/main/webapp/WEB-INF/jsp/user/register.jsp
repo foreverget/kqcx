@@ -67,7 +67,7 @@
 				</div>
 				<div class="weui_cell_ft">
 					<input type="radio" class="weui_check" name="gender" id="x11"
-						 value="1"> <span
+						 value="男"> <span
 						class="weui_icon_checked"></span>
 				</div>
 			</label> <label class="weui_cell weui_check_label" for="x12">
@@ -77,7 +77,7 @@
 				</div>
 				<div class="weui_cell_ft">
 					<input type="radio" name="gender" class="weui_check" id="x12"
-						value="2"> <span class="weui_icon_checked"></span>
+						value="女"> <span class="weui_icon_checked"></span>
 				</div>
 			</label>
 		</div>

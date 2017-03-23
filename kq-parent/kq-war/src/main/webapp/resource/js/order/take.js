@@ -96,6 +96,9 @@ $(function() {
 					                +'<div class="weui_cell_bd weui_cell_primary">'
 				                    +'<p>空余：'+data.value[i].reqNum+' 座位</p>'
 				                    +'</div>'
+					                +'<div class="weui_cell_bd weui_cell_primary">'
+				                    +'<p>车主：'+data.value[i].name+'</p>'
+				                    +'</div>'
 									+ '</div>'
 									+ '</a>';
 						}

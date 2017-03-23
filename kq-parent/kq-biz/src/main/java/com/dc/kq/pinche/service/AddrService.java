@@ -1,5 +1,7 @@
 package com.dc.kq.pinche.service;
 
+import java.util.List;
+
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.AddrInfo;
 
@@ -11,13 +13,12 @@ import com.dc.kq.pinche.dmo.AddrInfo;
  */
 public interface AddrService {
 	/**
-	 * 根据用户Id获取地址列表
+	 * 根据openId获取地址列表
 	 * 
-	 * @param userId
-	 * @param pageNo
+	 * @param openId
 	 * @return
 	 */
-	public BaseResponse getAddrList(long userId, int pageNo);
+	public List<AddrInfo> getAddrList(String openId);
 
 	/**
 	 * 保存地址信息
@@ -30,10 +31,10 @@ public interface AddrService {
 	/**
 	 * 根据地址Id删除Addr信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param id
 	 * @return
 	 */
-	public BaseResponse delete(long userId,long id);
+	public BaseResponse delete(String openId, long id);
 
 }

@@ -1,5 +1,9 @@
 package com.dc.kq.pinche.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,17 +27,50 @@ public class CarController {
 	private CarService carService;
 
 	/**
-	 * 获取车辆列表
+	 * 跳转到我的车辆信息页面
 	 * 
-	 * @param userId
-	 * @param pageNo
-	 * @param valueKey
+	 * @param openId
 	 * @return
 	 */
-	@RequestMapping("carList.json")
-	@ResponseBody
-	public BaseResponse addrList(long userId, int pageNo, String valueKey) {
-		return carService.getCarList(userId, pageNo);
+	@RequestMapping("toMyCarList")
+	public String toMyCarList(HttpServletRequest request, String openId) {
+		// 获取车辆列表
+		List<CarInfo> list = carService.getCarList(openId);
+		request.setAttribute("list", list);
+		request.setAttribute("openId", openId);
+		return "car/myCarList";
+	}
+
+	/**
+	 * 跳转到新增车辆信息页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toAddCar")
+
+	public String toAddCar(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "car/addCar";
+	}
+
+	/**
+	 * 跳转到新增车辆信息页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @param id
+	 *            汽车Id
+	 * @return
+	 */
+	@RequestMapping("toUpdateCar")
+	public String toUpdateCar(HttpServletRequest request, String openId, long id) {
+		// 根据汽车Id和openId查询车辆信息
+		CarInfo carInfo = carService.getCarInfoByParam(openId, id);
+		request.setAttribute("openId", openId);
+		request.setAttribute("carInfo", carInfo);
+		return "car/editCar";
 	}
 
 	/**
@@ -43,9 +80,9 @@ public class CarController {
 	 * @param valueKey
 	 * @return
 	 */
-	@RequestMapping("save.json")
+	@RequestMapping("saveCar")
 	@ResponseBody
-	public BaseResponse save(@RequestBody CarInfo carInfo, String valueKey) {
+	public BaseResponse saveCar(@RequestBody CarInfo carInfo) {
 		return carService.save(carInfo);
 	}
 

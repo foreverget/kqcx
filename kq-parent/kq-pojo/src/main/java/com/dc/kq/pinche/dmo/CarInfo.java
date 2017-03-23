@@ -28,9 +28,9 @@ public class CarInfo {
 	 */
 	private String color;
 	/**
-	 * 用户Id
+	 * openId
 	 */
-	private long userId;
+	private String openId;
 	/**
 	 * 车照片
 	 */
@@ -65,11 +65,12 @@ public class CarInfo {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public long getUserId() {
-		return userId;
+	
+	public String getOpenId() {
+		return openId;
 	}
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 	public String getImage() {
 		return image;

@@ -26,10 +26,10 @@ import com.dc.kq.pinche.service.OrderService;
 @Controller
 @RequestMapping("/order/")
 public class OrderController {
-	
+
 	@Autowired
 	private OrderService orderService;
-	
+
 	/**
 	 * 跳转到出车发布页面
 	 * 
@@ -42,7 +42,7 @@ public class OrderController {
 		request.setAttribute("openId", openId);
 		return "order/release";
 	}
-	
+
 	/**
 	 * 跳转到乘车页面
 	 * 
@@ -55,7 +55,7 @@ public class OrderController {
 		request.setAttribute("openId", openId);
 		return "order/take";
 	}
-	
+
 	/**
 	 * 用户订单查询
 	 * 
@@ -108,12 +108,12 @@ public class OrderController {
 	 */
 	@RequestMapping("getOrderList")
 	@ResponseBody
-	public BaseResponse getOrderList(HttpServletRequest request,String openId) {
+	public BaseResponse getOrderList(HttpServletRequest request, String openId) {
 		BaseResponse r = new BaseResponse();
 		String page = request.getParameter("page");
 		String size = request.getParameter("size");
 		String dateType = request.getParameter("dateType");
-		Map<String ,Object> params = new HashMap<String,Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("page", page);
 		params.put("size", size);
 		List<OrderInfo> orderList = orderService.findReleaseOrderList(params, dateType);
@@ -135,5 +135,44 @@ public class OrderController {
 	@ResponseBody
 	public BaseResponse bookOrder(String userId, String orderId, String count, String keyValue) {
 		return orderService.doBookOrder(userId, orderId, count);
+	}
+
+	/**
+	 * 跳转到我的订单页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toMyOrder")
+	public String toMyOrder(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/myOrder";
+	}
+
+	/**
+	 * 跳转到我的约车单页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toMyTakeOrder")
+	public String toMyTakeOrder(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/myTakeOrder";
+	}
+
+	/**
+	 * 跳转到我的历史订单页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toMyHistoryOrder")
+	public String toMyHistoryOrder(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/myHistoryOrder";
 	}
 }

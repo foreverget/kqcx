@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dao.UserDAO;
 import com.dc.kq.pinche.dmo.UserInfo;
+import com.dc.kq.pinche.request.UserInfoRequest;
 
 /**
  * 用户service实现类
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public UserInfo selectUserByUserId(long userId) {
-		UserInfo userInfo  =  new UserInfo();
+		UserInfo userInfo = new UserInfo();
 		try {
 			userInfo = userDao.selectUserByUserId(userId);
 		} catch (Exception e) {
@@ -77,10 +78,10 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
-	public BaseResponse saveUser(String openId, String key, String value) {
+	public BaseResponse saveUser(UserInfoRequest userInfo) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			userDao.updateUser(openId, key, value);
+			userDao.updateUser(userInfo.getOpenId(), userInfo.getKey(), userInfo.getValue());
 		} catch (Exception e) {
 			LOGGER.error("saveUser error ", e);
 		}

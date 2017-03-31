@@ -1,16 +1,14 @@
 package com.dc.kq.pinche.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.dc.kq.pinche.common.BaseResponse;
-import com.dc.kq.pinche.common.Constants;
-import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.CarDAO;
 import com.dc.kq.pinche.dmo.CarInfo;
 
@@ -27,28 +25,38 @@ public class CarServiceImpl implements CarService {
 	private CarDAO carDao;
 
 	/**
-	 * 根据用户Id获取车辆列表
+	 * 根据oepnid和汽车ID查询车辆信息
 	 * 
-	 * @param userId
-	 * @param pageNo
+	 * @param openId
+	 * @param id
 	 * @return
 	 */
 	@Override
-	public BaseResponse getCarList(long userId, int pageNo) {
-		BaseResponse resp = new BaseResponse();
+	public CarInfo getCarInfoByParam(String openId, long id) {
+		CarInfo carInfo = new CarInfo();
 		try {
-			int startPage = Constants.PAGE_SIZE * pageNo;
-			List<CarInfo> list = carDao.selectCarListByParam(userId, startPage, Constants.PAGE_SIZE);
-			if (!CollectionUtils.isEmpty(list)) {
-				resp.setValue(list);
-			} else {
-				resp.setEnum(ResponseEnum.LIST_EMPTY);
-				LOGGER.info("getCarList ::: " + ResponseEnum.LIST_EMPTY.getMemo());
-			}
+			carInfo = carDao.selectCarInfoByParam(openId, id);
+		} catch (Exception e) {
+			LOGGER.error("getCarInfo error ", e);
+		}
+		return carInfo;
+	}
+
+	/**
+	 * 根据openId获取车辆列表
+	 * 
+	 * @param openId
+	 * @return
+	 */
+	@Override
+	public List<CarInfo> getCarList(String openId) {
+		List<CarInfo> list = new ArrayList<CarInfo>();
+		try {
+			list = carDao.selectCarListByParam(openId);
 		} catch (Exception e) {
 			LOGGER.error("getCarList error ", e);
 		}
-		return resp;
+		return list;
 	}
 
 	/**
@@ -61,8 +69,12 @@ public class CarServiceImpl implements CarService {
 	public BaseResponse save(CarInfo carInfo) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			long id = carDao.insert(carInfo);
-			resp.setValue(id);
+			if(carInfo.getId() == 0 ){
+				long id = carDao.insert(carInfo);
+				resp.setValue(id);				
+			}else{
+				carDao.update(carInfo);
+			}
 		} catch (Exception e) {
 			LOGGER.error("save car error ", e);
 		}
@@ -79,11 +91,11 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public BaseResponse delete(long userId, long id) {
 		BaseResponse resp = new BaseResponse();
-		try {
-			carDao.delete(userId, id);
-		} catch (Exception e) {
-			LOGGER.error("delete car error ", e);
-		}
+		// try {
+		// carDao.delete(userId, id);
+		// } catch (Exception e) {
+		// LOGGER.error("delete car error ", e);
+		// }
 		return resp;
 	}
 

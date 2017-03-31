@@ -1,5 +1,6 @@
 package com.dc.kq.pinche.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,28 +29,20 @@ public class AddrServiceImpl implements AddrService {
 	private AddrDAO addrDao;
 
 	/**
-	 * 根据用户Id获取地址列表
+	 * 根据openId获取地址列表
 	 * 
-	 * @param userId
-	 * @param pageNo
+	 * @param openId
 	 * @return
 	 */
 	@Override
-	public BaseResponse getAddrList(long userId, int pageNo) {
-		BaseResponse resp = new BaseResponse();
+	public List<AddrInfo> getAddrList(String openId) {
+		List<AddrInfo> list  = new ArrayList<AddrInfo>();
 		try {
-			int startPage = Constants.PAGE_SIZE * pageNo;
-			List<AddrInfo> list = addrDao.selectAddrListByParam(userId, startPage, Constants.PAGE_SIZE);
-			if (!CollectionUtils.isEmpty(list)) {
-				resp.setValue(list);
-			} else {
-				resp.setEnum(ResponseEnum.LIST_EMPTY);
-				LOGGER.info("getAddrList ::: " + ResponseEnum.LIST_EMPTY.getMemo());
-			}
+			list = addrDao.selectAddrListByParam(openId);
 		} catch (Exception e) {
-			LOGGER.error("selectUserByOpenId error ", e);
+			LOGGER.error("getAddrList error ", e);
 		}
-		return resp;
+		return list;
 	}
 
 	/**
@@ -73,15 +66,15 @@ public class AddrServiceImpl implements AddrService {
 	/**
 	 * 根据地址Id删除Addr信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param id
 	 * @return
 	 */
 	@Override
-	public BaseResponse delete(long userId, long id) {
+	public BaseResponse delete(String openId, long id) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			addrDao.delete(userId, id);
+			addrDao.delete(openId, id);
 		} catch (Exception e) {
 			LOGGER.error("delete addr error ", e);
 		}

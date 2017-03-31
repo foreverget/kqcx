@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
 import com.dc.kq.pinche.dmo.CarInfo;
@@ -21,45 +22,65 @@ import com.dc.kq.pinche.dmo.CarInfo;
  */
 public interface CarDAO {
 	/**
-	 * 根据用户Id查询车辆信息
+	 * 根据openId查询车辆信息
 	 * 
-	 * @param userId
-	 * @param startPage
-	 * @param pageSize
+	 * @param openId
 	 * @return
 	 */
-	@Select({ "SELECT", "id,models,plates,seat,color,user_id,image ", "FROM pc_car_info ",
-			"WHERE user_id = #{userId,jdbcType=BIGINT} limit #{startPage,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}" })
+	@Select({ "SELECT", "id,models,plates,seat,color,open_id,image ", "FROM pc_car_info ",
+			"WHERE open_id = #{openId,jdbcType=VARCHAR} " })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "models", property = "models", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "plates", property = "plates", jdbcType = JdbcType.VARCHAR),
-			@Result(column = "user_id", property = "userId", jdbcType = JdbcType.BIGINT),
+			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "color", property = "color", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "image", property = "image", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "seat", property = "seat", jdbcType = JdbcType.INTEGER) })
-	List<CarInfo> selectCarListByParam(long userId, int startPage, int pageSize);
+	List<CarInfo> selectCarListByParam(String openId);
 
 	/**
-	 * 新增地址信息
+	 * 新增车辆信息
 	 * 
-	 * @param addrInfo
+	 * @param carInfo
 	 * @return
 	 */
-	@Insert({ "INSERT INTO pc_car_info (models, ", "plates,seat, color,user_id, ", "image )",
+	@Insert({ "INSERT INTO pc_car_info (models, ", "plates,seat, color,open_id, ", "image )",
 			"VALUES ( #{models,jdbcType=VARCHAR}, #{plates,jdbcType=VARCHAR},",
-			"#{seat,jdbcType=INTEGER},#{color,jdbcType=VARCHAR}, #{user_id,jdbcType=BIGINT}, ",
+			"#{seat,jdbcType=INTEGER},#{color,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, ",
 			"#{image,jdbcType=VARCHAR})" })
 	@Options(keyProperty = "id", useGeneratedKeys = true)
 	long insert(CarInfo carInfo);
 
 	/**
-	 * 删除地址信息
+	 * 删除车辆信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param id
 	 * @return
 	 */
-	@Delete({ "DELETE FROM pc_car_info WHERE  id = #{id,jdbcType=BIGINT} and user_id = #{userId,jdbcType=BIGINT}" })
-	int delete(@Param("userId") long userId, @Param("id") long id);
+	@Delete({ "DELETE FROM pc_car_info WHERE  id = #{id,jdbcType=BIGINT} and open_id = #{openId,jdbcType=VARCHAR}" })
+	int delete(@Param("openId") String openId, @Param("id") long id);
 
+	/**
+	 * 根据openId和id查询车辆信息
+	 * 
+	 * @param openId
+	 * @param id
+	 * @return
+	 */
+	@Select({ "SELECT", "id,models,plates,seat,color,open_id,image ", "FROM pc_car_info ",
+			"WHERE open_id = #{openId,jdbcType=VARCHAR} AND id = #{id,jdbcType=BIGINT}" })
+	CarInfo selectCarInfoByParam(@Param("openId") String openId, @Param("id") long id);
+
+	/**
+	 * 根据open_id 和 id 修改车辆信息
+	 * 
+	 * @param carInfo
+	 * @return
+	 */
+	@Update({
+			"UPDATE pc_car_info set models = #{carInfo.models,jdbcType=VARCHAR}, plates = #{carInfo.plates,jdbcType=VARCHAR},",
+			"seat = #{carInfo.seat,jdbcType=INTEGER},color = #{carInfo.color,jdbcType=VARCHAR}",
+			" WHERE open_id = #{carInfo.openId,jdbcType=VARCHAR} AND id = #{carInfo.id,jdbcType=BIGINT} " })
+	int update(@Param("carInfo") CarInfo carInfo);
 }

@@ -2,6 +2,7 @@ package com.dc.kq.pinche.service;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.UserInfo;
+import com.dc.kq.pinche.request.UserInfoRequest;
 
 /**
  * 用户service
@@ -42,5 +43,5 @@ public interface UserService {
 	 * @param value
 	 * @return
 	 */
-	public BaseResponse saveUser(String openId, String key, String value);
+	public BaseResponse saveUser(UserInfoRequest userInfo);
 }

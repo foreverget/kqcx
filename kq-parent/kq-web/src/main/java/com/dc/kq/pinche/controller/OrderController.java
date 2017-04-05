@@ -175,4 +175,21 @@ public class OrderController {
 		request.setAttribute("openId", openId);
 		return "order/myHistoryOrder";
 	}
+
+	/**
+	 * 获取我的历史订单----我的约车单
+	 * 
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("getYcOrder")
+	@ResponseBody
+	public BaseResponse getYcOrderList(HttpServletRequest request, int page, int size, String openId) {
+		BaseResponse resp = orderService.getYcOrderList(page, size, openId);
+		resp.setOpenId(openId);
+		return resp;
+	}
 }

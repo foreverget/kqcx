@@ -22,8 +22,8 @@
 			</div>
 		</div>
 		<div class="weui_panel weui_panel_access">
-			<div id='td' class="weui_panel_bd"></div>
-			<div id='tm' class="weui_panel_bd"></div>
+			<div id='yc' class="weui_panel_bd"></div>
+			<div id='cc' class="weui_panel_bd"></div>
 		</div>
 	</form> 
 </body>

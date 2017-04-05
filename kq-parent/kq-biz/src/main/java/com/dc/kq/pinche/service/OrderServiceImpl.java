@@ -1,5 +1,6 @@
 package com.dc.kq.pinche.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +33,10 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderDAO orderDao;
-	
+
 	@Autowired
 	private OrderPassengerDAO orderPassengerDao;
-	
+
 	@Override
 	public BaseResponse myBookOrderList(String dateType) {
 		return null;
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 	public BaseResponse myHistoryOrderList(String orderType) {
 		return null;
 	}
-	
+
 	@Transactional
 	@Override
 	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest) {
@@ -66,28 +67,28 @@ public class OrderServiceImpl implements OrderService {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return resp;
-		
+
 	}
-	
+
 	/**
 	 * 检查及组装最终订单实体
 	 * 
 	 * @param orderInfo
 	 * @return
 	 */
-	private OrderInfo checkAndBuildOrder(OrderInfoRequest orderInfoRequest){
+	private OrderInfo checkAndBuildOrder(OrderInfoRequest orderInfoRequest) {
 		// 出车时间
 		// 始
 		// 终
 		// 备注 可为空
-		// 车牌号码  外键关联车辆信息
-		// 拼车人数  先限制最大为7
-		// 车费单价  先固定为5元，限制黑车行为，保证为私家车使用
-		
+		// 车牌号码 外键关联车辆信息
+		// 拼车人数 先限制最大为7
+		// 车费单价 先固定为5元，限制黑车行为，保证为私家车使用
+
 		// 以下2项，如未填写，在用户基本信息表获取
 		// 司机姓名
 		// 联系电话
-		
+
 		// 检查是否重复发布
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setOpenId(orderInfoRequest.getOpenId());
@@ -113,8 +114,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public BaseResponse doBookOrder(String userId, String orderId, String count) {
 		BaseResponse resp = new BaseResponse();
-		// 检查该乘客是否重复预约本订单  待添加
-		
+		// 检查该乘客是否重复预约本订单 待添加
+
 		if (Integer.valueOf(count) <= 0) {
 			resp.setValue("预约失败预约座位数需大于0");
 			LOGGER.error("doBookOrder error userId=" + userId + " orderId=" + orderId + " count=" + count);
@@ -122,8 +123,8 @@ public class OrderServiceImpl implements OrderService {
 		}
 		// 获取订单
 		OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
-		if(null==orderInfo){
-			resp.setValue("预约失败无法查到"+orderId+"订单信息");
+		if (null == orderInfo) {
+			resp.setValue("预约失败无法查到" + orderId + "订单信息");
 			LOGGER.error("doBookOrder error orderId=" + orderId);
 			return resp;
 		}
@@ -132,13 +133,13 @@ public class OrderServiceImpl implements OrderService {
 			// 修改订单剩余乘客数
 			orderInfo.setReqNum(orderInfo.getReqNum() - Integer.valueOf(count));
 			// 如果订单剩余乘客数为0，订单已满
-			if(orderInfo.getReqNum()==0){
+			if (orderInfo.getReqNum() == 0) {
 				orderInfo.setStatus(Constants.ORDER_STATUS_FULL);
 			}
 			// 更新订单
 			orderInfo.setUpdateTime(new Date());
 			orderInfo.setUpdateBy(userId);
-			orderInfo.setVersion(orderInfo.getVersion()+1);
+			orderInfo.setVersion(orderInfo.getVersion() + 1);
 			orderDao.updateOrderById(orderInfo);
 			// 添加乘客订单关系
 			OrderPassenger orderPassenger = new OrderPassenger();
@@ -152,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
 			orderPassengerDao.insert(orderPassenger);
 			resp.setValue("预约成功");
 		} else {
-			resp.setValue("预约失败该订单"+orderId+"已满");
+			resp.setValue("预约失败该订单" + orderId + "已满");
 			LOGGER.error("doBookOrder error orderId=" + orderId);
 		}
 		return resp;
@@ -163,12 +164,12 @@ public class OrderServiceImpl implements OrderService {
 	public BaseResponse doCancelOrderByDriver(String orderId) {
 		BaseResponse resp = new BaseResponse();
 		// 检查是否可以取消，如果已经有人约车，禁止取消？ 待添加
-		
+
 		// 取消出车单
 		// 获取订单
 		OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
-		if(null==orderInfo){
-			resp.setValue("取消失败无法查到"+orderId+"订单信息");
+		if (null == orderInfo) {
+			resp.setValue("取消失败无法查到" + orderId + "订单信息");
 			LOGGER.error("doBookOrder error orderId=" + orderId);
 			return resp;
 		}
@@ -176,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
 		// 更新订单
 		orderInfo.setUpdateTime(new Date());
 		orderInfo.setUpdateBy(orderInfo.getCreateBy());
-		orderInfo.setVersion(orderInfo.getVersion()+1);
+		orderInfo.setVersion(orderInfo.getVersion() + 1);
 		orderDao.updateOrderById(orderInfo);
 		resp.setValue("取消出车单成功");
 		return resp;
@@ -187,29 +188,50 @@ public class OrderServiceImpl implements OrderService {
 	public BaseResponse doCancelOrderByPassenger(String orderId, String userId) {
 		BaseResponse resp = new BaseResponse();
 		// 获取乘客订单关系，状态设置为取消
-		OrderPassenger orderPassenger = orderPassengerDao.selectOrderPassengerById(userId,orderId);
-		if(null != orderPassenger){
+		OrderPassenger orderPassenger = orderPassengerDao.selectOrderPassengerById(userId, orderId);
+		if (null != orderPassenger) {
 			orderPassenger.setStatus(Constants.ORDER_PASSENGER_STATUS_CANCLE);
 			orderPassenger.setUpdateTime(new Date());
 			orderPassenger.setUpdateBy("司机");
-			orderPassenger.setVersion(orderPassenger.getVersion()+1);
+			orderPassenger.setVersion(orderPassenger.getVersion() + 1);
 			orderPassengerDao.updateOrderPassengerById(orderPassenger);
 			// 更新出车订单座位数及状态
 			OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
 			// 归还座位
 			orderInfo.setReqNum(orderInfo.getReqNum() + orderPassenger.getCount());
-			// 状态改为已发布 未满 
+			// 状态改为已发布 未满
 			orderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
 			orderInfo.setUpdateTime(new Date());
 			orderInfo.setUpdateBy("司机");
-			orderInfo.setVersion(orderInfo.getVersion()+1);
+			orderInfo.setVersion(orderInfo.getVersion() + 1);
 			orderDao.updateOrderById(orderInfo);
 			resp.setValue("取消成功");
-		}else{
-			resp.setValue("取消失败 orderId="+orderId+" userId="+userId);
-			
+		} else {
+			resp.setValue("取消失败 orderId=" + orderId + " userId=" + userId);
+
 		}
 		return resp;
 	}
-	
+
+	/**
+	 * 历史订单--我的约车单
+	 * 
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @return
+	 */
+	@Override
+	public BaseResponse getYcOrderList(int page, int size, String openId) {
+		BaseResponse resp = new BaseResponse();
+		List<OrderInfo> list = new ArrayList<OrderInfo>();
+		try {
+			list = orderDao.getYcOrderList(openId, (page-1)*size, size);
+			resp.setValue(list);
+		} catch (Exception e) {
+			LOGGER.error("getYcOrderList error ", e);
+		}
+		return resp;
+	}
+
 }

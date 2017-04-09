@@ -14,6 +14,7 @@
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">
+<input type="hidden" name="openId" value="${openId}">
 	<form id="form">
 		<div class="weui_tab" style="height: 44px;" id="tabdiv">
 			<div class="weui_navbar" style="height: 44px;">

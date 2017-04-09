@@ -22,7 +22,7 @@ public class OrderInfo extends BaseEntity{
 	/**
 	 * 发布者
 	 */
-	private long openId;
+	private String openId;
 	/**
 	 * 发布者名称即司机名称
 	 */
@@ -92,13 +92,13 @@ public class OrderInfo extends BaseEntity{
 	/**
 	 * @return the openId
 	 */
-	public long getOpenId() {
+	public String getOpenId() {
 		return openId;
 	}
 	/**
 	 * @param openId the openId to set
 	 */
-	public void setOpenId(long openId) {
+	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
 	/**

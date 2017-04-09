@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.dmo.OrderPassenger;
 import com.dc.kq.pinche.request.OrderInfoRequest;
 
 /**
@@ -103,4 +104,28 @@ public interface OrderService {
 	 */
 	public BaseResponse getYcOrderList(int page, int size, String openId);
 
+	/**
+	 * 根据orderId 获取 order信息
+	 * 
+	 * @param orderId
+	 * @return
+	 */
+	public OrderInfo getOrderDetail(long orderId);
+
+	/**
+	 * 历史订单--我的出车单
+	 * 
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @return
+	 */
+	public BaseResponse getCcOrderList(int page, int size, String openId);
+
+	/**
+	 * 获取乘客列表
+	 * 
+	 * @return
+	 */
+	public List<OrderPassenger> getPassengerList(long orderId);
 }

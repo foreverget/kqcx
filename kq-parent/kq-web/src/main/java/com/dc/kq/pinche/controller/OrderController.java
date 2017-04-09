@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
+import com.dc.kq.pinche.dmo.OrderPassenger;
 import com.dc.kq.pinche.request.OrderInfoRequest;
 import com.dc.kq.pinche.service.OrderService;
 
@@ -192,4 +193,57 @@ public class OrderController {
 		resp.setOpenId(openId);
 		return resp;
 	}
+
+	/**
+	 * 跳转到我得约车单详情页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toYcOrderDetail")
+	public String toYcOrderDetail(HttpServletRequest request, long orderId, String openId) {
+		// 根据orderId 查询order信息
+		OrderInfo orderInfo = orderService.getOrderDetail(orderId);
+		request.setAttribute("openId", openId);
+		request.setAttribute("order", orderInfo);
+		return "order/ycOrderDetail";
+	}
+
+	/**
+	 * 获取我的历史订单----我的出车单
+	 * 
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("getCcOrder")
+	@ResponseBody
+	public BaseResponse getCcOrderList(HttpServletRequest request, int page, int size, String openId) {
+		BaseResponse resp = orderService.getCcOrderList(page, size, openId);
+		resp.setOpenId(openId);
+		return resp;
+	}
+
+	/**
+	 * 跳转到我的出车单详情页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toCcOrderDetail")
+	public String toCcOrderDetail(HttpServletRequest request, long orderId, String openId) {
+		// 根据orderId 查询order信息
+		OrderInfo orderInfo = orderService.getOrderDetail(orderId);
+		// 通过orderId查询乘客信息
+		List<OrderPassenger> opList = orderService.getPassengerList(orderId);
+		request.setAttribute("openId", openId);
+		request.setAttribute("order", orderInfo);
+		request.setAttribute("opList", opList);
+		return "order/ccOrderDetail";
+	}
+
 }

@@ -226,7 +226,7 @@ public class OrderServiceImpl implements OrderService {
 		BaseResponse resp = new BaseResponse();
 		List<OrderInfo> list = new ArrayList<OrderInfo>();
 		try {
-			list = orderDao.getYcOrderList(openId, (page-1)*size, size);
+			list = orderDao.getYcOrderList(openId, (page - 1) * size, size);
 			resp.setValue(list);
 		} catch (Exception e) {
 			LOGGER.error("getYcOrderList error ", e);
@@ -234,4 +234,56 @@ public class OrderServiceImpl implements OrderService {
 		return resp;
 	}
 
+	/**
+	 * 根据orderId 获取 order信息
+	 * 
+	 * @param orderId
+	 * @return
+	 */
+	@Override
+	public OrderInfo getOrderDetail(long orderId) {
+		OrderInfo order = new OrderInfo();
+		try {
+			order = orderDao.getYcOrderDetail(orderId);
+		} catch (Exception e) {
+			LOGGER.error("getYcOrderDetail error ", e);
+		}
+		return order;
+	}
+
+	/**
+	 * 历史订单--我的出车单
+	 * 
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @return
+	 */
+	@Override
+	public BaseResponse getCcOrderList(int page, int size, String openId) {
+		BaseResponse resp = new BaseResponse();
+		List<OrderInfo> list = new ArrayList<OrderInfo>();
+		try {
+			list = orderDao.getCcOrderList(openId, (page - 1) * size, size);
+			resp.setValue(list);
+		} catch (Exception e) {
+			LOGGER.error("getCcOrderList error ", e);
+		}
+		return resp;
+	}
+
+	/**
+	 * 获取乘客列表
+	 * 
+	 * @return
+	 */
+	public List<OrderPassenger> getPassengerList(long orderId) {
+		List<OrderPassenger> list = new ArrayList<OrderPassenger>();
+		try {
+			list = orderDao.getPassengerList(orderId);
+		} catch (Exception e) {
+			LOGGER.error("getPassengerList error ", e);
+		}
+		return list;
+	}
 }

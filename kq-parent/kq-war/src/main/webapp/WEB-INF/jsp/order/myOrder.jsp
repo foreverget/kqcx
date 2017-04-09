@@ -14,6 +14,7 @@
 <script src="${ctx}/resource/weuix/zepto.min.js"></script>
 </head>
 <body ontouchstart style="background-color: #f8f8f8;">
+	<input type="hidden" name="openId" value="${openId}">
 	<div class="weui_cells weui_cells_access">
 		<a class="weui_cell " href="javascript:;" id="my_take">
 			<div class="weui_cell_bd weui_cell_primary">

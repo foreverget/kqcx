@@ -51,17 +51,38 @@ $(function() {
 			});
 
 });
-
+/**
+ * 绑定事件
+ */
 function initBindEvent() {
-	$('[id^=yc_list_]').unbind('click').bind('click', function() {
-		console.log($(this).attr('id'));
-	})
+	//查看约车详情
+	$('[id^=yc_list_]').unbind('click').bind(
+			'click',
+			function() {
+				var openId = $("[name=openId]").val();
+				var orderId = $(this).attr('data-id');
+				window.location.href = _ctx
+						+ "/order/toYcOrderDetail?orderId=" + orderId
+						+ "&openId=1000";// + openId;
+			});
+	//查看出车详情
+	$('[id^=cc_list_]').unbind('click').bind(
+			'click',
+			function() {
+				var openId = $("[name=openId]").val();
+				var orderId = $(this).attr('data-id');
+				window.location.href = _ctx
+						+ "/order/toCcOrderDetail?orderId=" + orderId
+						+ "&openId=10001";// + openId;
+			});
 }
 /**
  * 加载数据 loadType: down/up me
  * 
  */
 function loadFn(loadType, me, itemIndex) {
+	var openId = $("[name=openId]").val();
+	var aId_="";
 	// 判断divId和路径
 	switch (itemIndex) {
 	case 0:// 约车
@@ -71,13 +92,16 @@ function loadFn(loadType, me, itemIndex) {
 		_action = '/order/getYcOrder?page=' + page_yc + '&size=' + size
 				+ '&openId=1000';
 		divId = '#yc';
+		aId_= "yc_list_";
 		break;
 	case 1:// 出车
 		if (loadType == "up") {// 出车刷新
 			page_cc = 1;
 		}
-		_action = 'http://ximan.github.io/dropload/examples/json/update.json';
+		_action = '/order/getCcOrder?page=' + page_cc + '&size=' + size
+		+ '&openId=10001';
 		divId = '#cc';
+		aId_= "cc_list_";
 		break;
 	}
 	;
@@ -91,12 +115,13 @@ function loadFn(loadType, me, itemIndex) {
 				success : function(data) {
 					// 获取结果集
 					var arr = data.value;
-					if (arr.length > 0) {// 循环数据，拼装html
+					if (!!arr && arr.length > 0) {// 循环数据，拼装html
 						for (var i = 0; i < arr.length; i++) {
-							result += '<a id="yc_list_'
+							result += '<a id="'+aId_+
 									+ arr[i].id
-									+ '" data-id="'+arr[i].id
-									+ '" href="javascritp:;" class="weui_media_box weui_media_appmsg">'
+									+ '" data-id="'
+									+ arr[i].id
+									+ '"  class="weui_media_box weui_media_appmsg">'
 									+ '<div class="weui_media_bd">'
 									+ '<h4 class="weui_media_title list-line-margin-bottom">'
 									+ getSmpFormatDateByLong(arr[i].createTime,

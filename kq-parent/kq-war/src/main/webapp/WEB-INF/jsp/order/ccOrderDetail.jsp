@@ -15,11 +15,13 @@
 <body ontouchstart style="background-color: #FFFFFF;">
 	<div href="javascritp:;" class="weui_media_box weui_media_appmsg">
 		<div class="weui_media_bd">
-			<h4 class="weui_media_title list-line-margin-bottom" id="ccTime"></h4>
+			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;${order.price}&nbsp;元</h4>
 			<p class="weui_media_desc list-line-margin-bottom">起点:
 				${order.startAddr}</p>
 			<p class="weui_media_desc list-line-margin-bottom">终点:
 				${order.endAddr}</p>
+			<p class="weui_media_desc list-line-margin-bottom">订单状态:
+				${order.status}</p>
 			<br />
 			<p class="weui_media_desc list-line-margin-bottom">乘客信息</p>
 			<c:forEach var="op"   items="${opList}">
@@ -29,10 +31,4 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	var cDate = getSmpFormatDateByLong('${order.createTime}');
-	var cStr = cDate + '&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp; ' + '${order.price}'
-			+ ' &nbsp;元';
-	$('#ccTime').html(cStr);
-</script>
 </html>

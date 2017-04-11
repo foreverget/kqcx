@@ -119,18 +119,26 @@ public interface OrderDAO {
 	int updateOrderById(OrderInfo orderInfo);
 
 	/**
-	 * 历史订单--约车单
+	 * 约车单
 	 * 
 	 * @param opendId
-	 * @param page
+	 * @param startPage
 	 * @param size
+	 * @param type
+	 * @param time
 	 * @return
 	 */
-	@Select({ "SELECT po.id,po.open_id,po. NAME,po.mobile,po.go_time,po.start_addr,po.end_addr,"
-			+ "po.plates,po.req_num,po.price,po. STATUS,po.score,po.create_time " + "FROM pc_order po "
-			+ "WHERE po.id IN " + "(SELECT pop.order_id " + "FROM pc_order_passenger pop " + "WHERE "
-			+ "pop.open_id = #{opendId,jdbcType=VARCHAR}) "
-			+ "ORDER BY po.create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}" })
+	@Select({ "<script>" + "SELECT po.id,po.open_id,po.name,po.mobile,po.go_time,"
+			+ "po.start_addr,po.end_addr,po.plates,po.req_num,"
+			+ "po.price,po.status,po.score,po.create_time "
+			+ "FROM pc_order po,pc_order_passenger pop "
+			+ "WHERE pop.order_id = po.id "
+			+ "AND pop.status = 1 "
+			+ "AND pop.open_id = #{opendId,jdbcType=VARCHAR} "
+			+ "<if test=\"type == 0\"> <![CDATA[ AND unix_timestamp(str_to_date(po.go_time, '%Y-%m-%d %H')) < unix_timestamp(str_to_date(#{time}, '%Y-%m-%d %H')) ]]> </if>"
+			+ "<if test=\"type != 0\">  AND po.go_time like CONCAT(#{time},'%') </if>"
+			+ "ORDER BY po.create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}"
+			+ "</script>" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
@@ -142,9 +150,9 @@ public interface OrderDAO {
 			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
-			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
-	List<OrderInfo> getYcOrderList(@Param("opendId") String opendId, @Param("startPage") int startPage,
-			@Param("size") int size);
+			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT)})
+	List<OrderInfo> getOrderList(@Param("opendId") String opendId, @Param("startPage") int startPage,
+			@Param("size") int size, @Param("type") int type, @Param("time") String time);
 
 	/**
 	 * 根据orderId 查询订单信息
@@ -202,17 +210,14 @@ public interface OrderDAO {
 	 * @param orderId
 	 * @return
 	 */
-	@Select({"SELECT pop.id,pop.open_id,pop.status,pop.count,pu.mobile,pu.name "
-			+ "FROM pc_order_passenger pop "
-			+ "LEFT JOIN pc_user pu ON pop.open_id = pu.open_id "
-			+ "WHERE  order_id = #{orderId,jdbcType=BIGINT}"
-	})
+	@Select({ "SELECT pop.id,pop.open_id,pop.status,pop.count,pu.mobile,pu.name " + "FROM pc_order_passenger pop "
+			+ "LEFT JOIN pc_user pu ON pop.open_id = pu.open_id " + "WHERE  order_id = #{orderId,jdbcType=BIGINT}" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
-		@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
-		@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
-		@Result(column = "mobile", property = "mobile", jdbcType = JdbcType.VARCHAR),
-		@Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER),
-		@Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER)})
+			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "mobile", property = "mobile", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER),
+			@Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER) })
 	List<OrderPassenger> getPassengerList(long orderId);
 
 }

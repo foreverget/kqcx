@@ -8,12 +8,13 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>我的约车单</title>
+<title>我的约车单[3天内]</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">
+	<input type="hidden" name="openId" value="${openId}">
 	<form id="form">
 		<div class="weui_tab" style="height: 44px;" id="tabdiv">
 			<div class="weui_navbar" style="height: 44px;">
@@ -27,7 +28,7 @@
 			<div id='tm' class="weui_panel_bd"></div>
 			<div id='ht' class="weui_panel_bd"></div>
 		</div>
-	</form> 
+	</form>
 </body>
-<script src="${ctx}/resource/js/order/take.js"></script>
+<script src="${ctx}/resource/js/order/myTakeOrder.js"></script>
 </html>

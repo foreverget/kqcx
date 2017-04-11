@@ -100,9 +100,10 @@ public interface OrderService {
 	 * @param page
 	 * @param size
 	 * @param openId
+	 * @param type 0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
-	public BaseResponse getYcOrderList(int page, int size, String openId);
+	public BaseResponse getYcOrderList(int page, int size, String openId,int type);
 
 	/**
 	 * 根据orderId 获取 order信息

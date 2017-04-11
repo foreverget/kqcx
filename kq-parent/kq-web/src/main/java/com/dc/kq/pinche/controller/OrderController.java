@@ -178,18 +178,19 @@ public class OrderController {
 	}
 
 	/**
-	 * 获取我的历史订单----我的约车单
+	 * 我的约车单
 	 * 
 	 * @param request
 	 * @param page
 	 * @param size
 	 * @param openId
+	 * @param type 0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
 	@RequestMapping("getYcOrder")
 	@ResponseBody
-	public BaseResponse getYcOrderList(HttpServletRequest request, int page, int size, String openId) {
-		BaseResponse resp = orderService.getYcOrderList(page, size, openId);
+	public BaseResponse getYcOrderList(HttpServletRequest request, int page, int size, String openId,int type) {
+		BaseResponse resp = orderService.getYcOrderList(page, size, openId,type);
 		resp.setOpenId(openId);
 		return resp;
 	}
@@ -211,7 +212,7 @@ public class OrderController {
 	}
 
 	/**
-	 * 获取我的历史订单----我的出车单
+	 * 我的出车单
 	 * 
 	 * @param request
 	 * @param page

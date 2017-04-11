@@ -21,4 +21,13 @@ public class Constants {
 	public static final String ORDER_PASSENGER_STATUS_OK = "1";
 	public static final String ORDER_PASSENGER_STATUS_CANCLE = "0";
 	
+	/**
+	 * 订单查询类型 0：历史订单，1：今天，2：明天，3：后天
+	 */
+	public static final int ORDER_SEARCH_TYPE_HISTORY = 0;
+	public static final int ORDER_SEARCH_TYPE_TODAY = 1;
+	public static final int ORDER_SEARCH_TYPE_TOM = 2;
+	public static final int ORDER_SEARCH_TYPE_AFT = 3;
+
+	
 }

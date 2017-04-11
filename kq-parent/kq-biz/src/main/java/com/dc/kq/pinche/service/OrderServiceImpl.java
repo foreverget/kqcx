@@ -1,7 +1,10 @@
 package com.dc.kq.pinche.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -219,14 +222,29 @@ public class OrderServiceImpl implements OrderService {
 	 * @param page
 	 * @param size
 	 * @param openId
+	 * @param type 0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
 	@Override
-	public BaseResponse getYcOrderList(int page, int size, String openId) {
+	public BaseResponse getYcOrderList(int page, int size, String openId,int type) {
 		BaseResponse resp = new BaseResponse();
 		List<OrderInfo> list = new ArrayList<OrderInfo>();
 		try {
-			list = orderDao.getYcOrderList(openId, (page - 1) * size, size);
+		    //获取当前日期  
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+			String time= sdf.format(new Date());
+	        if(type == Constants.ORDER_SEARCH_TYPE_TOM){//明天
+				 Calendar calendar = new GregorianCalendar();
+				 calendar.setTime(new Date());
+				 calendar.add(calendar.DATE,1);
+				 time= sdf.format(calendar.getTime());
+			}else if(type == Constants.ORDER_SEARCH_TYPE_AFT){//后天
+				 Calendar calendar = new GregorianCalendar();
+				 calendar.setTime(new Date());
+				 calendar.add(calendar.DATE,2);
+				 time= sdf.format(calendar.getTime());
+			}
+			list = orderDao.getOrderList(openId, (page - 1) * size, size,type,time);
 			resp.setValue(list);
 		} catch (Exception e) {
 			LOGGER.error("getYcOrderList error ", e);

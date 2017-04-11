@@ -10,7 +10,7 @@ import com.dc.kq.pinche.base.BaseEntity;
  * @author xiaogang
  *
  */
-public class OrderInfo extends BaseEntity{
+public class OrderInfo extends BaseEntity {
 	/**
 	 * 主键
 	 */
@@ -18,7 +18,7 @@ public class OrderInfo extends BaseEntity{
 	/**
 	 * 订单积分
 	 */
-	private BigDecimal score;	
+	private BigDecimal score;
 	/**
 	 * 发布者
 	 */
@@ -60,166 +60,201 @@ public class OrderInfo extends BaseEntity{
 	 */
 	private BigDecimal price;
 	/**
-	 * 状态
+	 * 订单状态 0：发布中，1：已发车，2：已送达，3：已取消
 	 */
 	private String status;
-	
-
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the score
 	 */
 	public BigDecimal getScore() {
 		return score;
 	}
+
 	/**
-	 * @param score the score to set
+	 * @param score
+	 *            the score to set
 	 */
 	public void setScore(BigDecimal score) {
 		this.score = score;
 	}
+
 	/**
 	 * @return the openId
 	 */
 	public String getOpenId() {
 		return openId;
 	}
+
 	/**
-	 * @param openId the openId to set
+	 * @param openId
+	 *            the openId to set
 	 */
 	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * @return the mobile
 	 */
 	public String getMobile() {
 		return mobile;
 	}
+
 	/**
-	 * @param mobile the mobile to set
+	 * @param mobile
+	 *            the mobile to set
 	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+
 	/**
 	 * @return the goTime
 	 */
 	public String getGoTime() {
 		return goTime;
 	}
+
 	/**
-	 * @param goTime the goTime to set
+	 * @param goTime
+	 *            the goTime to set
 	 */
 	public void setGoTime(String goTime) {
 		this.goTime = goTime;
 	}
+
 	/**
 	 * @return the startAddr
 	 */
 	public String getStartAddr() {
 		return startAddr;
 	}
+
 	/**
-	 * @param startAddr the startAddr to set
+	 * @param startAddr
+	 *            the startAddr to set
 	 */
 	public void setStartAddr(String startAddr) {
 		this.startAddr = startAddr;
 	}
+
 	/**
 	 * @return the endAddr
 	 */
 	public String getEndAddr() {
 		return endAddr;
 	}
+
 	/**
-	 * @param endAddr the endAddr to set
+	 * @param endAddr
+	 *            the endAddr to set
 	 */
 	public void setEndAddr(String endAddr) {
 		this.endAddr = endAddr;
 	}
+
 	/**
 	 * @return the memo
 	 */
 	public String getMemo() {
 		return memo;
 	}
+
 	/**
-	 * @param memo the memo to set
+	 * @param memo
+	 *            the memo to set
 	 */
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
+
 	/**
 	 * @return the plates
 	 */
 	public String getPlates() {
 		return plates;
 	}
+
 	/**
-	 * @param plates the plates to set
+	 * @param plates
+	 *            the plates to set
 	 */
 	public void setPlates(String plates) {
 		this.plates = plates;
 	}
+
 	/**
 	 * @return the reqNum
 	 */
 	public int getReqNum() {
 		return reqNum;
 	}
+
 	/**
-	 * @param reqNum the reqNum to set
+	 * @param reqNum
+	 *            the reqNum to set
 	 */
 	public void setReqNum(int reqNum) {
 		this.reqNum = reqNum;
 	}
+
 	/**
 	 * @return the price
 	 */
 	public BigDecimal getPrice() {
 		return price;
 	}
+
 	/**
-	 * @param price the price to set
+	 * @param price
+	 *            the price to set
 	 */
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
 	/**
 	 * @return the status
 	 */
 	public String getStatus() {
 		return status;
 	}
+
 	/**
-	 * @param status the status to set
+	 * @param status
+	 *            the status to set
 	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 }

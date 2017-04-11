@@ -15,7 +15,6 @@ var _action = '';
 
 var divId = '';
 $(function() {
-
 	// dropload
 	var dropload = $('.weui_panel').dropload({
 		scrollArea : window,
@@ -89,7 +88,7 @@ function loadFn(loadType, me, itemIndex) {
 		if (loadType == "up") {// 约车刷新
 			page_yc = 1;
 		}
-		_action = '/order/getYcOrder?page=' + page_yc + '&size=' + size
+		_action = '/order/getYcOrder?type=0&page=' + page_yc + '&size=' + size
 				+ '&openId=1000';
 		divId = '#yc';
 		aId_= "yc_list_";
@@ -98,7 +97,7 @@ function loadFn(loadType, me, itemIndex) {
 		if (loadType == "up") {// 出车刷新
 			page_cc = 1;
 		}
-		_action = '/order/getCcOrder?page=' + page_cc + '&size=' + size
+		_action = '/order/getCcOrder?type=0&page=' + page_cc + '&size=' + size
 		+ '&openId=10001';
 		divId = '#cc';
 		aId_= "cc_list_";
@@ -124,8 +123,7 @@ function loadFn(loadType, me, itemIndex) {
 									+ '"  class="weui_media_box weui_media_appmsg">'
 									+ '<div class="weui_media_bd">'
 									+ '<h4 class="weui_media_title list-line-margin-bottom">'
-									+ getSmpFormatDateByLong(arr[i].createTime,
-											true)
+									+ arr[i].goTime
 									+ '&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;'
 									+ arr[i].price
 									+ '&nbsp;元</h4>'

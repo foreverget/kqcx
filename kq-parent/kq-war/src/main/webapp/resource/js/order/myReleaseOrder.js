@@ -1,7 +1,7 @@
 /**
- * 我的约车相关JS
+ * 我的出车相关JS
  */
-var clickTabTakeCount = 0;
+var clickTabReleaseCount = 0;
 // 今天 页数
 var page_td = 1;
 // 明天 页数
@@ -43,26 +43,27 @@ $(function() {
 				// 其他隐藏
 				$('.weui_panel_bd').eq(itemIndex).show().siblings(
 						'.weui_panel_bd').hide();
-				if (clickTabTakeCount != 0) {
+				if(clickTabReleaseCount != 0 ){
 					// 需要重置dropload组件
-					dropload.resetload();					
-					loadFn("up", dropload, itemIndex);
+					dropload.resetload();
+					loadFn("up", dropload, itemIndex);					
 				}
-				clickTabTakeCount++;
+				clickTabReleaseCount++;
 			});
 });
 /**
  * 绑定事件
  */
 function initBindEvent() {
-	// 查看约车详情
-	$('[id^=my_yc_list_]').unbind('click').bind(
+	//查看出车详情
+	$('[id^=my_cc_list_]').unbind('click').bind(
 			'click',
 			function() {
 				var openId = $("[name=openId]").val();
 				var orderId = $(this).attr('data-id');
-				window.location.href = _ctx + "/order/toYcOrderDetail?orderId="
-						+ orderId + "&openId=1000";// + openId;
+				window.location.href = _ctx
+						+ "/order/toReleaseOrderDetail?orderId=" + orderId
+						+ "&openId=10001";// + openId;
 			});
 }
 /**
@@ -77,8 +78,8 @@ function loadFn(loadType, me, itemIndex) {
 		if (loadType == "up") {// 今天刷新
 			page_td = 1;
 		}
-		_action = '/order/getYcOrder?type=1&page=' + page_td + '&size=' + size
-				+ '&openId=1000';
+		_action = '/order/getCcOrder?type=1&page=' + page_td + '&size=' + size
+				+ '&openId=10001';
 		divId = '#td';
 		date_desc = '【今天】';
 
@@ -87,7 +88,7 @@ function loadFn(loadType, me, itemIndex) {
 		if (loadType == "up") {// 明天刷新
 			page_tm = 1;
 		}
-		_action = '/order/getYcOrder?type=2&page=' + page_tm + '&size=' + size
+		_action = '/order/getCcOrder?type=2&page=' + page_tm + '&size=' + size
 				+ '&openId=10001';
 		divId = '#tm';
 		date_desc = '【明天】';
@@ -96,7 +97,7 @@ function loadFn(loadType, me, itemIndex) {
 		if (loadType == "up") {// 后天刷新
 			page_ht = 1;
 		}
-		_action = '/order/getYcOrder?type=3&page=' + page_ht + '&size=' + size
+		_action = '/order/getCcOrder?type=3&page=' + page_ht + '&size=' + size
 				+ '&openId=10001';
 		divId = '#ht';
 		date_desc = '【后天】';
@@ -116,14 +117,14 @@ function loadFn(loadType, me, itemIndex) {
 					if (!!arr && arr.length > 0) {// 循环数据，拼装html
 						for (var i = 0; i < arr.length; i++) {
 							var statusStr = "发布中";
-							if ("1" == arr[i].status) {
+							if("1" == arr[i].status){
 								statusStr = "已出发";
-							} else if ("2" == arr[i].status) {
+							}else if("2" == arr[i].status){
 								statusStr = "已送达";
-							} else if ("3" == arr[i].status) {
+							}else if("3" == arr[i].status){
 								statusStr = "已取消";
 							}
-							result += '<a id="my_yc_list_'
+							result += '<a id="my_cc_list_'
 									+ +arr[i].id
 									+ '" data-id="'
 									+ arr[i].id
@@ -139,8 +140,7 @@ function loadFn(loadType, me, itemIndex) {
 									+ arr[i].startAddr
 									+ '</p>'
 									+ '<p class="weui_media_desc list-line-margin-bottom">终点:'
-									+ arr[i].endAddr
-									+ '</p>'
+									+ arr[i].endAddr + '</p>'
 									+ '<p class="weui_media_desc list-line-margin-bottom">状态:'
 									+ statusStr + '</p>' + '</div></a>';
 						}

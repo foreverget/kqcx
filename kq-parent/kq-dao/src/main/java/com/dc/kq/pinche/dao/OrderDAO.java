@@ -129,11 +129,8 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "<script>" + "SELECT po.id,po.open_id,po.name,po.mobile,po.go_time,"
-			+ "po.start_addr,po.end_addr,po.plates,po.req_num,"
-			+ "po.price,po.status,po.score,po.create_time "
-			+ "FROM pc_order po,pc_order_passenger pop "
-			+ "WHERE pop.order_id = po.id "
-			+ "AND pop.status = 1 "
+			+ "po.start_addr,po.end_addr,po.plates,po.req_num," + "po.price,po.status,po.score,po.create_time "
+			+ "FROM pc_order po,pc_order_passenger pop " + "WHERE pop.order_id = po.id " + "AND pop.status = 1 "
 			+ "AND pop.open_id = #{opendId,jdbcType=VARCHAR} "
 			+ "<if test=\"type == 0\"> <![CDATA[ AND unix_timestamp(str_to_date(po.go_time, '%Y-%m-%d %H')) < unix_timestamp(str_to_date(#{time}, '%Y-%m-%d %H')) ]]> </if>"
 			+ "<if test=\"type != 0\">  AND po.go_time like CONCAT(#{time},'%') </if>"
@@ -150,7 +147,7 @@ public interface OrderDAO {
 			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
-			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT)})
+			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
 	List<OrderInfo> getOrderList(@Param("opendId") String opendId, @Param("startPage") int startPage,
 			@Param("size") int size, @Param("type") int type, @Param("time") String time);
 
@@ -178,17 +175,20 @@ public interface OrderDAO {
 	OrderInfo getYcOrderDetail(@Param("orderId") long orderId);
 
 	/**
-	 * 历史订单--出车单
+	 * 出车单
 	 * 
 	 * @param opendId
 	 * @param page
 	 * @param size
 	 * @return
 	 */
-	@Select({ "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
+	@Select({ "<script>" + "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
 			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order  "
 			+ "WHERE open_id = #{opendId,jdbcType=VARCHAR} "
-			+ "ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}" })
+			+ "<if test=\"type == 0\"> <![CDATA[ AND unix_timestamp(str_to_date(go_time, '%Y-%m-%d %H')) < unix_timestamp(str_to_date(#{time}, '%Y-%m-%d %H')) ]]> </if>"
+			+ "<if test=\"type != 0\">  AND go_time like CONCAT(#{time},'%') </if>"
+			+ "ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}"
+			+ "</script>" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
@@ -202,7 +202,7 @@ public interface OrderDAO {
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
 	List<OrderInfo> getCcOrderList(@Param("opendId") String opendId, @Param("startPage") int startPage,
-			@Param("size") int size);
+			@Param("size") int size, @Param("type") int type, @Param("time") String time);
 
 	/**
 	 * 查询乘客列表
@@ -211,7 +211,8 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "SELECT pop.id,pop.open_id,pop.status,pop.count,pu.mobile,pu.name " + "FROM pc_order_passenger pop "
-			+ "LEFT JOIN pc_user pu ON pop.open_id = pu.open_id " + "WHERE  order_id = #{orderId,jdbcType=BIGINT}" })
+			+ "LEFT JOIN pc_user pu ON pop.open_id = pu.open_id "
+			+ "WHERE  order_id = #{orderId,jdbcType=BIGINT} AND pop.status != '0' " })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
@@ -220,4 +221,19 @@ public interface OrderDAO {
 			@Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER) })
 	List<OrderPassenger> getPassengerList(long orderId);
 
+	/**
+	 * 取消订单
+	 * 
+	 * @return
+	 */
+	@Update({ "update pc_order set status = 3 where id =  #{orderId,jdbcType=BIGINT}" })
+	int channelOrder(@Param("orderId") long orderId);
+
+	/**
+	 * 客满发车
+	 * 
+	 * @return
+	 */
+	@Update({ "update pc_order set status = 1 where id =  #{orderId,jdbcType=BIGINT}" })
+	int subReleaseOrder(@Param("orderId") long orderId);
 }

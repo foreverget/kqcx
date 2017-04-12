@@ -17,6 +17,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.common.Constants;
+import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.OrderDAO;
 import com.dc.kq.pinche.dao.OrderPassengerDAO;
 import com.dc.kq.pinche.dmo.OrderInfo;
@@ -222,29 +223,30 @@ public class OrderServiceImpl implements OrderService {
 	 * @param page
 	 * @param size
 	 * @param openId
-	 * @param type 0：历史订单，1：今天，2：明天，3：后天
+	 * @param type
+	 *            0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
 	@Override
-	public BaseResponse getYcOrderList(int page, int size, String openId,int type) {
+	public BaseResponse getYcOrderList(int page, int size, String openId, int type) {
 		BaseResponse resp = new BaseResponse();
 		List<OrderInfo> list = new ArrayList<OrderInfo>();
 		try {
-		    //获取当前日期  
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
-			String time= sdf.format(new Date());
-	        if(type == Constants.ORDER_SEARCH_TYPE_TOM){//明天
-				 Calendar calendar = new GregorianCalendar();
-				 calendar.setTime(new Date());
-				 calendar.add(calendar.DATE,1);
-				 time= sdf.format(calendar.getTime());
-			}else if(type == Constants.ORDER_SEARCH_TYPE_AFT){//后天
-				 Calendar calendar = new GregorianCalendar();
-				 calendar.setTime(new Date());
-				 calendar.add(calendar.DATE,2);
-				 time= sdf.format(calendar.getTime());
+			// 获取当前日期
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String time = sdf.format(new Date());
+			if (type == Constants.ORDER_SEARCH_TYPE_TOM) {// 明天
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(new Date());
+				calendar.add(calendar.DATE, 1);
+				time = sdf.format(calendar.getTime());
+			} else if (type == Constants.ORDER_SEARCH_TYPE_AFT) {// 后天
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(new Date());
+				calendar.add(calendar.DATE, 2);
+				time = sdf.format(calendar.getTime());
 			}
-			list = orderDao.getOrderList(openId, (page - 1) * size, size,type,time);
+			list = orderDao.getOrderList(openId, (page - 1) * size, size, type, time);
 			resp.setValue(list);
 		} catch (Exception e) {
 			LOGGER.error("getYcOrderList error ", e);
@@ -270,19 +272,35 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	/**
-	 * 历史订单--我的出车单
+	 * 我的出车单
 	 * 
 	 * @param page
 	 * @param size
 	 * @param openId
+	 * @param type
+	 *            0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
 	@Override
-	public BaseResponse getCcOrderList(int page, int size, String openId) {
+	public BaseResponse getCcOrderList(int page, int size, String openId, int type) {
 		BaseResponse resp = new BaseResponse();
 		List<OrderInfo> list = new ArrayList<OrderInfo>();
 		try {
-			list = orderDao.getCcOrderList(openId, (page - 1) * size, size);
+			// 获取当前日期
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String time = sdf.format(new Date());
+			if (type == Constants.ORDER_SEARCH_TYPE_TOM) {// 明天
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(new Date());
+				calendar.add(calendar.DATE, 1);
+				time = sdf.format(calendar.getTime());
+			} else if (type == Constants.ORDER_SEARCH_TYPE_AFT) {// 后天
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(new Date());
+				calendar.add(calendar.DATE, 2);
+				time = sdf.format(calendar.getTime());
+			}
+			list = orderDao.getCcOrderList(openId, (page - 1) * size, size, type, time);
 			resp.setValue(list);
 		} catch (Exception e) {
 			LOGGER.error("getCcOrderList error ", e);
@@ -293,6 +311,7 @@ public class OrderServiceImpl implements OrderService {
 	/**
 	 * 获取乘客列表
 	 * 
+	 * @param orderId
 	 * @return
 	 */
 	public List<OrderPassenger> getPassengerList(long orderId) {
@@ -304,4 +323,92 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return list;
 	}
+
+	/**
+	 * 取消订单
+	 * 
+	 * @param openId
+	 * @param orderId
+	 * @return
+	 */
+	@Override
+	public BaseResponse channelOrder(String openId, long orderId) {
+		BaseResponse resp = new BaseResponse();
+		try {
+			// 根据order查询订单详情
+			OrderInfo order = orderDao.selectOrderById(orderId);
+			if (null != order) {
+				if (order.getOpenId().equals(openId)) {
+					orderDao.channelOrder(orderId);
+					// TODO 取消订单后向订单中乘客发送推送消息
+				} else {
+					resp.setEnum(ResponseEnum.OPERATION_ULTRA_VIRES);
+				}
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+			}
+		} catch (Exception e) {
+			LOGGER.error("channelOrder error ", e);
+		}
+		return resp;
+	}
+
+	/**
+	 * 客满发车
+	 * 
+	 * @param openId
+	 * @param orderId
+	 * @return
+	 */
+	@Override
+	public BaseResponse subReleaseOrder(String openId, long orderId) {
+		BaseResponse resp = new BaseResponse();
+		try {
+			// 根据order查询订单详情
+			OrderInfo order = orderDao.selectOrderById(orderId);
+			if (null != order) {
+				if (order.getOpenId().equals(openId)) {
+					orderDao.subReleaseOrder(orderId);
+				} else {
+					resp.setEnum(ResponseEnum.OPERATION_ULTRA_VIRES);
+				}
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+			}
+		} catch (Exception e) {
+			LOGGER.error("subReleaseOrder error ", e);
+		}
+		return resp;
+	}
+
+	/**
+	 * 移除乘客
+	 * 
+	 * @param orderId
+	 * @param openId
+	 * @param opId
+	 *            被移除乘客openId
+	 * @return
+	 */
+	@Override
+	public BaseResponse removePassenger(long orderId, String openId, String opId) {
+		BaseResponse resp = new BaseResponse();
+		try {
+			// 根据order查询订单详情
+			OrderInfo order = orderDao.selectOrderById(orderId);
+			if (null != order) {
+				if (order.getOpenId().equals(openId)) {
+					orderPassengerDao.updateStatusByParam(orderId, opId);
+				} else {
+					resp.setEnum(ResponseEnum.OPERATION_ULTRA_VIRES);
+				}
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+			}
+		} catch (Exception e) {
+			LOGGER.error("removePassenger error ", e);
+		}
+		return resp;
+	}
+
 }

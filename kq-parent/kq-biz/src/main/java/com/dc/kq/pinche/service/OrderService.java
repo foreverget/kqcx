@@ -7,6 +7,7 @@ import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
 import com.dc.kq.pinche.dmo.OrderPassenger;
 import com.dc.kq.pinche.request.OrderInfoRequest;
+import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 
 /**
  * 订单service
@@ -100,10 +101,11 @@ public interface OrderService {
 	 * @param page
 	 * @param size
 	 * @param openId
-	 * @param type 0：历史订单，1：今天，2：明天，3：后天
+	 * @param type
+	 *            0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
-	public BaseResponse getYcOrderList(int page, int size, String openId,int type);
+	public BaseResponse getYcOrderList(int page, int size, String openId, int type);
 
 	/**
 	 * 根据orderId 获取 order信息
@@ -114,14 +116,16 @@ public interface OrderService {
 	public OrderInfo getOrderDetail(long orderId);
 
 	/**
-	 * 历史订单--我的出车单
+	 * 我的出车单
 	 * 
 	 * @param page
 	 * @param size
 	 * @param openId
+	 * @param type
+	 *            0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
-	public BaseResponse getCcOrderList(int page, int size, String openId);
+	public BaseResponse getCcOrderList(int page, int size, String openId, int type);
 
 	/**
 	 * 获取乘客列表
@@ -129,4 +133,32 @@ public interface OrderService {
 	 * @return
 	 */
 	public List<OrderPassenger> getPassengerList(long orderId);
+
+	/**
+	 * 取消订单
+	 * 
+	 * @param openId
+	 * @param orderId
+	 * @return
+	 */
+	public BaseResponse channelOrder(String openId, long orderId);
+
+	/**
+	 * 客满发车
+	 * 
+	 * @param openId
+	 * @param orderId
+	 * @return
+	 */
+	public BaseResponse subReleaseOrder(String openId, long orderId);
+
+	/**
+	 * 移除乘客
+	 * 
+	 * @param orderId
+	 * @param openId
+	 * @param opId 被移除乘客openId
+	 * @return
+	 */
+	public BaseResponse removePassenger(long orderId, String openId, String opId);
 }

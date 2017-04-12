@@ -184,13 +184,14 @@ public class OrderController {
 	 * @param page
 	 * @param size
 	 * @param openId
-	 * @param type 0：历史订单，1：今天，2：明天，3：后天
+	 * @param type
+	 *            0：历史订单，1：今天，2：明天，3：后天
 	 * @return
 	 */
 	@RequestMapping("getYcOrder")
 	@ResponseBody
-	public BaseResponse getYcOrderList(HttpServletRequest request, int page, int size, String openId,int type) {
-		BaseResponse resp = orderService.getYcOrderList(page, size, openId,type);
+	public BaseResponse getYcOrderList(HttpServletRequest request, int page, int size, String openId, int type) {
+		BaseResponse resp = orderService.getYcOrderList(page, size, openId, type);
 		resp.setOpenId(openId);
 		return resp;
 	}
@@ -212,6 +213,22 @@ public class OrderController {
 	}
 
 	/**
+	 * 跳转到我的出车单[3天内]的页面
+	 * 
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("toMyReleaseOrder")
+	public String myReleaseOrder(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/myReleaseOrder";
+	}
+
+	/**
 	 * 我的出车单
 	 * 
 	 * @param request
@@ -222,14 +239,33 @@ public class OrderController {
 	 */
 	@RequestMapping("getCcOrder")
 	@ResponseBody
-	public BaseResponse getCcOrderList(HttpServletRequest request, int page, int size, String openId) {
-		BaseResponse resp = orderService.getCcOrderList(page, size, openId);
+	public BaseResponse getCcOrderList(HttpServletRequest request, int page, int size, String openId, int type) {
+		BaseResponse resp = orderService.getCcOrderList(page, size, openId, type);
 		resp.setOpenId(openId);
 		return resp;
 	}
 
 	/**
 	 * 跳转到我的出车单详情页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toReleaseOrderDetail")
+	public String toReleaseOrderDetail(HttpServletRequest request, long orderId, String openId) {
+		// 根据orderId 查询order信息
+		OrderInfo orderInfo = orderService.getOrderDetail(orderId);
+		// 通过orderId查询乘客信息
+		List<OrderPassenger> opList = orderService.getPassengerList(orderId);
+		request.setAttribute("openId", openId);
+		request.setAttribute("order", orderInfo);
+		request.setAttribute("opList", opList);
+		return "order/releaseOrderDetail";
+	}
+
+	/**
+	 * 跳转到历史订单----我的出车单详情页面
 	 * 
 	 * @param request
 	 * @param openId
@@ -245,6 +281,56 @@ public class OrderController {
 		request.setAttribute("order", orderInfo);
 		request.setAttribute("opList", opList);
 		return "order/ccOrderDetail";
+	}
+
+	/**
+	 * 取消订单
+	 * 
+	 * @param request
+	 * @param orderId
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("channelOrder")
+	@ResponseBody
+	public BaseResponse channelOrder(HttpServletRequest request, long orderId, String openId) {
+		BaseResponse resp = orderService.channelOrder(openId, orderId);
+		resp.setOpenId(openId);
+		return resp;
+	}
+
+	/**
+	 * 客满发车
+	 * 
+	 * @param request
+	 * @param orderId
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("subReleaseOrder")
+	@ResponseBody
+	public BaseResponse subReleaseOrder(HttpServletRequest request, long orderId, String openId) {
+		BaseResponse resp = orderService.subReleaseOrder(openId, orderId);
+		resp.setOpenId(openId);
+		return resp;
+	}
+
+	/**
+	 * 移除乘客
+	 * 
+	 * @param request
+	 * @param orderId
+	 * @param openId
+	 * @param opId
+	 *            被移除乘客openId
+	 * @return
+	 */
+	@RequestMapping("removePassenger")
+	@ResponseBody
+	public BaseResponse removePassenger(HttpServletRequest request, long orderId, String openId, String opId) {
+		BaseResponse resp = orderService.removePassenger(orderId, openId, opId);
+		resp.setOpenId(openId);
+		return resp;
 	}
 
 }

@@ -411,4 +411,60 @@ public class OrderServiceImpl implements OrderService {
 		return resp;
 	}
 
+	/**
+	 * 我要约车页面列表
+	 * 
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @param type
+	 * @return
+	 */
+	@Override
+	public BaseResponse getTakeOrderList(int page, int size, String openId, int type) {
+		BaseResponse resp = new BaseResponse();
+		// TODO 判断微信用户是否存在
+		List<OrderInfo> list = new ArrayList<OrderInfo>();
+		try {
+			// 获取当前日期
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String time = sdf.format(new Date());
+			if (type == Constants.ORDER_SEARCH_TYPE_TOM) {// 明天
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(new Date());
+				calendar.add(calendar.DATE, 1);
+				time = sdf.format(calendar.getTime());
+			} else if (type == Constants.ORDER_SEARCH_TYPE_AFT) {// 后天
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(new Date());
+				calendar.add(calendar.DATE, 2);
+				time = sdf.format(calendar.getTime());
+			}
+			list = orderDao.getTakeOrderList((page - 1) * size, size, type, time);
+			resp.setValue(list);
+		} catch (Exception e) {
+			LOGGER.error("getUserTakeList error ", e);
+		}
+		return resp;
+	}
+
+	/**
+	 * 我约
+	 * 
+	 * @param orderId
+	 * @param openId
+	 * @param count
+	 * @param version
+	 * 
+	 * @return
+	 */
+	@Override
+	public BaseResponse takeOrder(long orderId, String openId, int count, int version) {
+		// TODO 根据orderId查询订单信息
+		// TODO 比较version 如果version不相等 则订单信息已经发生了变化，则返回
+		// TODO version 相等  更新订单表，更新version和剩余座位，剩余座位等于之前的之前剩余座位-此次乘车人数
+		// TODO 更新乘车人与订单关系表
+		return null;
+	}
+
 }

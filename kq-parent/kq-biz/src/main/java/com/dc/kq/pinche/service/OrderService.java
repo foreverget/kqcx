@@ -7,7 +7,6 @@ import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dmo.OrderInfo;
 import com.dc.kq.pinche.dmo.OrderPassenger;
 import com.dc.kq.pinche.request.OrderInfoRequest;
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 
 /**
  * 订单service
@@ -157,8 +156,30 @@ public interface OrderService {
 	 * 
 	 * @param orderId
 	 * @param openId
-	 * @param opId 被移除乘客openId
+	 * @param opId
+	 *            被移除乘客openId
 	 * @return
 	 */
 	public BaseResponse removePassenger(long orderId, String openId, String opId);
+
+	/**
+	 * 我要约车页面列表
+	 * 
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @param type
+	 * @return
+	 */
+	public BaseResponse getTakeOrderList(int page, int size, String openId, int type);
+
+	/**
+	 * 我约
+	 * 
+	 * @param orderId
+	 * @param openId
+	 * @param count
+	 * @return
+	 */
+	public BaseResponse takeOrder(long orderId, String openId, int count, int version);
 }

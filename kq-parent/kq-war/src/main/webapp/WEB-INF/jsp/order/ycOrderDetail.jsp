@@ -20,17 +20,32 @@
 				${order.startAddr}</p>
 			<p class="weui_media_desc list-line-margin-bottom">终点:
 				${order.endAddr}</p>
-			<p class="weui_media_desc list-line-margin-bottom">订单状态:
-				${order.status}</p>
-			<br />
+			<p class="weui_media_desc list-line-margin-bottom">
+				订单状态:
+				<c:if test="${order.status == 0}">
+					等客中
+				</c:if>
+				<c:if test="${order.status == 1}">
+					客满发车
+				</c:if>
+				<c:if test="${order.status == 2}">
+					已送达
+				</c:if>
+				<c:if test="${order.status == 3}">
+					订单已取消
+				</c:if>
+			</p>
 		</div>
 	</div>
 	<div class="weui_media_box">
-		<p class="weui_media_desc list-line-margin-bottom">乘客信息</p>
+		<p class="weui_media_title list-line-margin-bottom">司机信息</p>
 		<p class="weui_media_desc list-line-margin-bottom">司机:
 			${order.name}</p>
 		<p class="weui_media_desc list-line-margin-bottom">电话:
 			${order.mobile}</p>
+	</div>
+	<div class="weui_media_box">
+		<p class="weui_media_title list-line-margin-bottom">车辆信息</p>
 		<p class="weui_media_desc list-line-margin-bottom">车型:
 			${order.plates}</p>
 		<p class="weui_media_desc list-line-margin-bottom">车牌:

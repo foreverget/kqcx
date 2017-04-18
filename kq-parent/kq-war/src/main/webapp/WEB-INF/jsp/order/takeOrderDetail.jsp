@@ -8,13 +8,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>出车单详情</title>
+<title>详情</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
 <body ontouchstart style="background-color: #FFFFFF;">
-	<input type="hidden" name="orderId" value="${order.id}" />
-	<input type="hidden" name="openId" value="${order.openId}" />
 	<div class="weui_media_box weui_media_appmsg">
 		<div class="weui_media_bd">
 			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;${order.price}&nbsp;元</h4>
@@ -22,7 +20,7 @@
 				${order.startAddr}</p>
 			<p class="weui_media_desc list-line-margin-bottom">终点:
 				${order.endAddr}</p>
-			<p class="weui_media_desc">
+			<p class="weui_media_desc list-line-margin-bottom">
 				订单状态:
 				<c:if test="${order.status == 0}">
 					等客中
@@ -52,28 +50,18 @@
 			${order.plates}</p>
 		<p class="weui_media_desc list-line-margin-bottom">车牌:
 			${order.plates}</p>
-		<p class="weui_media_desc list-line-margin-bottom">座位数量:
+		<p class="weui_media_desc list-line-margin-bottom">颜色:
 			${order.plates}</p>
-		<p class="weui_media_desc ">颜色: ${order.plates}</p>
+		<p class="weui_media_desc list-line-margin-bottom">空余座位:
+			${order.reqNum}</p>
 	</div>
 	<div class="weui_media_box">
-		<div class="weui_media_title list-line-margin-bottom">乘客信息</div>
-		<c:forEach var="op" items="${opList}">
-			<div class="weui_media_desc list-line-margin-bottom  ">
-				${op.name}&nbsp;&nbsp;&nbsp;&nbsp;${op.count}人&nbsp;&nbsp;&nbsp;&nbsp;${op.mobile}
-				<c:if test="${order.status == '0'}">
-					<a id="tr_id_${op.openId}" data-openId="${op.openId}"
-						class="weui_btn weui_btn_mini weui_btn_warn">移除</a>
-				</c:if>
-			</div>
-		</c:forEach>
+		<p class="weui_media_desc list-line-margin-bottom">乘车人数:</p>
+		<input class="weui_input" type="number" name="count" placeholder="输入乘车人数"/>
 	</div>
-	<div class="weui_btn_area weui_btn_area_inline">
-		<c:if test="${order.status == '0'}">
-			<a class="weui_btn weui_btn_warn" id="channelBtn">取消订单</a>
-			<a class="weui_btn weui_btn_primary" id="okBtn">客满出发</a>
-		</c:if>
+	<div class="weui_btn_area">
+		<a class="weui_btn weui_btn_primary" id="takeBtn">我约</a>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/releaseOrderDetail.js"></script>
+<script src="${ctx}/resource/js/order/takeOrderDetail.js"></script>
 </html>

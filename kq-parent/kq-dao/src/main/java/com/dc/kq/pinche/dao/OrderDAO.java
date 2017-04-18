@@ -236,4 +236,34 @@ public interface OrderDAO {
 	 */
 	@Update({ "update pc_order set status = 1 where id =  #{orderId,jdbcType=BIGINT}" })
 	int subReleaseOrder(@Param("orderId") long orderId);
+
+	/**
+	 * 
+	 * @param opendId
+	 * @param startPage
+	 * @param size
+	 * @param type
+	 * @param time
+	 * @return
+	 */
+	@Select({ "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
+			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order  "
+			+ "WHERE status = '0' "
+			+ " AND go_time like CONCAT(#{time},'%')"
+			+ " ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}" })
+	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "mobile", property = "mobile", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "go_time", property = "goTime", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "start_addr", property = "startAddr", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "end_addr", property = "endAddr", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "plates", property = "plates", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
+			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
+			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
+			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
+	List<OrderInfo> getTakeOrderList( @Param("startPage") int startPage,
+			@Param("size") int size, @Param("type") int type, @Param("time") String time);
+
 }

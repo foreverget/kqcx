@@ -124,7 +124,7 @@ function loadFn(loadType, me, itemIndex) {
 								statusStr = "已取消";
 							}
 							result += '<a id="my_yc_list_'
-									+ +arr[i].id
+									+ arr[i].id
 									+ '" data-id="'
 									+ arr[i].id
 									+ '"  class="weui_media_box weui_media_appmsg">'

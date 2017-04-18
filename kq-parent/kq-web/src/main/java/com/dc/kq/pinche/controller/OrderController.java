@@ -333,4 +333,54 @@ public class OrderController {
 		return resp;
 	}
 
+	/**
+	 * 获取我要约车页面列表
+	 * 
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @param openId
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("getTakeOrderList")
+	@ResponseBody
+	public BaseResponse getTakeOrderList(HttpServletRequest request, int page, int size, String openId, int type) {
+		BaseResponse resp = orderService.getTakeOrderList(page, size, openId, type);
+		resp.setOpenId(openId);
+		return resp;
+	}
+
+	/**
+	 * 跳转到我要约车单详情页面
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("toTakeOrderDetail")
+	public String toTakeOrderDetail(HttpServletRequest request, long orderId, String openId) {
+		// 根据orderId 查询order信息
+		OrderInfo orderInfo = orderService.getOrderDetail(orderId);
+		request.setAttribute("openId", openId);
+		request.setAttribute("order", orderInfo);
+		return "order/takeOrderDetail";
+	}
+
+	/**
+	 * 我约
+	 * 
+	 * @param request
+	 * @param orderId
+	 * @param openId
+	 * @param count
+	 * @param version
+	 * @return
+	 */
+	@RequestMapping("takeOrder")
+	@ResponseBody
+	public BaseResponse takeOrder(HttpServletRequest request, long orderId, String openId, int count, int version) {
+
+		return null;
+	}
 }

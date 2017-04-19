@@ -48,7 +48,7 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "SELECT", "id,open_id, name, mobile, go_time, ",
-			"start_addr, end_addr, plates, req_num, price, status, score, ",
+			"start_addr, end_addr, plates, req_num,surplus_seat, price, status, score, ",
 			"create_time, create_by, version, update_time, update_by ", "FROM pc_order ",
 			"WHERE id = #{orderId,jdbcType=BIGINT}" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
@@ -60,6 +60,7 @@ public interface OrderDAO {
 			@Result(column = "end_addr", property = "endAddr", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "plates", property = "plates", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "req_num", property = "reqNum", jdbcType = JdbcType.INTEGER),
+			@Result(column = "surplus_seat", property = "surplusSeat", jdbcType = JdbcType.INTEGER),
 			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
@@ -112,6 +113,7 @@ public interface OrderDAO {
 			"<if test=\"startAddr != null\">start_addr=#{startAddr},</if>",
 			"<if test=\"endAddr != null\">end_addr=#{endAddr},</if>",
 			"<if test=\"plates != null\">plates=#{plates},</if>", "<if test=\"reqNum != null\">req_num=#{reqNum},</if>",
+			"<if test=\"surplusSeat != null\">surplus_seat=#{surplusSeat},</if>",
 			"<if test=\"price != null\">price=#{price},</if>", "<if test=\"status != null\">status=#{status},</if>",
 			"<if test=\"score != null\">score=#{score},</if>", "<if test=\"version != null\">version=#{version},</if>",
 			"<if test=\"updateTime != null\">update_time=#{updateTime},</if>",
@@ -247,8 +249,7 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
-			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order  "
-			+ "WHERE status = '0' "
+			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order  " + "WHERE status = '0' "
 			+ " AND go_time like CONCAT(#{time},'%')"
 			+ " ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
@@ -263,7 +264,7 @@ public interface OrderDAO {
 			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
-	List<OrderInfo> getTakeOrderList( @Param("startPage") int startPage,
-			@Param("size") int size, @Param("type") int type, @Param("time") String time);
+	List<OrderInfo> getTakeOrderList(@Param("startPage") int startPage, @Param("size") int size,
+			@Param("type") int type, @Param("time") String time);
 
 }

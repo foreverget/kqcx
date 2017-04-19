@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,10 @@ import com.dc.kq.pinche.common.Constants;
 import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.OrderDAO;
 import com.dc.kq.pinche.dao.OrderPassengerDAO;
+import com.dc.kq.pinche.dao.UserDAO;
 import com.dc.kq.pinche.dmo.OrderInfo;
 import com.dc.kq.pinche.dmo.OrderPassenger;
+import com.dc.kq.pinche.dmo.UserInfo;
 import com.dc.kq.pinche.request.OrderInfoRequest;
 
 /**
@@ -41,20 +42,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderPassengerDAO orderPassengerDao;
 
-	@Override
-	public BaseResponse myBookOrderList(String dateType) {
-		return null;
-	}
-
-	@Override
-	public BaseResponse myReleaseOrderList(String dateType) {
-		return null;
-	}
-
-	@Override
-	public BaseResponse myHistoryOrderList(String orderType) {
-		return null;
-	}
+	@Autowired
+	private UserDAO userDAO;
 
 	@Transactional
 	@Override
@@ -108,115 +97,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderInfo;
 	}
 
-	@Override
-	public List<OrderInfo> findReleaseOrderList(Map<String, Object> params, String dateType) {
-		List<OrderInfo> orderList = orderDao.selectOrderByParams(params, dateType);
-		return orderList;
-	}
-
-	@Transactional
-	@Override
-	public BaseResponse doBookOrder(String userId, String orderId, String count) {
-		BaseResponse resp = new BaseResponse();
-		// 检查该乘客是否重复预约本订单 待添加
-
-		if (Integer.valueOf(count) <= 0) {
-			resp.setValue("预约失败预约座位数需大于0");
-			LOGGER.error("doBookOrder error userId=" + userId + " orderId=" + orderId + " count=" + count);
-			return resp;
-		}
-		// 获取订单
-		OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
-		if (null == orderInfo) {
-			resp.setValue("预约失败无法查到" + orderId + "订单信息");
-			LOGGER.error("doBookOrder error orderId=" + orderId);
-			return resp;
-		}
-		// 当前剩余座位数大于等于预约座位数
-		if (orderInfo.getReqNum() >= Integer.valueOf(count)) {
-			// 修改订单剩余乘客数
-			orderInfo.setReqNum(orderInfo.getReqNum() - Integer.valueOf(count));
-			// 如果订单剩余乘客数为0，订单已满
-			if (orderInfo.getReqNum() == 0) {
-				orderInfo.setStatus(Constants.ORDER_STATUS_FULL);
-			}
-			// 更新订单
-			orderInfo.setUpdateTime(new Date());
-			orderInfo.setUpdateBy(userId);
-			orderInfo.setVersion(orderInfo.getVersion() + 1);
-			orderDao.updateOrderById(orderInfo);
-			// 添加乘客订单关系
-			OrderPassenger orderPassenger = new OrderPassenger();
-			orderPassenger.setUserId(Long.valueOf(userId));
-			orderPassenger.setOrderId(Long.valueOf(orderId));
-			orderPassenger.setStatus(Constants.ORDER_PASSENGER_STATUS_OK);
-			orderPassenger.setCount(Integer.valueOf(count));
-			orderPassenger.setCreateTime(new Date());
-			orderPassenger.setCreateBy(userId);
-			orderPassenger.setVersion(0);
-			orderPassengerDao.insert(orderPassenger);
-			resp.setValue("预约成功");
-		} else {
-			resp.setValue("预约失败该订单" + orderId + "已满");
-			LOGGER.error("doBookOrder error orderId=" + orderId);
-		}
-		return resp;
-	}
-
-	@Transactional
-	@Override
-	public BaseResponse doCancelOrderByDriver(String orderId) {
-		BaseResponse resp = new BaseResponse();
-		// 检查是否可以取消，如果已经有人约车，禁止取消？ 待添加
-
-		// 取消出车单
-		// 获取订单
-		OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
-		if (null == orderInfo) {
-			resp.setValue("取消失败无法查到" + orderId + "订单信息");
-			LOGGER.error("doBookOrder error orderId=" + orderId);
-			return resp;
-		}
-		orderInfo.setStatus(Constants.ORDER_STATUS_CANCLE);
-		// 更新订单
-		orderInfo.setUpdateTime(new Date());
-		orderInfo.setUpdateBy(orderInfo.getCreateBy());
-		orderInfo.setVersion(orderInfo.getVersion() + 1);
-		orderDao.updateOrderById(orderInfo);
-		resp.setValue("取消出车单成功");
-		return resp;
-	}
-
-	@Transactional
-	@Override
-	public BaseResponse doCancelOrderByPassenger(String orderId, String userId) {
-		BaseResponse resp = new BaseResponse();
-		// 获取乘客订单关系，状态设置为取消
-		OrderPassenger orderPassenger = orderPassengerDao.selectOrderPassengerById(userId, orderId);
-		if (null != orderPassenger) {
-			orderPassenger.setStatus(Constants.ORDER_PASSENGER_STATUS_CANCLE);
-			orderPassenger.setUpdateTime(new Date());
-			orderPassenger.setUpdateBy("司机");
-			orderPassenger.setVersion(orderPassenger.getVersion() + 1);
-			orderPassengerDao.updateOrderPassengerById(orderPassenger);
-			// 更新出车订单座位数及状态
-			OrderInfo orderInfo = orderDao.selectOrderById(Long.valueOf(orderId));
-			// 归还座位
-			orderInfo.setReqNum(orderInfo.getReqNum() + orderPassenger.getCount());
-			// 状态改为已发布 未满
-			orderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
-			orderInfo.setUpdateTime(new Date());
-			orderInfo.setUpdateBy("司机");
-			orderInfo.setVersion(orderInfo.getVersion() + 1);
-			orderDao.updateOrderById(orderInfo);
-			resp.setValue("取消成功");
-		} else {
-			resp.setValue("取消失败 orderId=" + orderId + " userId=" + userId);
-
-		}
-		return resp;
-	}
-
 	/**
 	 * 历史订单--我的约车单
 	 * 
@@ -250,6 +130,7 @@ public class OrderServiceImpl implements OrderService {
 			resp.setValue(list);
 		} catch (Exception e) {
 			LOGGER.error("getYcOrderList error ", e);
+			resp.setEnum(ResponseEnum.GET_TAKE_LIST_ERROR);
 		}
 		return resp;
 	}
@@ -407,6 +288,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 		} catch (Exception e) {
 			LOGGER.error("removePassenger error ", e);
+			resp.setEnum(ResponseEnum.GET_TAKE_LIST_ERROR);
 		}
 		return resp;
 	}
@@ -444,6 +326,7 @@ public class OrderServiceImpl implements OrderService {
 			resp.setValue(list);
 		} catch (Exception e) {
 			LOGGER.error("getUserTakeList error ", e);
+			resp.setEnum(ResponseEnum.GET_TAKE_LIST_ERROR);
 		}
 		return resp;
 	}
@@ -460,11 +343,44 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	@Override
 	public BaseResponse takeOrder(long orderId, String openId, int count, int version) {
-		// TODO 根据orderId查询订单信息
-		// TODO 比较version 如果version不相等 则订单信息已经发生了变化，则返回
-		// TODO version 相等  更新订单表，更新version和剩余座位，剩余座位等于之前的之前剩余座位-此次乘车人数
-		// TODO 更新乘车人与订单关系表
-		return null;
+		BaseResponse resp = new BaseResponse();
+		try {
+			// 根据orderId查询订单信息
+			OrderInfo order = orderDao.selectOrderById(orderId);
+			if (null == order) {
+				resp.setEnum(ResponseEnum.NO_ORDER);
+				return resp;
+			}
+			// 比较version 如果version不相等 则订单信息已经发生了变化，则返回
+			if (order.getVersion() != version) {
+				resp.setEnum(ResponseEnum.ORDER_VERSION_ERROR);
+				return resp;
+			}
+			// 比较剩余座位数如果小于此次乘车人数则返回错误提示
+			if (order.getSurplusSeat() < count) {
+				resp.setEnum(ResponseEnum.NO_SEAT);
+				return resp;
+			}
+			// version 相等 更新订单表，更新version和剩余座位，剩余座位等于之前的之前剩余座位-此次乘车人数
+			order.setSurplusSeat(order.getSurplusSeat() - count);
+			orderDao.updateOrderById(order);
+			// 根据openId查询乘车人信息
+			UserInfo userInfo = userDAO.selectUserByOpenId(openId);
+			// 新增乘车人与订单关系表
+			OrderPassenger orderPassenger = new OrderPassenger();
+			orderPassenger.setOrderId(orderId);
+			orderPassenger.setOpenId(openId);
+			orderPassenger.setStatus(Constants.ORDER_PASSENGER_STATUS_OK);
+			orderPassenger.setCount(count);
+			orderPassenger.setName(userInfo.getName());
+			orderPassenger.setMobile(userInfo.getMobile());
+			orderPassengerDao.insert(orderPassenger);
+		} catch (Exception e) {
+			LOGGER.error("takeOrder error ", e);
+			resp.setEnum(ResponseEnum.TAKE_ERROR);
+			// TODO 回滚数据
+		}
+		return resp;
 	}
 
 }

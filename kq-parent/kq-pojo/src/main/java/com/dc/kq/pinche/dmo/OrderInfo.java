@@ -64,6 +64,11 @@ public class OrderInfo extends BaseEntity {
 	 */
 	private String status;
 	/**
+	 * 剩余座位数
+	 */
+	private int surplusSeat;
+
+	/**
 	 * @return the id
 	 */
 	public long getId() {
@@ -257,4 +262,13 @@ public class OrderInfo extends BaseEntity {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public int getSurplusSeat() {
+		return surplusSeat;
+	}
+
+	public void setSurplusSeat(int surplusSeat) {
+		this.surplusSeat = surplusSeat;
+	}
+
 }

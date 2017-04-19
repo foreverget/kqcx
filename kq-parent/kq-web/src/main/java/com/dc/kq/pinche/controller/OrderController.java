@@ -57,36 +57,6 @@ public class OrderController {
 		return "order/take";
 	}
 
-	/**
-	 * 用户订单查询
-	 * 
-	 * @param userId
-	 * @param userType
-	 * @param dateType
-	 * @param startPage
-	 * @param keyValue
-	 * @return
-	 */
-	@RequestMapping("userOrderList.json")
-	@ResponseBody
-	public BaseResponse userOrderList(long userId, int userType, int dateType, int startPage, String keyValue) {
-		return null;
-	}
-
-	/**
-	 * 操作订单
-	 * 
-	 * @param orderId
-	 * @param type
-	 * @param opUserId
-	 * @param keyValue
-	 * @return
-	 */
-	@RequestMapping("optionOrder.json")
-	@ResponseBody
-	public BaseResponse optionOrder(long orderId, int type, long opUserId, String keyValue) {
-		return null;
-	}
 
 	/**
 	 * 出车发布请求
@@ -98,44 +68,6 @@ public class OrderController {
 	@ResponseBody
 	public BaseResponse release(@RequestBody OrderInfoRequest orderInfoRequest) {
 		return orderService.doReleaseOrder(orderInfoRequest);
-	}
-
-	/**
-	 * 我要约车列表页面
-	 * 
-	 * @param request
-	 * @param openId
-	 * @return
-	 */
-	@RequestMapping("getOrderList")
-	@ResponseBody
-	public BaseResponse getOrderList(HttpServletRequest request, String openId) {
-		BaseResponse r = new BaseResponse();
-		String page = request.getParameter("page");
-		String size = request.getParameter("size");
-		String dateType = request.getParameter("dateType");
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("page", page);
-		params.put("size", size);
-		List<OrderInfo> orderList = orderService.findReleaseOrderList(params, dateType);
-		request.setAttribute("orderList", orderList);
-		r.setValue(orderList);
-		return r;
-	}
-
-	/**
-	 * 乘客约车
-	 * 
-	 * @param userId
-	 * @param orderId
-	 * @param count
-	 * @param keyValue
-	 * @return
-	 */
-	@RequestMapping("bookOrder.json")
-	@ResponseBody
-	public BaseResponse bookOrder(String userId, String orderId, String count, String keyValue) {
-		return orderService.doBookOrder(userId, orderId, count);
 	}
 
 	/**

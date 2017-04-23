@@ -30,7 +30,7 @@ public class WeXinController {
 
 	@Autowired
 	private OAuthService oAuthService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -61,20 +61,28 @@ public class WeXinController {
 				// 执行保存绑定
 				String openId = oauth2Token.getOpenId();
 				request.setAttribute("openId", openId);
-				
+
 				LOGGER.info("微信的openId=" + openId);
-				//根据openid查询用户表
+				// 根据openid查询用户表
 				UserInfo userInfo = userService.selectUserByOpenId(openId);
-				if(userInfo == null ){//用户不存在跳转到注册页面
-					return "redirect:/user/toRegister?openId="+openId; 
+				if (userInfo == null) {// 用户不存在跳转到注册页面
+					return "redirect:/user/toRegister?openId=" + openId;
 
 				}
-			    //存在，根据state 跳转到不同的页面
+				// 存在，根据state 跳转到不同的页面
 				String state = request.getParameter("state");
-				switch(state){
-					case "1":
-						return "redirect:/user/toUserInfo?openId="+openId; 
-
+				LOGGER.info("state=" + state);
+				switch (state) {
+				case "1":// 我
+					return "redirect:/user/toUserInfo?openId=" + openId;
+				case "2":// 我的订单
+					return "redirect:/order/toMyOrder?openId=" + openId;
+				case "3":// 意见反馈
+					return "redirect:/user/toUserInfo?openId=" + openId;
+				case "4":// 乘客
+					return "redirect:/order/toTake?openId=" + openId;
+				case "5":// 车主
+					return "redirect:/order/toRelease?openId=" + openId;
 				}
 			}
 		} else {

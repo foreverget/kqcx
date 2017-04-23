@@ -62,7 +62,7 @@ function initBindEvent() {
 				var openId = $("[name=openId]").val();
 				var orderId = $(this).attr('data-id');
 				window.location.href = _ctx + "/order/toYcOrderDetail?orderId="
-						+ orderId + "&openId=1000";// + openId;
+						+ orderId + "&openId="+ openId;
 			});
 }
 /**
@@ -78,7 +78,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_td = 1;
 		}
 		_action = '/order/getYcOrder?type=1&page=' + page_td + '&size=' + size
-				+ '&openId=1000';
+				+ '&openId='+openId;
 		divId = '#td';
 		date_desc = '【今天】';
 
@@ -88,7 +88,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_tm = 1;
 		}
 		_action = '/order/getYcOrder?type=2&page=' + page_tm + '&size=' + size
-				+ '&openId=10001';
+				+ '&openId='+openId;
 		divId = '#tm';
 		date_desc = '【明天】';
 		break;
@@ -97,7 +97,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_ht = 1;
 		}
 		_action = '/order/getYcOrder?type=3&page=' + page_ht + '&size=' + size
-				+ '&openId=10001';
+				+ '&openId='+openId;
 		divId = '#ht';
 		date_desc = '【后天】';
 		break;

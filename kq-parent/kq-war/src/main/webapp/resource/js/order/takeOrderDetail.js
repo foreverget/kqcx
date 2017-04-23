@@ -15,7 +15,6 @@ $(function() {
 					return;
 				}
 				var openId = $('[name=openId]').val();
-				openId = 10001
 				var orderId = $('[name=orderId]').val();
 				$.ajax({
 					type : "POST",

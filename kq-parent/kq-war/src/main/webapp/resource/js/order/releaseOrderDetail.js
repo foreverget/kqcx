@@ -9,7 +9,6 @@ $(function() {
 			'click',
 			function() {
 				var openId =  $('[name=openId]').val();
-				openId = 10001
 				var orderId = $('[name=orderId]').val();
 				$.confirm("您确定要取消订单吗?", "确认取消?", function() {
 					$.ajax({
@@ -40,7 +39,6 @@ $(function() {
 	 */
 	$('#okBtn').on('click', function() {
 		var openId =  $('[name=openId]').val();
-		openId = 10001
 		var orderId = $('[name=orderId]').val();
 		$.ajax({
 			type : "POST",
@@ -67,7 +65,6 @@ $(function() {
 	 */
 	$('[id^=tr_id_]').on('click', function() {
 		var openId =  $('[name=openId]').val();
-		openId = 10001
 		var orderId = $('[name=orderId]').val();
 		//获取被踢的openId
 		var opId=$(this).attr('data-openId')

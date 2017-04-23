@@ -61,8 +61,13 @@ public class UserServiceImpl implements UserService {
 	public BaseResponse registerUser(UserInfo userInfo) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			long id = userDao.insert(userInfo);
-			resp.setValue(id);
+			UserInfo user = userDao.selectUserByOpenId(userInfo.getOpenId());
+			if (user == null) {
+				long id = userDao.insert(userInfo);
+				resp.setValue(id);
+			} else {
+				LOGGER.info("用户已存在直接登录");
+			}
 		} catch (Exception e) {
 			LOGGER.error("registeUser error ", e);
 		}

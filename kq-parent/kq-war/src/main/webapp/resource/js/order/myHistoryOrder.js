@@ -62,7 +62,7 @@ function initBindEvent() {
 				var orderId = $(this).attr('data-id');
 				window.location.href = _ctx
 						+ "/order/toYcOrderDetail?orderId=" + orderId
-						+ "&openId=1000";// + openId;
+						+ "&openId=" + openId;
 			});
 	//查看出车详情
 	$('[id^=cc_list_]').unbind('click').bind(
@@ -72,7 +72,7 @@ function initBindEvent() {
 				var orderId = $(this).attr('data-id');
 				window.location.href = _ctx
 						+ "/order/toCcOrderDetail?orderId=" + orderId
-						+ "&openId=10001";// + openId;
+						+ "&openId=" + openId;
 			});
 }
 /**
@@ -89,7 +89,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_yc = 1;
 		}
 		_action = '/order/getYcOrder?type=0&page=' + page_yc + '&size=' + size
-				+ '&openId=1000';
+				+ '&openId='+openId;
 		divId = '#yc';
 		aId_= "yc_list_";
 		break;
@@ -98,7 +98,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_cc = 1;
 		}
 		_action = '/order/getCcOrder?type=0&page=' + page_cc + '&size=' + size
-		+ '&openId=10001';
+		+ '&openId='+openId;
 		divId = '#cc';
 		aId_= "cc_list_";
 		break;

@@ -60,7 +60,6 @@ $(function() {
  */
 function initSelect() {
 	var openId = $('[name=openId]').val();
-	openId = "oNtfVw87HE6HpUC1QbyYZjhRVhr8";
 	initSelectAddr(openId);
 	initSelectCar(openId);
 }

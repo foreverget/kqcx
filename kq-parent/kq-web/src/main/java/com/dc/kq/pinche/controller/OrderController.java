@@ -309,7 +309,6 @@ public class OrderController {
 	@RequestMapping("takeOrder")
 	@ResponseBody
 	public BaseResponse takeOrder(HttpServletRequest request, long orderId, String openId, int count, int version) {
-
-		return null;
+		return orderService.takeOrder(orderId, openId, count, version);
 	}
 }

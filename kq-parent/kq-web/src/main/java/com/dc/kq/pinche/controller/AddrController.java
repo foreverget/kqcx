@@ -64,7 +64,20 @@ public class AddrController {
 	 */
 	@RequestMapping("deleteAddr")
 	@ResponseBody
-	public BaseResponse deleteAddr(String openId,long id) {
+	public BaseResponse deleteAddr(String openId, long id) {
 		return addrService.delete(openId, id);
+	}
+
+	/**
+	 * 出车发布页面--获取用户的常用地址信息
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("selectAddrList")
+	@ResponseBody
+	public BaseResponse selectAddrList(HttpServletRequest request, String openId) {
+		return addrService.selectAddrList(openId);
 	}
 }

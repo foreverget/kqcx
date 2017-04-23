@@ -99,4 +99,17 @@ public class CarController {
 	public BaseResponse delete(long userId, long id, String valueKey) {
 		return carService.delete(userId, id);
 	}
+
+	/**
+	 * 出车发布页面--获取用户的车辆信息
+	 * 
+	 * @param request
+	 * @param openId
+	 * @return
+	 */
+	@RequestMapping("selectCarList")
+	@ResponseBody
+	public BaseResponse selectCarList(HttpServletRequest request, String openId) {
+		return carService.selectCarList(openId);
+	}
 }

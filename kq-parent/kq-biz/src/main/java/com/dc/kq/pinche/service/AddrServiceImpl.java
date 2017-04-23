@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dc.kq.pinche.common.BaseResponse;
+import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.AddrDAO;
 import com.dc.kq.pinche.dmo.AddrInfo;
 
@@ -33,7 +34,7 @@ public class AddrServiceImpl implements AddrService {
 	 */
 	@Override
 	public List<AddrInfo> getAddrList(String openId) {
-		List<AddrInfo> list  = new ArrayList<AddrInfo>();
+		List<AddrInfo> list = new ArrayList<AddrInfo>();
 		try {
 			list = addrDao.selectAddrListByParam(openId);
 		} catch (Exception e) {
@@ -77,4 +78,28 @@ public class AddrServiceImpl implements AddrService {
 		}
 		return resp;
 	}
+
+	/**
+	 * 发布出车页面 -- 根据openId获取地址列表
+	 * 
+	 * @param openId
+	 * @return
+	 */
+	@Override
+	public BaseResponse selectAddrList(String openId) {
+		BaseResponse resp = new BaseResponse();
+		List<AddrInfo> list = new ArrayList<AddrInfo>();
+		try {
+			list = addrDao.selectAddrListByParam(openId);
+			if (null != list) {
+				resp.setValue(list);
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+			}
+		} catch (Exception e) {
+			LOGGER.error("selectAddrList error ", e);
+		}
+		return resp;
+	}
+
 }

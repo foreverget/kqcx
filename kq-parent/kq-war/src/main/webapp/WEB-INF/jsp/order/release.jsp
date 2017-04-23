@@ -14,16 +14,16 @@
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">
-	<div class="weui-header bg-blue">
-		<div class="weui-header-left">
-			<a class="icon icon-109 f-white">返回</a>
-		</div>
-		<h1 class="weui-header-title">出车发布</h1>
-	</div>
+<!-- 	<div class="weui-header bg-blue"> -->
+<!-- 		<div class="weui-header-left"> -->
+<!-- 			<a class="icon icon-109 f-white">返回</a> -->
+<!-- 		</div> -->
+<!-- 		<h1 class="weui-header-title">出车发布</h1> -->
+<!-- 	</div> -->
 	<form id="form">
+		<input type="hidden" name="openId" value="${openIdS}">
 		<div class="weui_cells_title" style="color: #F00; font-weight: bold;">路线信息</div>
 		<div class="weui_cells weui_cells_form">
-
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label for="" class="weui_label">出发时间:</label>
@@ -33,8 +33,10 @@
 						value="" id='goTime' name="goTime" />
 				</div>
 			</div>
-
 			<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd">
+					<label for="" class="weui_label">起点:</label>
+				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input id='startAddr' name="startAddr" class="weui_input" type="text" required
 						placeholder="请输入起始地点" tips="请输入起始地点" />
@@ -43,24 +45,24 @@
 					<a id="selectaddr" class="weui-vcode-btn">选常用</a>
 				</div>
 			</div>
-
 			<div class="weui_cell">
+				<div class="weui_cell_hd">
+					<label for="" class="weui_label">终点:</label>
+				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input id='endAddr' name="endAddr" class="weui_input" type="text" required
 						placeholder="请输入终止地点" tips="请输入终止地点" />
 				</div>
 			</div>
-
-			<div class="weui_cell">
-				<div class="weui_cell_bd weui_cell_primary">
-					<textarea id='memo' name="memo" class="weui_textarea"
-						placeholder="可输入途径等重要信息" rows="3"></textarea>
-					<div class="weui_textarea_counter">
-						<span id='count'>0</span>/<span id='count_max'>200</span>
-					</div>
-				</div>
-			</div>
-
+<!-- 			<div class="weui_cell"> -->
+<!-- 				<div class="weui_cell_bd weui_cell_primary"> -->
+<!-- 					<textarea id='memo' name="memo" class="weui_textarea" -->
+<!-- 						placeholder="可输入途径等重要信息" rows="3"></textarea> -->
+<!-- 					<div class="weui_textarea_counter"> -->
+<!-- 						<span id='count'>0</span>/<span id='count_max'>200</span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			<div class="weui_cells_title" style="color: #F00; font-weight: bold;">车辆信息</div>
 			<div class="weui_cell weui_vcode">
 				<div class="weui_cell_hd">
@@ -74,7 +76,6 @@
 					<a href="javascript:;" id="selectcar" class="weui-vcode-btn">选车辆</a>
 				</div>
 			</div>
-
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">可乘人数</label>
@@ -86,21 +87,18 @@
 				</div>
 				<label class="weui_label">位</label>
 			</div>
-
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">车费单价</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input id='price' name="price" class="weui_input" type="tel" required pattern="[0-5]{1}"
-						maxlength="1" placeholder="请输入车费单价" emptyTips="请输入车费单价"
-						notMatchTips="请输入正确的车费单价（0-5元）">
+					<input id='price' name="price" class="weui_input" type="tel" required pattern="[0-10]{1}"
+						maxlength="2" placeholder="请输入车费单价" emptyTips="请输入车费单价"
+						notMatchTips="请输入正确的车费单价（0-10元）">
 				</div>
 				<label class="weui_label">元/位</label>
 			</div>
-
 			<div class="weui_cells_title" style="color: #F00; font-weight: bold;">司机信息</div>
-
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">司机姓名</label>
@@ -110,7 +108,6 @@
 						placeholder="请输入司机姓名" tips="请输入司机姓名">
 				</div>
 			</div>
-
 			<div class="weui_cell weui_cell_warn">
 				<div class="weui_cell_hd">
 					<label for="" class="weui_label">联系电话</label>
@@ -124,9 +121,8 @@
 					<i class="weui_icon_warn"></i>
 				</div>
 			</div>
-
 			<div class="weui_btn_area">
-				<a id="formSubmitBtn" href="javascript:" class="weui_btn bg-orange">马上发布</a>
+				<a id="formSubmitBtn" class="weui_btn bg-orange">马上发布</a>
 			</div>
 	</form>
 </body>

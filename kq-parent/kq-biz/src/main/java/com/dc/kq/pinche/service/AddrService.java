@@ -37,4 +37,12 @@ public interface AddrService {
 	 */
 	public BaseResponse delete(String openId, long id);
 
+	/**
+	 * 发布出车页面 -- 根据openId获取地址列表
+	 * 
+	 * @param openId
+	 * @return
+	 */
+	public BaseResponse selectAddrList(String openId);
+
 }

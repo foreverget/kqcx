@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dc.kq.pinche.common.BaseResponse;
+import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.CarDAO;
+import com.dc.kq.pinche.dmo.AddrInfo;
 import com.dc.kq.pinche.dmo.CarInfo;
 
 /**
@@ -69,10 +71,10 @@ public class CarServiceImpl implements CarService {
 	public BaseResponse save(CarInfo carInfo) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			if(carInfo.getId() == 0 ){
+			if (carInfo.getId() == 0) {
 				long id = carDao.insert(carInfo);
-				resp.setValue(id);				
-			}else{
+				resp.setValue(id);
+			} else {
 				carDao.update(carInfo);
 			}
 		} catch (Exception e) {
@@ -96,6 +98,30 @@ public class CarServiceImpl implements CarService {
 		// } catch (Exception e) {
 		// LOGGER.error("delete car error ", e);
 		// }
+		return resp;
+	}
+
+	/**
+	 * 发布出车页面 -- 根据openId获取车辆列表
+	 * 
+	 * @param openId
+	 * @param pageNo
+	 * @return
+	 */
+	@Override
+	public BaseResponse selectCarList(String openId) {
+		BaseResponse resp = new BaseResponse();
+		List<CarInfo> list = new ArrayList<CarInfo>();
+		try {
+			list = carDao.selectCarListByParam(openId);
+			if (null != list) {
+				resp.setValue(list);
+			} else {
+				resp.setEnum(ResponseEnum.LIST_EMPTY);
+			}
+		} catch (Exception e) {
+			LOGGER.error("selectAddrList error ", e);
+		}
 		return resp;
 	}
 

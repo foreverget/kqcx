@@ -51,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
 		BaseResponse resp = new BaseResponse();
 		// 校验订单信息是否符合
 		OrderInfo nOrderInfo = checkAndBuildOrder(orderInfoRequest);
+		nOrderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
 		try {
 			long id = orderDao.insert(nOrderInfo);
 			resp.setValue(id);

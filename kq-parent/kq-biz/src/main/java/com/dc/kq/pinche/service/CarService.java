@@ -46,4 +46,14 @@ public interface CarService {
 	 * @return
 	 */
 	public BaseResponse delete(long userId, long id);
+
+	/**
+	 * 发布出车页面 -- 根据openId获取车辆列表
+	 * 
+	 * @param openId
+	 * @param pageNo
+	 * @return
+	 */
+	public BaseResponse selectCarList(String openId);
+
 }

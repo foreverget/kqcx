@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class WeXinController {
 				LOGGER.info("微信的openId=" + openId);
 				// 根据openid查询用户表
 				UserInfo userInfo = userService.selectUserByOpenId(openId);
-				if (userInfo == null) {// 用户不存在跳转到注册页面
+				if (userInfo == null || StringUtils.isBlank(userInfo.getOpenId())) {// 用户不存在跳转到注册页面
 					return "redirect:/user/toRegister?openId=" + openId;
 
 				}

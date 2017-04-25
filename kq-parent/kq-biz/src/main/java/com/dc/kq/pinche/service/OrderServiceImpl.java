@@ -95,6 +95,7 @@ public class OrderServiceImpl implements OrderService {
 		orderInfo.setReqNum(orderInfoRequest.getReqNum());
 		orderInfo.setPrice(orderInfoRequest.getPrice());
 		orderInfo.setMobile(orderInfoRequest.getMobile());
+		orderInfo.setSurplusSeat(orderInfoRequest.getReqNum());
 		return orderInfo;
 	}
 

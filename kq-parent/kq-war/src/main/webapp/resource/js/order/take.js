@@ -139,10 +139,10 @@ function loadFn(loadType, me, itemIndex) {
 			                    +'<p>出发时间：'+arr[i].goTime+'</p>'
 			                    +'</div>'
 				                +'<div class="weui_cell_bd weui_cell_primary">'
-			                    +'<p>单价：'+arr[i].price+' 元/位</p>'
+			                    +'<p>价格：<font class="font-blue">'+arr[i].price+'</font> 元/人</p>'
 			                    +'</div>'
 				                +'<div class="weui_cell_bd weui_cell_primary">'
-			                    +'<p>空余：'+arr[i].reqNum+' 座位</p>'
+			                    +'<p>空余：<font class="font-red">'+arr[i].surplusSeat+' </font>人</p>'
 			                    +'</div>'
 								+ '</div>'
 								+ '</a>';

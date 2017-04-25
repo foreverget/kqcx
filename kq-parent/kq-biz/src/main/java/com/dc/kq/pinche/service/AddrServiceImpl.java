@@ -91,7 +91,7 @@ public class AddrServiceImpl implements AddrService {
 		List<AddrInfo> list = new ArrayList<AddrInfo>();
 		try {
 			list = addrDao.selectAddrListByParam(openId);
-			if (null != list) {
+			if (null != list && list.size()>0) {
 				resp.setValue(list);
 			} else {
 				resp.setEnum(ResponseEnum.LIST_EMPTY);

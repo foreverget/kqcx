@@ -116,13 +116,13 @@ function loadFn(loadType, me, itemIndex) {
 					var arr = data.value;
 					if (!!arr && arr.length > 0) {// 循环数据，拼装html
 						for (var i = 0; i < arr.length; i++) {
-							var statusStr = "发布中";
+							var statusStr = "<font class='font-blue'>等客中</font>";
 							if("1" == arr[i].status){
-								statusStr = "已出发";
+								statusStr = "<font class='font-green'>客满发车</font>";
 							}else if("2" == arr[i].status){
 								statusStr = "已送达";
 							}else if("3" == arr[i].status){
-								statusStr = "已取消";
+								statusStr = "<font class='font-red'>已取消</font>";
 							}
 							result += '<a id="my_cc_list_'
 									+ +arr[i].id
@@ -133,9 +133,9 @@ function loadFn(loadType, me, itemIndex) {
 									+ '<h4 class="weui_media_title list-line-margin-bottom">'
 									+ arr[i].goTime
 									+ date_desc
-									+ '&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;'
+									+ '&nbsp;&nbsp;<font class="font-blue">'
 									+ arr[i].price
-									+ '&nbsp;元</h4>'
+									+ '&nbsp;</font>元/人</h4>'
 									+ '<p class="weui_media_desc list-line-margin-bottom">起点:'
 									+ arr[i].startAddr
 									+ '</p>'

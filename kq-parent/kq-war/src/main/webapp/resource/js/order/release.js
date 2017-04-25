@@ -67,6 +67,7 @@ function initSelect() {
  * 初始化选择地址下拉框
  */
 function initSelectAddr(openId) {
+	alert(111);
 	$.ajax({
 		type : 'GET',
 		url : _ctx + "/addr/selectAddrList?openId=" + openId,

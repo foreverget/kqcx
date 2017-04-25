@@ -114,7 +114,7 @@ public class CarServiceImpl implements CarService {
 		List<CarInfo> list = new ArrayList<CarInfo>();
 		try {
 			list = carDao.selectCarListByParam(openId);
-			if (null != list) {
+			if (null != list && list.size() > 0) {
 				resp.setValue(list);
 			} else {
 				resp.setEnum(ResponseEnum.LIST_EMPTY);

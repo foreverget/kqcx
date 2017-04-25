@@ -115,7 +115,7 @@
 				<div class="weui_cell_bd weui_cell_primary">
 					<input id='mobile' name="mobile" class="weui_input" type="tel" required pattern="[0-9]{11}"
 						maxlength="11" placeholder="请输入手机号" emptyTips="请输入手机号"
-						notMatchTips="请输入正确的手机号">
+						>
 				</div>
 				<div class="weui_cell_ft">
 					<i class="weui_icon_warn"></i>

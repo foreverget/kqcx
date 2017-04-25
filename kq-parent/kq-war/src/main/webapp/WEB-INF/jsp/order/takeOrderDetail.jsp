@@ -63,7 +63,7 @@
 	</div>
 	<div class="weui_media_box">
 		<p class="weui_media_desc list-line-margin-bottom">乘车人数:</p>
-		<input class="weui_input" type="number" name="count"
+		<input class="weui_input" type="number" name="count" value="1"
 			placeholder="输入乘车人数" />
 	</div>
 	<div class="weui_btn_area">

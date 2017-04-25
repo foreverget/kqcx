@@ -19,10 +19,11 @@ $(function() {
 			$(this).closest('.weui_cell').removeClass('weui_cell_warn');
 		}
 	});
+	var $form = $("#form");
+	$form.form();
 	// 提交
 	$("#formSubmitBtn").on("click", function() {
-		var $form = $("#form");
-		$form.form();
+	
 		$form.validate(function(error) {
 			if (!error) {
 				$.confirm("您确定要发布吗?", "", function() {
@@ -67,7 +68,6 @@ function initSelect() {
  * 初始化选择地址下拉框
  */
 function initSelectAddr(openId) {
-	alert(111);
 	$.ajax({
 		type : 'GET',
 		url : _ctx + "/addr/selectAddrList?openId=" + openId,

@@ -376,6 +376,7 @@ public class OrderServiceImpl implements OrderService {
 			orderPassenger.setCount(count);
 			orderPassenger.setName(userInfo.getName());
 			orderPassenger.setMobile(userInfo.getMobile());
+			orderPassenger.setVersion(0);
 			orderPassengerDao.insert(orderPassenger);
 		} catch (Exception e) {
 			LOGGER.error("takeOrder error ", e);

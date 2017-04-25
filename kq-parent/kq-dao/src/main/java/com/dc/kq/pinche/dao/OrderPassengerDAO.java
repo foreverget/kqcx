@@ -25,9 +25,9 @@ public interface OrderPassengerDAO {
 	 * @return
 	 */
 
-	@Insert({ "INSERT INTO pc_order_passenger (user_id, order_id, status, count, ",
+	@Insert({ "INSERT INTO pc_order_passenger (open_id, order_id, status, count, ",
 			"create_time, create_by, version, update_time, update_by)",
-			"VALUES ( #{userId,jdbcType=BIGINT},#{orderId,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR},#{count,jdbcType=INTEGER},",
+			"VALUES ( #{openId,jdbcType=VARCHAR},#{orderId,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR},#{count,jdbcType=INTEGER},",
 			"#{createTime},#{createBy,jdbcType=VARCHAR},#{version,jdbcType=INTEGER},",
 			"#{updateTime},#{updateBy,jdbcType=VARCHAR})", })
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

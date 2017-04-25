@@ -61,8 +61,6 @@ public class WeXinController {
 						"6593f1a3ada82ee297e34b99743841f6", code);
 				// 执行保存绑定
 				String openId = oauth2Token.getOpenId();
-				request.setAttribute("openId", openId);
-
 				LOGGER.info("微信的openId=" + openId);
 				// 根据openid查询用户表
 				UserInfo userInfo = userService.selectUserByOpenId(openId);

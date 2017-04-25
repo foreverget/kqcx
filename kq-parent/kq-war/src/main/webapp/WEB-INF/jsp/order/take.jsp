@@ -14,15 +14,16 @@
 </head>
 
 <body ontouchstart style="background-color: #f8f8f8;">
-<!-- 	<div class="weui-header bg-blue"> -->
-<!-- 		<div class="weui-header-left"> -->
-<!-- 			<a href="javascript:history.go(-1);" class="icon icon-109 f-white">返回</a> -->
-<!-- 		</div> -->
-<!-- 		<h1 class="weui-header-title">我要约车</h1> -->
-<!-- 		<div class="weui-header-right"> -->
-<!-- 			<a class="icon f-white">查找</a> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+	<input type="hidden" name="openId" value="${openId}" />
+	<!-- 	<div class="weui-header bg-blue"> -->
+	<!-- 		<div class="weui-header-left"> -->
+	<!-- 			<a href="javascript:history.go(-1);" class="icon icon-109 f-white">返回</a> -->
+	<!-- 		</div> -->
+	<!-- 		<h1 class="weui-header-title">我要约车</h1> -->
+	<!-- 		<div class="weui-header-right"> -->
+	<!-- 			<a class="icon f-white">查找</a> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
 	<form id="form">
 		<div class="weui_tab" style="height: 44px;" id="tabdiv">
 			<div class="weui_navbar" style="height: 44px;">

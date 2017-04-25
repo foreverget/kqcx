@@ -308,7 +308,7 @@ public class OrderController {
 	 */
 	@RequestMapping("takeOrder")
 	@ResponseBody
-	public BaseResponse takeOrder(HttpServletRequest request, long orderId, String openId, int count, int version) {
+	public BaseResponse takeOrder(HttpServletRequest request, Long orderId, String openId, Integer count, Integer version) {
 		return orderService.takeOrder(orderId, openId, count, version);
 	}
 }

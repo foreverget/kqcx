@@ -48,7 +48,7 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				if (data.code == 0) {
-					$.toast("发车喽！");
+					$.alert("发车喽！");
 					location.reload(); 					
 				} else {
 					$.alert("取消订单失败!", "提示");

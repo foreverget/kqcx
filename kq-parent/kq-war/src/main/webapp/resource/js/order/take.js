@@ -110,7 +110,7 @@ function loadFn(loadType, me, itemIndex) {
 				type : 'GET',
 				url : _ctx + _action,
 				dataType : 'json',
-				success : function(data) {
+				success : function(data) {					
 					// 获取结果集
 					var arr = data.value;
 					if (!!arr && arr.length > 0) {// 循环数据，拼装html
@@ -171,21 +171,21 @@ function loadFn(loadType, me, itemIndex) {
 						if (loadType == "down") {// 今天加载更多
 							page_td++;
 						} else {// 今天刷新
-							page_td = 0;
+							page_td = 1;
 						}
 						break;
 					case 1:// 明天
 						if (loadType == "down") {// 明天加载更多
 							page_tm++;
 						} else {// 明天刷新
-							page_tm = 0;
+							page_tm = 1;
 						}
 						break;
 					case 2:// 后天
 						if (loadType == "down") {// 后天加载更多
 							page_ht++;
 						} else {// 后天刷新
-							page_ht = 0;
+							page_ht = 1;
 						}
 						break;
 					}

@@ -15,7 +15,9 @@
 <body ontouchstart style="background-color: #FFFFFF;">
 	<div class="weui_media_box weui_media_appmsg">
 		<div class="weui_media_bd">
-			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;${order.price}&nbsp;元</h4>
+			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;<font
+					class="font-blue">${order.price}</font>&nbsp;元/人
+			</h4>
 			<p class="weui_media_desc list-line-margin-bottom">起点:
 				${order.startAddr}</p>
 			<p class="weui_media_desc list-line-margin-bottom">终点:
@@ -23,16 +25,16 @@
 			<p class="weui_media_desc list-line-margin-bottom">
 				订单状态:
 				<c:if test="${order.status == 0}">
-					等客中
+					<font class="font-blue">等客中</font>
 				</c:if>
 				<c:if test="${order.status == 1}">
-					客满发车
+					<font class="font-green">客满发车</font>
 				</c:if>
 				<c:if test="${order.status == 2}">
 					已送达
 				</c:if>
 				<c:if test="${order.status == 3}">
-					订单已取消
+					<font class="font-red">订单已取消</font>
 				</c:if>
 			</p>
 		</div>
@@ -46,14 +48,14 @@
 	</div>
 	<div class="weui_media_box">
 		<p class="weui_media_title list-line-margin-bottom">车辆信息</p>
-		<p class="weui_media_desc list-line-margin-bottom">车型:
-			${order.plates}</p>
+		<!-- 		<p class="weui_media_desc list-line-margin-bottom">车型: -->
+		<%-- 			${order.plates}</p> --%>
 		<p class="weui_media_desc list-line-margin-bottom">车牌:
 			${order.plates}</p>
-		<p class="weui_media_desc list-line-margin-bottom">座位数量:
-			${order.plates}</p>
-		<p class="weui_media_desc list-line-margin-bottom">颜色:
-			${order.plates}</p>
+		<!-- 		<p class="weui_media_desc list-line-margin-bottom">颜色: -->
+		<%-- 			${order.plates}</p> --%>
+		<p class="weui_media_desc list-line-margin-bottom">空余座位:
+			${order.surplusSeat}</p>
 	</div>
 </body>
 </html>

@@ -45,7 +45,7 @@ $(function() {
 						'.weui_panel_bd').hide();
 				if (clickTabTakeCount != 0) {
 					// 需要重置dropload组件
-					dropload.resetload();					
+					dropload.resetload();
 					loadFn("up", dropload, itemIndex);
 				}
 				clickTabTakeCount++;
@@ -62,7 +62,7 @@ function initBindEvent() {
 				var openId = $("[name=openId]").val();
 				var orderId = $(this).attr('data-id');
 				window.location.href = _ctx + "/order/toYcOrderDetail?orderId="
-						+ orderId + "&openId="+ openId;
+						+ orderId + "&openId=" + openId;
 			});
 }
 /**
@@ -78,7 +78,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_td = 1;
 		}
 		_action = '/order/getYcOrder?type=1&page=' + page_td + '&size=' + size
-				+ '&openId='+openId;
+				+ '&openId=' + openId;
 		divId = '#td';
 		date_desc = '【今天】';
 
@@ -88,7 +88,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_tm = 1;
 		}
 		_action = '/order/getYcOrder?type=2&page=' + page_tm + '&size=' + size
-				+ '&openId='+openId;
+				+ '&openId=' + openId;
 		divId = '#tm';
 		date_desc = '【明天】';
 		break;
@@ -97,7 +97,7 @@ function loadFn(loadType, me, itemIndex) {
 			page_ht = 1;
 		}
 		_action = '/order/getYcOrder?type=3&page=' + page_ht + '&size=' + size
-				+ '&openId='+openId;
+				+ '&openId=' + openId;
 		divId = '#ht';
 		date_desc = '【后天】';
 		break;
@@ -115,13 +115,13 @@ function loadFn(loadType, me, itemIndex) {
 					var arr = data.value;
 					if (!!arr && arr.length > 0) {// 循环数据，拼装html
 						for (var i = 0; i < arr.length; i++) {
-							var statusStr = "发布中";
+							var statusStr = "<font class='font-blue'>等客中</font>";
 							if ("1" == arr[i].status) {
-								statusStr = "已出发";
+								statusStr = "<font class='font-green'>客满出发</font>";
 							} else if ("2" == arr[i].status) {
 								statusStr = "已送达";
 							} else if ("3" == arr[i].status) {
-								statusStr = "已取消";
+								statusStr = "<font class='font-red'>已取消</font>";
 							}
 							result += '<a id="my_yc_list_'
 									+ arr[i].id
@@ -132,15 +132,16 @@ function loadFn(loadType, me, itemIndex) {
 									+ '<h4 class="weui_media_title list-line-margin-bottom">'
 									+ arr[i].goTime
 									+ date_desc
-									+ '&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;'
-									+ arr[i].price
-									+ '&nbsp;元</h4>'
+									+ '</h4>'
 									+ '<p class="weui_media_desc list-line-margin-bottom">起点:'
 									+ arr[i].startAddr
 									+ '</p>'
 									+ '<p class="weui_media_desc list-line-margin-bottom">终点:'
 									+ arr[i].endAddr
 									+ '</p>'
+									+ '<p class="weui_media_desc list-line-margin-bottom">价格:<font class="font-blue">'
+									+ arr[i].price
+									+ '</font> 元/人</p>'
 									+ '<p class="weui_media_desc list-line-margin-bottom">状态:'
 									+ statusStr + '</p>' + '</div></a>';
 						}
@@ -168,21 +169,21 @@ function loadFn(loadType, me, itemIndex) {
 						if (loadType == "down") {// 今天加载更多
 							page_td++;
 						} else {// 今天刷新
-							page_td = 0;
+							page_td = 1;
 						}
 						break;
 					case 1:// 明天
 						if (loadType == "down") {// 明天加载更多
 							page_tm++;
 						} else {// 明天刷新
-							page_tm = 0;
+							page_tm = 1;
 						}
 						break;
 					case 2:// 后天
 						if (loadType == "down") {// 后天加载更多
 							page_ht++;
 						} else {// 后天刷新
-							page_ht = 0;
+							page_ht = 1;
 						}
 						break;
 					}

@@ -10,24 +10,28 @@ $(function() {
 			function() {
 				// 获取乘车人数
 				var count = $('[name=count]').val();
-				if (!count) {
+				if (count == null) {
 					$.alert("请输入正确的乘车人数");
 					return;
 				}
 				var openId = $('[name=openId]').val();
 				var orderId = $('[name=orderId]').val();
+				var version = $('[name=version]').val();
 				$.ajax({
 					type : "POST",
 					url : _ctx + "/order/takeOrder?openId=" + openId
-							+ "&orderId=" + orderId,
+							+ "&orderId=" + orderId + "&count=" + count
+							+ "&version=" + version,
 					contentType : "application/json;charset=UTF-8",
 					dataType : 'json',
 					success : function(data) {
 						if (data.code == 0) {
-							$.toast("发车喽！");
-							location.reload();
+							$.alert("预约成功！");
+							// 跳转到我的约车单页面
+							window.location.href = _ctx
+									+ "/order/toMyTakeOrder?openId=" + openId;
 						} else {
-							$.alert("取消订单失败!", "提示");
+							$.alert(data.message, "提示");
 						}
 					},
 					error : function(error) {

@@ -63,7 +63,7 @@ function initBindEvent() {
 				var orderId = $(this).attr('data-id');
 				window.location.href = _ctx
 						+ "/order/toReleaseOrderDetail?orderId=" + orderId
-						+ "&openId=10001";// + openId;
+						+ "&openId=" + openId;
 			});
 }
 /**
@@ -168,21 +168,21 @@ function loadFn(loadType, me, itemIndex) {
 						if (loadType == "down") {// 今天加载更多
 							page_td++;
 						} else {// 今天刷新
-							page_td = 0;
+							page_td = 1;
 						}
 						break;
 					case 1:// 明天
 						if (loadType == "down") {// 明天加载更多
 							page_tm++;
 						} else {// 明天刷新
-							page_tm = 0;
+							page_tm = 1;
 						}
 						break;
 					case 2:// 后天
 						if (loadType == "down") {// 后天加载更多
 							page_ht++;
 						} else {// 后天刷新
-							page_ht = 0;
+							page_ht = 1;
 						}
 						break;
 					}

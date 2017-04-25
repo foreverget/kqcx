@@ -31,11 +31,11 @@ public interface OrderDAO {
 	 */
 
 	@Insert({ "INSERT INTO pc_order (open_id, name, mobile, go_time, ",
-			"start_addr, end_addr, plates, req_num, price, status, score, ",
+			"start_addr, end_addr, plates, req_num, price, status, score,surplus_seat, ",
 			"create_time, create_by, version, update_time, update_by)",
 			"VALUES ( #{openId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},#{goTime,jdbcType=VARCHAR},",
 			"#{startAddr,jdbcType=VARCHAR},#{endAddr,jdbcType=VARCHAR}, #{plates,jdbcType=VARCHAR},#{reqNum,jdbcType=INTEGER},",
-			"#{price,jdbcType=DECIMAL},#{status,jdbcType=VARCHAR},#{score,jdbcType=DECIMAL},",
+			"#{price,jdbcType=DECIMAL},#{status,jdbcType=VARCHAR},#{score,jdbcType=DECIMAL},#{surplusSeat,jdbcType=INTEGER},",
 			"#{createTime},#{createBy,jdbcType=VARCHAR},#{version,jdbcType=INTEGER},",
 			"#{updateTime},#{updateBy,jdbcType=VARCHAR})", })
 	@Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
@@ -130,7 +130,7 @@ public interface OrderDAO {
 	 * @param time
 	 * @return
 	 */
-	@Select({ "<script>" + "SELECT po.id,po.open_id,po.name,po.mobile,po.go_time,"
+	@Select({ "<script>" + "SELECT DISTINCT po.id,po.open_id,po.name,po.mobile,po.go_time,"
 			+ "po.start_addr,po.end_addr,po.plates,po.req_num," + "po.price,po.status,po.score,po.create_time "
 			+ "FROM pc_order po,pc_order_passenger pop " + "WHERE pop.order_id = po.id " + "AND pop.status = 1 "
 			+ "AND pop.open_id = #{opendId,jdbcType=VARCHAR} "
@@ -160,7 +160,7 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
-			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order po "
+			+ "plates,req_num,price,status,score,surplus_seat,version,create_time " + "FROM pc_order po "
 			+ "WHERE id = #{orderId,jdbcType=BIGINT} " })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
@@ -173,6 +173,8 @@ public interface OrderDAO {
 			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
+			@Result(column = "surplus_seat", property = "surplusSeat", jdbcType = JdbcType.INTEGER),
+			@Result(column = "version", property = "version", jdbcType = JdbcType.INTEGER),
 			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
 	OrderInfo getYcOrderDetail(@Param("orderId") long orderId);
 
@@ -249,7 +251,7 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
-			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order  " + "WHERE status = '0' "
+			+ "plates,req_num,price,status,score,surplus_seat,create_time " + "FROM pc_order  " + "WHERE status = '0' "
 			+ " AND go_time like CONCAT(#{time},'%')"
 			+ " ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
@@ -263,6 +265,7 @@ public interface OrderDAO {
 			@Result(column = "price", property = "price", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "status", property = "status", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "score", property = "score", jdbcType = JdbcType.DECIMAL),
+			@Result(column = "surplus_seat", property = "surplusSeat", jdbcType = JdbcType.INTEGER),
 			@Result(column = "create_time", property = "createTime", jdbcType = JdbcType.BIGINT) })
 	List<OrderInfo> getTakeOrderList(@Param("startPage") int startPage, @Param("size") int size,
 			@Param("type") int type, @Param("time") String time);

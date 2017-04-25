@@ -13,6 +13,10 @@
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
 <body ontouchstart style="background-color: #FFFFFF;">
+	<input type="hidden" name="openId" value="${openId}"/>
+	<input type="hidden" name="orderId" value="${order.id}"/>
+	<input type="hidden" name="version" value="${order.version}"/>
+	
 	<div class="weui_media_box weui_media_appmsg">
 		<div class="weui_media_bd">
 			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;<font

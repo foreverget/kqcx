@@ -82,6 +82,10 @@ public class WeXinController {
 					return "redirect:/order/toTake?openId=" + openId;
 				case "5":// 车主
 					return "redirect:/order/toRelease?openId=" + openId;
+				case "6":// 修改地址信息
+					return "redirect:/addr/toUpdateAddr?openId=" + openId;
+				case "7":// 修改车辆信息
+					return "redirect:/car/toMyCarList?openId=" + openId;
 				}
 			}
 		} else {

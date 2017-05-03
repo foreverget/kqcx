@@ -21,7 +21,7 @@ $(function() {
 							dataType : 'json',
 							success : function(data) {
 								if (data.code == 0) {
-									$.toast("添加成功！");
+									$.alert("添加成功！");
 									window.location.href = _ctx
 											+ "/car/toMyCarList?openId="
 											+ openId;

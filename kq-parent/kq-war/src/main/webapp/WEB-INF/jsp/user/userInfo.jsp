@@ -16,45 +16,32 @@
 <body ontouchstart style="background-color: #f8f8f8;">
 	<div class="weui_cells weui_cells_access">
 		<input type="hidden" id="openId" value="${userInfo.openId}">
-		<a class="weui_cell " href="javascript:;">
+		<a class="weui_cell " href="javascript:;" id="name_ce">
 			<div class="weui_cell_bd weui_cell_primary">
 				<p>姓名</p>
 			</div>
-			<div class="weui_cell_ft" id="name_ce" data-name="name">${userInfo.name}</div>
-		</a> <a class="weui_cell " href="javascript:;">
+			<div class="weui_cell_ft"  data-name="name">${userInfo.name}</div>
+		</a> <a class="weui_cell " href="javascript:;"   id="gender_ce">
 			<div class="weui_cell_bd weui_cell_primary">
 				<p>性别</p>
 			</div>
-			<div class="weui_cell_ft"  id="gender_ce" data-name="gender">${userInfo.gender}</div>
-		</a> <a class="weui_cell " href="javascript:;">
+			<div class="weui_cell_ft" data-name="gender">${userInfo.gender}</div>
+		</a> <a class="weui_cell " href="javascript:;" id="mobile_ce" >
 			<div class="weui_cell_bd weui_cell_primary">
 				<p>手机号</p>
 			</div>
-			<div class="weui_cell_ft" id="mobile_ce" data-name="mobile">${userInfo.mobile}</div>
-		</a> <a class="weui_cell " href="javascript:;">
+			<div class="weui_cell_ft" data-name="mobile">${userInfo.mobile}</div>
+		</a> <a class="weui_cell " href="javascript:;" id="email_ce">
 			<div class="weui_cell_bd weui_cell_primary">
 				<p>常用邮箱</p>
 			</div>
-			<div class="weui_cell_ft" id="email_ce" data-name="email">${userInfo.email}</div>
-		</a> <a class="weui_cell " href="javascript:;">
+			<div class="weui_cell_ft"  data-name="email">${userInfo.email}</div>
+		</a> <a class="weui_cell " href="javascript:;" id="addr_ce">
 			<div class="weui_cell_bd weui_cell_primary">
 				<p>住址</p>
 			</div>
-			<div class="weui_cell_ft" id="addr_ce" data-name="addr">${userInfo.addr}</div>
+			<div class="weui_cell_ft" data-name="addr">${userInfo.addr}</div>
 		</a>
-	</div>
-	<div class="weui_cells weui_cells_access">
-		<a class="weui_cell " href="javascript:;" id="up_car_btn">
-			<div class="weui_cell_bd weui_cell_primary">
-				<p>车辆信息</p>
-			</div>
-			<div class="weui_cell_ft">修改</div>
-		</a> <a class="weui_cell " href="javascript:;" id="up_addr_btn">
-			<div class="weui_cell_bd weui_cell_primary">
-				<p>常用地址</p>
-			</div>
-			<div class="weui_cell_ft">修改</div>
-		</a> 
 	</div>
 </body>
 <script src="${ctx}/resource/js/user/userInfo.js"></script>

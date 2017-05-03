@@ -28,6 +28,7 @@ $(function() {
 						dataType : 'json',
 						success : function(data) {
 							if (data.code == 0) {
+								$.alert("添加成功！");
 								window.location.href = _ctx
 										+ "/addr/toUpdateAddr?openId="
 										+ obj.openId;
@@ -54,6 +55,7 @@ $(function() {
 					dataType : 'json',
 					success : function(data) {
 						if (data.code == 0) {
+							$.alert("删除成功！");
 							window.location.href = _ctx+ "/addr/toUpdateAddr?openId="+ openId;
 						} else {
 							$.alert("删除失败!", "提示");

@@ -22,38 +22,63 @@ $(function() {
 	var $form = $("#form");
 	$form.form();
 	// 提交
-	$("#formSubmitBtn").on("click", function() {
-	
-		$form.validate(function(error) {
-			if (!error) {
-				$.confirm("您确定要发布吗?", "", function() {
-					// 校验成功后提交数据
-					var obj = getFormJson($form);
-					$.ajax({
-						type : "POST",
-						url : _ctx + "/order/release",
-						data : JSON.stringify(obj),
-						contentType : "application/json;charset=UTF-8",
-						dataType : 'json',
-						success : function(data) {
-							if (data.code == 0) {
-								$.toast("发布成功");
-								// 跳转到我的订单页面
-								window.location.href = _ctx + "/order/toMyReleaseOrder?openId=" + $('[name=openId]').val();
-							} else {
-								$.toast("发布失败", "forbidden");
-							}
-						},
-						error : function(error) {
-							$.toptips("网络异常", "warning");
-						}
+	$("#formSubmitBtn")
+			.on(
+					"click",
+					function() {
+
+						$form
+								.validate(function(error) {
+									if (!error) {
+										$
+												.confirm(
+														"您确定要发布吗?",
+														"",
+														function() {
+															// 校验成功后提交数据
+															var obj = getFormJson($form);
+															$
+																	.ajax({
+																		type : "POST",
+																		url : _ctx
+																				+ "/order/release",
+																		data : JSON
+																				.stringify(obj),
+																		contentType : "application/json;charset=UTF-8",
+																		dataType : 'json',
+																		success : function(
+																				data) {
+																			if (data.code == 0) {
+																				$
+																						.toast("发布成功");
+																				// 跳转到我的订单页面
+																				window.location.href = _ctx
+																						+ "/order/toMyReleaseOrder?openId="
+																						+ $(
+																								'[name=openId]')
+																								.val();
+																			} else {
+																				$
+																						.toast(
+																								"发布失败",
+																								"forbidden");
+																			}
+																		},
+																		error : function(
+																				error) {
+																			$
+																					.toptips(
+																							"网络异常",
+																							"warning");
+																		}
+																	});
+														}, function() {
+															$.toast("取消发布",
+																	"cancel");
+														});
+									}
+								});
 					});
-				}, function() {
-					$.toast("取消发布", "cancel");
-				});
-			}
-		});
-	});
 	initSelect();
 });
 /**
@@ -90,9 +115,12 @@ function initSelectAddr(openId) {
 				title : "选择常用地址",
 				items : arr,
 				onChange : function(c) {
-					var arr = c.titles.split("---");
-					$('#startAddr').val(arr[0]);
-					$('#endAddr').val(arr[1]);
+					if (c.titles.length > 0) {
+						var arr = c.titles.split("---");
+						$('#startAddr').val(arr[0]);
+						$('#endAddr').val(arr[1]);
+					}
+
 				}
 			});
 		},
@@ -127,7 +155,9 @@ function initSelectCar(openId) {
 				title : "选择车辆",
 				items : arr,
 				onChange : function(c) {
-					$('#plates').val(c.titles);
+					if (c.titles.length > 0) {
+						$('#plates').val(c.titles);
+					}
 				}
 			});
 		},

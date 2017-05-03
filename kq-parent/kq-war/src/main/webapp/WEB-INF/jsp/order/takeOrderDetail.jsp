@@ -58,7 +58,7 @@
 			${order.plates}</p>
 		<!-- 		<p class="weui_media_desc list-line-margin-bottom">颜色: -->
 		<%-- 			${order.plates}</p> --%>
-		<p class="weui_media_desc list-line-margin-bottom">空余座位:
+		<p class="weui_media_desc list-line-margin-bottom" id="p_surplusSeat">空余座位:
 			${order.surplusSeat}</p>
 	</div>
 	<div class="weui_media_box">
@@ -67,7 +67,12 @@
 			placeholder="输入乘车人数" />
 	</div>
 	<div class="weui_btn_area">
-		<a class="weui_btn weui_btn_primary" id="takeBtn">我约</a>
+		<c:if test="${order.surplusSeat == 0}">
+			<a class="weui_btn weui_btn_disabled weui_btn_default" >空位不足</a>
+		</c:if>
+		<c:if test="${order.surplusSeat > 0}">
+			<a class="weui_btn weui_btn_primary" id="takeBtn">我约</a>
+		</c:if>
 	</div>
 </body>
 <script src="${ctx}/resource/js/order/takeOrderDetail.js"></script>

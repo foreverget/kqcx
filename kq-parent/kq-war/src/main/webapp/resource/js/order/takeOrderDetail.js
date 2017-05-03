@@ -14,6 +14,7 @@ $(function() {
 					$.alert("请输入正确的乘车人数");
 					return;
 				}
+
 				var openId = $('[name=openId]').val();
 				var orderId = $('[name=orderId]').val();
 				var version = $('[name=version]').val();

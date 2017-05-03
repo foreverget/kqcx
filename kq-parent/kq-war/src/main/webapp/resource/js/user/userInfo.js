@@ -5,8 +5,8 @@ $(function() {
 	//基本信息触发事件
 	$('[id$=_ce]').on("click",function(){
 		var openId = $("#openId").val();
-		var key=$(this).attr("data-name");
-		var value = $(this).text();
+		var key=$(this).children(".weui_cell_ft").attr("data-name");
+		var value = $(this).children(".weui_cell_ft").text();
 		window.location.href=_ctx + "/user/toUpdateUserInfo?openId="+openId+"&key="+key+'&value='+value;
 	});
 	//编辑常用地址触发事件

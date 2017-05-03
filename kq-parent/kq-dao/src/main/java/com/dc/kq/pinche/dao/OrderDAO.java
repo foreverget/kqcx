@@ -242,6 +242,7 @@ public interface OrderDAO {
 	int subReleaseOrder(@Param("orderId") long orderId);
 
 	/**
+	 * 我要约车页面列表
 	 * 
 	 * @param opendId
 	 * @param startPage
@@ -250,10 +251,10 @@ public interface OrderDAO {
 	 * @param time
 	 * @return
 	 */
-	@Select({ "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
+	@Select({ "<script>"+"SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,"
 			+ "plates,req_num,price,status,score,surplus_seat,create_time " + "FROM pc_order  " + "WHERE status = '0' "
-			+ " AND go_time like CONCAT(#{time},'%')"
-			+ " ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}" })
+			+ " AND go_time like CONCAT(#{time},'%') <![CDATA[ AND surplus_seat > 0 ]]>"
+			+ " ORDER BY create_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}"+"</script>" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),

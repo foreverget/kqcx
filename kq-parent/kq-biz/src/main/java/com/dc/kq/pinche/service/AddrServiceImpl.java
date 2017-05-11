@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.common.ResponseEnum;
@@ -57,6 +58,7 @@ public class AddrServiceImpl implements AddrService {
 			resp.setValue(id);
 		} catch (Exception e) {
 			LOGGER.error("save addr error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}
@@ -75,6 +77,7 @@ public class AddrServiceImpl implements AddrService {
 			addrDao.delete(openId, id);
 		} catch (Exception e) {
 			LOGGER.error("delete addr error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}

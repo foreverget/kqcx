@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.dao.UserDAO;
@@ -70,6 +71,7 @@ public class UserServiceImpl implements UserService {
 			}
 		} catch (Exception e) {
 			LOGGER.error("registeUser error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}
@@ -89,6 +91,7 @@ public class UserServiceImpl implements UserService {
 			userDao.updateUser(userInfo.getOpenId(), userInfo.getKey(), userInfo.getValue());
 		} catch (Exception e) {
 			LOGGER.error("saveUser error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}

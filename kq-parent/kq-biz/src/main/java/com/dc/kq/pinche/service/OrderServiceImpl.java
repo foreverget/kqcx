@@ -45,7 +45,6 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private UserDAO userDAO;
 
-	@Transactional
 	@Override
 	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest) {
 		BaseResponse resp = new BaseResponse();
@@ -232,6 +231,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 		} catch (Exception e) {
 			LOGGER.error("channelOrder error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}
@@ -260,6 +260,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 		} catch (Exception e) {
 			LOGGER.error("subReleaseOrder error ", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}
@@ -291,6 +292,7 @@ public class OrderServiceImpl implements OrderService {
 		} catch (Exception e) {
 			LOGGER.error("removePassenger error ", e);
 			resp.setEnum(ResponseEnum.GET_TAKE_LIST_ERROR);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}
@@ -353,6 +355,16 @@ public class OrderServiceImpl implements OrderService {
 				resp.setEnum(ResponseEnum.NO_ORDER);
 				return resp;
 			}
+			// 判断乘客是否已经约过这个车
+			List<OrderPassenger> opList = orderDao.getPassengerList(orderId);
+			if (null != opList && opList.size() > 0) {
+				for (OrderPassenger op : opList) {
+					if (op.getOpenId().equals(openId)) {
+						resp.setEnum(ResponseEnum.ALREADY_HAS_THIS_ORDER);
+						return resp;
+					}
+				}
+			}
 			// 比较version 如果version不相等 则订单信息已经发生了变化，则返回
 			if (order.getVersion() != version) {
 				resp.setEnum(ResponseEnum.ORDER_VERSION_ERROR);
@@ -381,7 +393,7 @@ public class OrderServiceImpl implements OrderService {
 		} catch (Exception e) {
 			LOGGER.error("takeOrder error ", e);
 			resp.setEnum(ResponseEnum.TAKE_ERROR);
-			// TODO 回滚数据
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
 		}
 		return resp;
 	}

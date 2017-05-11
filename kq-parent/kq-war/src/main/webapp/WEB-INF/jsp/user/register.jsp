@@ -90,5 +90,5 @@
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/user/register.js"></script>
+<script src="${ctx}/resource/js/user/register.js?v=20170511"></script>
 </html>

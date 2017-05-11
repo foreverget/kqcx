@@ -30,5 +30,5 @@
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/order/myReleaseOrder.js"></script>
+<script src="${ctx}/resource/js/order/myReleaseOrder.js?v=20170511"></script>
 </html>

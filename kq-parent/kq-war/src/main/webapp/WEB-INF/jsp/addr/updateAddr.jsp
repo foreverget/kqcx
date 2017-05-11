@@ -50,5 +50,5 @@
 		</c:forEach>
 	</div>
 </body>
-<script src="${ctx}/resource/js/addr/updateAddr.js"></script>
+<script src="${ctx}/resource/js/addr/updateAddr.js?v=20170511"></script>
 </html>

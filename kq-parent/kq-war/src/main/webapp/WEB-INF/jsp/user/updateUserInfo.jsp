@@ -85,5 +85,5 @@
 <script type="text/javascript">
 var key = '${key}';
 </script>
-<script src="${ctx}/resource/js/user/updateUserInfo.js"></script>
+<script src="${ctx}/resource/js/user/updateUserInfo.js?v=20170511"></script>
 </html>

@@ -28,5 +28,5 @@
 		</div>
 	</form> 
 </body>
-<script src="${ctx}/resource/js/order/myHistoryOrder.js"></script>
+<script src="${ctx}/resource/js/order/myHistoryOrder.js?v=20170511"></script>
 </html>

@@ -62,5 +62,5 @@
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/car/addCar.js"></script>
+<script src="${ctx}/resource/js/car/addCar.js?v=20170511"></script>
 </html>

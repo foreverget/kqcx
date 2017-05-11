@@ -12,4 +12,4 @@
 	var _ctx = "${ctx}";
 </script>
 
-<script src="${ctx }/resource/js/util.js"></script>
+<script src="${ctx }/resource/js/util.js?v=20170511"></script>

@@ -77,5 +77,5 @@
 		</c:if>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/releaseOrderDetail.js"></script>
+<script src="${ctx}/resource/js/order/releaseOrderDetail.js?v=20170511"></script>
 </html>

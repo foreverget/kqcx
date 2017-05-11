@@ -39,5 +39,5 @@
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/order/take.js"></script>
+<script src="${ctx}/resource/js/order/take.js?v=20170511"></script>
 </html>

@@ -44,5 +44,5 @@
 		</a>
 	</div>
 </body>
-<script src="${ctx}/resource/js/user/userInfo.js"></script>
+<script src="${ctx}/resource/js/user/userInfo.js?v=20170511"></script>
 </html>

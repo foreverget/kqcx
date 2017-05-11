@@ -34,5 +34,5 @@
 	</div>
 
 </body>
-<script src="${ctx}/resource/js/car/myCarList.js"></script>
+<script src="${ctx}/resource/js/car/myCarList.js?v=20170511"></script>
 </html>

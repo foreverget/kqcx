@@ -36,5 +36,5 @@
 		</a> 
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/myOrder.js"></script>
+<script src="${ctx}/resource/js/order/myOrder.js?v=20170511"></script>
 </html>

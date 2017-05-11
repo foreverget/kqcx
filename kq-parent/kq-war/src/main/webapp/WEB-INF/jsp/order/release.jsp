@@ -124,5 +124,5 @@
 			</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/order/release.js"></script>
+<script src="${ctx}/resource/js/order/release.js?v=20170511"></script>
 </html>

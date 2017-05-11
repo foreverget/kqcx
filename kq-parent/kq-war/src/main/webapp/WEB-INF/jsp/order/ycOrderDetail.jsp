@@ -43,8 +43,7 @@
 		<p class="weui_media_title list-line-margin-bottom">司机信息</p>
 		<p class="weui_media_desc list-line-margin-bottom">司机:
 			${order.name}</p>
-		<p class="weui_media_desc list-line-margin-bottom">电话:
-			${order.mobile}</p>
+		<p class="weui_media_desc list-line-margin-bottom">电话:<a href="tel:${order.mobile}">联系司机</a></p>
 	</div>
 	<div class="weui_media_box">
 		<p class="weui_media_title list-line-margin-bottom">车辆信息</p>

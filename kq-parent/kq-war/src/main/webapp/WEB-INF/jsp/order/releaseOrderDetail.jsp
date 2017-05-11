@@ -50,19 +50,20 @@
 	</div>
 	<div class="weui_media_box">
 		<p class="weui_media_title list-line-margin-bottom">车辆信息</p>
-<!-- 		<p class="weui_media_desc list-line-margin-bottom">车型: -->
-<%-- 			${order.plates}</p> --%>
+		<!-- 		<p class="weui_media_desc list-line-margin-bottom">车型: -->
+		<%-- 			${order.plates}</p> --%>
 		<p class="weui_media_desc list-line-margin-bottom">车牌:
 			${order.plates}</p>
 		<p class="weui_media_desc list-line-margin-bottom">剩余空位:
 			${order.surplusSeat}</p>
-<%-- 		<p class="weui_media_desc ">颜色: ${order.plates}</p> --%>
+		<%-- 		<p class="weui_media_desc ">颜色: ${order.plates}</p> --%>
 	</div>
 	<div class="weui_media_box">
 		<div class="weui_media_title list-line-margin-bottom">乘客信息</div>
 		<c:forEach var="op" items="${opList}">
 			<div class="weui_media_desc list-line-margin-bottom  ">
-				${op.name}&nbsp;&nbsp;&nbsp;&nbsp;${op.count}人&nbsp;&nbsp;&nbsp;&nbsp;${op.mobile}
+				${op.name}&nbsp;&nbsp;&nbsp;&nbsp;${op.count}人&nbsp;&nbsp;&nbsp;&nbsp;<a
+					href="tel:${op.mobile}">联系乘客</a>
 				<c:if test="${order.status == '0'}">
 					<a id="tr_id_${op.openId}" data-openId="${op.openId}"
 						class="weui_btn weui_btn_mini weui_btn_warn">移除</a>

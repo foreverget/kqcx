@@ -22,63 +22,39 @@ $(function() {
 	var $form = $("#form");
 	$form.form();
 	// 提交
-	$("#formSubmitBtn")
-			.on(
-					"click",
-					function() {
-
-						$form
-								.validate(function(error) {
-									if (!error) {
-										$
-												.confirm(
-														"您确定要发布吗?",
-														"",
-														function() {
-															// 校验成功后提交数据
-															var obj = getFormJson($form);
-															$
-																	.ajax({
-																		type : "POST",
-																		url : _ctx
-																				+ "/order/release",
-																		data : JSON
-																				.stringify(obj),
-																		contentType : "application/json;charset=UTF-8",
-																		dataType : 'json',
-																		success : function(
-																				data) {
-																			if (data.code == 0) {
-																				$
-																						.toast("发布成功");
-																				// 跳转到我的订单页面
-																				window.location.href = _ctx
-																						+ "/order/toMyReleaseOrder?openId="
-																						+ $(
-																								'[name=openId]')
-																								.val();
-																			} else {
-																				$
-																						.toast(
-																								"发布失败",
-																								"forbidden");
-																			}
-																		},
-																		error : function(
-																				error) {
-																			$
-																					.toptips(
-																							"网络异常",
-																							"warning");
-																		}
-																	});
-														}, function() {
-															$.toast("取消发布",
-																	"cancel");
-														});
-									}
+	$("#formSubmitBtn").on("click",function() {
+		$form.validate(function(error) {
+			if (!error) {$.confirm("您确定要发布吗?","",function() {
+									// 校验成功后提交数据
+									var obj = getFormJson($form);
+									$.ajax({
+										type : "POST",
+										url : _ctx + "/order/release",
+										data : JSON.stringify(obj),
+										contentType : "application/json;charset=UTF-8",
+										dataType : 'json',
+										success : function(data) {
+											if (data.code == 0) {
+												$.toast("发布成功");
+												// 跳转到我的订单页面
+												window.location.href = _ctx
+														+ "/order/toMyReleaseOrder?openId="
+														+ $('[name=openId]').val();
+											} else {
+												$.toast("发布失败","forbidden");
+											}
+										},
+										error : function(error) {
+											$.toptips("网络异常","warning");
+										}
+									});
+								}, function() {
+									$.toast("取消发布","cancel");
 								});
-					});
+					}
+				});
+	});
+		
 	initSelect();
 });
 /**
@@ -105,7 +81,7 @@ function initSelectAddr(openId) {
 			if (!!addrList && addrList.length > 0) {
 				for ( var i in addrList) {
 					var obj = new Object();
-					obj.title = addrList[i].start + "---" + addrList[i].end;
+					obj.title = addrList[i].start + "--->" + addrList[i].end;
 					obj.value = addrList[i].id;
 					arr.push(obj);
 				}
@@ -116,7 +92,7 @@ function initSelectAddr(openId) {
 				items : arr,
 				onChange : function(c) {
 					if (c.titles.length > 0) {
-						var arr = c.titles.split("---");
+						var arr = c.titles.split("--->");
 						$('#startAddr').val(arr[0]);
 						$('#endAddr').val(arr[1]);
 					}

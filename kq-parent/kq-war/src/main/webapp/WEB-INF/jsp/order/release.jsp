@@ -22,7 +22,7 @@
 	<!-- 	</div> -->
 	<form id="form">
 		<input type="hidden" name="openId" value="${openId}">
-		<div class="weui_cells_title" style="color: #F00; font-weight: bold;">路线信息</div>
+		<div class="weui_cells_title" style="color: #F00; font-weight: bold;">出车信息发布</div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
@@ -55,16 +55,16 @@
 						required placeholder="请输入终止地点" tips="请输入终止地点" />
 				</div>
 			</div>
-			<!-- 			<div class="weui_cell"> -->
-			<!-- 				<div class="weui_cell_bd weui_cell_primary"> -->
-			<!-- 					<textarea id='memo' name="memo" class="weui_textarea" -->
-			<!-- 						placeholder="可输入途径等重要信息" rows="3"></textarea> -->
-			<!-- 					<div class="weui_textarea_counter"> -->
-			<!-- 						<span id='count'>0</span>/<span id='count_max'>200</span> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
-			<div class="weui_cells_title" style="color: #F00; font-weight: bold;">车辆信息</div>
+			<div class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+					<textarea id='memo' name="memo" class="weui_textarea"
+						placeholder="可输入途径等重要信息" rows="3"></textarea>
+					<div class="weui_textarea_counter">
+						<span id='count'>0</span>/<span id='count_max'>200</span>
+					</div>
+				</div>
+			</div>
+			<!--<div class="weui_cells_title" style="color: #F00; font-weight: bold;">车辆信息</div>-->
 			<div class="weui_cell weui_vcode">
 				<div class="weui_cell_hd">
 					<label class="weui_label">车牌号码</label>
@@ -83,7 +83,7 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input id='reqNum' name="reqNum" class="weui_input" type="tel"
-						required pattern="[1-4]" placeholder="输入1-4"
+						required pattern="^[1-4]\$" placeholder="输入1-4"
 						emptyTips="请输入可乘人数" notMatchTips="可乘人数请输入1-4">
 				</div>
 				<label class="weui_label">人</label>
@@ -93,13 +93,13 @@
 					<label class="weui_label">车费单价</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input id='price' name="price" class="weui_input" type="tel" pattern="[1-10]{1}"
-						required min="1" max="10" placeholder="输入1-10" emptyTips="请输入车费单价"
-						notMatchTips="车费单价请输入1-10">
+					<input id='price' name="price" class="weui_input" type="tel" pattern="^[1-5]\$"
+						required min="0" max="5" placeholder="输入1-5" emptyTips="请输入车费单价"
+						notMatchTips="车费单价请输入1-5">
 				</div>
 				<label class="weui_label">元/人</label>
 			</div>
-			<div class="weui_cells_title" style="color: #F00; font-weight: bold;">司机信息</div>
+			<!--<div class="weui_cells_title" style="color: #F00; font-weight: bold;">司机信息</div>-->
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
 					<label class="weui_label">司机姓名</label>
@@ -124,5 +124,5 @@
 			</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/order/release.js?v=20170511"></script>
+<script src="${ctx}/resource/js/order/release.js?v=20170518"></script>
 </html>

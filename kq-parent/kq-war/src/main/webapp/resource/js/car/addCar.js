@@ -21,12 +21,12 @@ $(function() {
 							dataType : 'json',
 							success : function(data) {
 								if (data.code == 0) {
-									$.alert("添加成功！");
+									$.toast("添加成功");
 									window.location.href = _ctx
 											+ "/car/toMyCarList?openId="
 											+ openId;
 								} else {
-									$.alert("添加失败!", "提示");
+									$.alert("添加失败", "提示");
 								}
 							},
 							error : function(error) {

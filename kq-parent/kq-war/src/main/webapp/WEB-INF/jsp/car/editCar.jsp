@@ -16,8 +16,8 @@
 
 <body ontouchstart style="background-color: #f8f8f8;">
 	<form id="form">
-		<input type="hidden" name="openId" value="${openId}">
-		<input type="hidden" name="id" value="${carInfo.id}">
+		<input type="hidden" id='openId' name="openId" value="${openId}">
+		<input type="hidden" id='id' name="id" value="${carInfo.id}">
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
@@ -40,7 +40,7 @@
 			</div>
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
-					<label class="weui_label">座位数量</label>
+					<label class="weui_label">座位数</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" type="text" name="seat" required
@@ -60,8 +60,9 @@
 		</div>
 		<div class="weui_btn_area">
 			<a class="weui_btn weui_btn_primary" href="javascript:;" id="editBtn">保存</a>
+			<a class="weui_btn weui_btn_warn" href="javascript:;" id="delBtn">删除</a>
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/car/editCar.js?v=20170511"></script>
+<script src="${ctx}/resource/js/car/editCar.js?v=20170514"></script>
 </html>

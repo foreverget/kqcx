@@ -87,17 +87,14 @@ public class CarController {
 	}
 
 	/**
-	 * 删除地车辆信息
-	 * 
-	 * @param userId
-	 * @param id
-	 * @param valueKey
+	 *  删除地车辆信息
+	 * @param carInfo
 	 * @return
 	 */
-	@RequestMapping("delete.json")
+	@RequestMapping("deleteCar")
 	@ResponseBody
-	public BaseResponse delete(long userId, long id, String valueKey) {
-		return carService.delete(userId, id);
+	public BaseResponse deleteCar(@RequestBody CarInfo carInfo) {
+		return carService.delete(carInfo);
 	}
 
 	/**

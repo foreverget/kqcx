@@ -39,13 +39,11 @@ public interface CarService {
 	public BaseResponse save(CarInfo carInfo);
 
 	/**
-	 * 根据地址Id删除车辆信息
-	 * 
-	 * @param userId
-	 * @param id
+	 * 删除车辆信息
+	 * @param carInfo
 	 * @return
 	 */
-	public BaseResponse delete(long userId, long id);
+	public BaseResponse delete(CarInfo carInfo);
 
 	/**
 	 * 发布出车页面 -- 根据openId获取车辆列表

@@ -15,14 +15,14 @@
 </head>
 <body ontouchstart style="background-color: #f8f8f8;">
 	<input type="hidden" id="openId" value="${openId}">
+	<div class="weui_cells_title">您的爱车列表</div>
 	<div class="weui_cells weui_cells_form">
-		<div class="weui_cells">
+		<div class="weui_cells weui_cells_access">
 			<c:forEach var="car" items="${list}">
-				<a class="weui_cell " href="javascript:;" id="up_carInfo_${car.id}"  data-id='${car.id}'>
-					<div class="weui_cell" id="car_id_${car.id}">
-						<div class="weui_cell_bd weui_cell_primary">
-							<p>车牌号：${car.plates}</p>
-						</div>
+				<a class="weui_cell" href="javascript:;" id="up_carInfo_${car.id}"
+					data-id='${car.id}'>
+					<div id="car_id_${car.id}" class="weui_cell_bd weui_cell_primary">
+						<p>车牌号：${car.plates}</p>
 					</div>
 					<div class="weui_cell_ft">修改</div>
 				</a>

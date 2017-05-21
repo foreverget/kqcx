@@ -39,7 +39,7 @@
 			</div>
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
-					<label class="weui_label">座位数量</label>
+					<label class="weui_label">座位数</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" type="text" name="seat" required
@@ -62,5 +62,5 @@
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/car/addCar.js?v=20170511"></script>
+<script src="${ctx}/resource/js/car/addCar.js?v=20170512"></script>
 </html>

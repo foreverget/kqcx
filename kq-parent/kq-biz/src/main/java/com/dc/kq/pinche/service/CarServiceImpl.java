@@ -12,7 +12,6 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.dc.kq.pinche.common.BaseResponse;
 import com.dc.kq.pinche.common.ResponseEnum;
 import com.dc.kq.pinche.dao.CarDAO;
-import com.dc.kq.pinche.dmo.AddrInfo;
 import com.dc.kq.pinche.dmo.CarInfo;
 
 /**
@@ -86,20 +85,21 @@ public class CarServiceImpl implements CarService {
 	}
 
 	/**
-	 * 根据地址Id删除车辆信息
+	 * 删除车辆信息
 	 * 
 	 * @param userId
 	 * @param id
 	 * @return
 	 */
 	@Override
-	public BaseResponse delete(long userId, long id) {
+	public BaseResponse delete(CarInfo carInfo) {
 		BaseResponse resp = new BaseResponse();
-		// try {
-		// carDao.delete(userId, id);
-		// } catch (Exception e) {
-		// LOGGER.error("delete car error ", e);
-		// }
+		 try {
+			 carDao.delete(carInfo.getOpenId(), carInfo.getId());
+		 } catch (Exception e) {
+			 LOGGER.error("delete car error ", e);
+			 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); 
+		 }
 		return resp;
 	}
 

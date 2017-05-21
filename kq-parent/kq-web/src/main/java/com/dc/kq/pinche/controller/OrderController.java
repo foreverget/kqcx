@@ -49,6 +49,12 @@ public class OrderController {
 	 * @param openId
 	 * @return
 	 */
+	@RequestMapping("toTakeOld")
+	public String toTakeOld(HttpServletRequest request, String openId) {
+		request.setAttribute("openId", openId);
+		return "order/takeOld";
+	}
+	
 	@RequestMapping("toTake")
 	public String toTake(HttpServletRequest request, String openId) {
 		request.setAttribute("openId", openId);

@@ -16,23 +16,22 @@
 <body ontouchstart style="background-color: #f8f8f8;">
 	<input type="hidden" id="openId" value="${openId}">
 	<div class="weui_cells weui_cells_form">
-		<div class="weui_cell" id="start_cell">
-			<div class="weui_cell_hd">
-				<label class="weui_label">起点</label>
-			</div>
-			<div class="weui_cell_bd weui_cell_primary">
-				<input class="weui_input" type="text" name="start" required
-					emptyTips="请输入起点" />
+		<div class="weui_cells_title">起点</div>
+		<div class="weui_cells">
+			<div class="weui_cell id="start_cell"">
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" placeholder="请输入起点描述" type="text" name="start" required
+					emptyTips="请输入起点描述">
+				</div>
 			</div>
 		</div>
-
-		<div class="weui_cell" id="end_cell">
-			<div class="weui_cell_hd">
-				<label class="weui_label">终点</label>
-			</div>
-			<div class="weui_cell_bd weui_cell_primary">
-				<input class="weui_input" type="text" name="end" required
-					emptyTips="请输入终点" />
+		<div class="weui_cells_title">终点</div>
+		<div class="weui_cells">
+			<div class="weui_cell" id="end_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" placeholder="请输入终点描述" type="text" name="end" required
+					emptyTips="请输入终点描述" >
+				</div>
 			</div>
 		</div>
 		<div class="weui_btn_area">
@@ -50,5 +49,5 @@
 		</c:forEach>
 	</div>
 </body>
-<script src="${ctx}/resource/js/addr/updateAddr.js?v=20170511"></script>
+<script src="${ctx}/resource/js/addr/updateAddr.js?v=20170512"></script>
 </html>

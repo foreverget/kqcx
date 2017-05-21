@@ -28,12 +28,12 @@ $(function() {
 						dataType : 'json',
 						success : function(data) {
 							if (data.code == 0) {
-								$.alert("添加成功！");
+								$.toast("添加成功");
 								window.location.href = _ctx
 										+ "/addr/toUpdateAddr?openId="
 										+ obj.openId;
 							} else {
-								$.alert("添加失败!", "提示");
+								$.alert("添加失败", "提示");
 							}
 						},
 						error : function(error) {
@@ -55,10 +55,10 @@ $(function() {
 					dataType : 'json',
 					success : function(data) {
 						if (data.code == 0) {
-							$.alert("删除成功！");
+							$.toast("删除成功");
 							window.location.href = _ctx+ "/addr/toUpdateAddr?openId="+ openId;
 						} else {
-							$.alert("删除失败!", "提示");
+							$.alert("删除失败", "提示");
 						}
 					},
 					error : function(error) {

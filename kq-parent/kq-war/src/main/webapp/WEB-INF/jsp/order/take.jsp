@@ -17,7 +17,7 @@
 <script src="${ctx}/resource/listloading/src/jslib/require.js"></script>
 </head>
 <body ontouchstart style="background-color: #f8f8f8;">
-	<input type="hidden" name="openId" id=""openId"" value="${openId}" />
+	<input type="hidden" name="openId" id="openId" value="${openId}" />
 	<style type="text/css">
 		html, body {
 			height: 100%;

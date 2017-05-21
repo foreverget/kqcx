@@ -8,53 +8,35 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>约车单详情</title>
+<title>约车单详细信息</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
-<body ontouchstart style="background-color: #FFFFFF;">
-	<div class="weui_media_box weui_media_appmsg">
-		<div class="weui_media_bd">
-			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;<font
-					class="font-blue">${order.price}</font>&nbsp;元/人
-			</h4>
-			<p class="weui_media_desc list-line-margin-bottom">起点:
-				${order.startAddr}</p>
-			<p class="weui_media_desc list-line-margin-bottom">终点:
-				${order.endAddr}</p>
-			<p class="weui_media_desc list-line-margin-bottom">
-				订单状态:
-				<c:if test="${order.status == 0}">
-					<font class="font-blue">等客中</font>
-				</c:if>
-				<c:if test="${order.status == 1}">
-					<font class="font-green">客满发车</font>
-				</c:if>
-				<c:if test="${order.status == 2}">
-					已送达
-				</c:if>
-				<c:if test="${order.status == 3}">
-					<font class="font-red">订单已取消</font>
-				</c:if>
-			</p>
+<body ontouchstart class="page-bg">
+	<input type="hidden" id='openId' name="openId" value="${openId}" />
+	<input type="hidden" id='orderId' name="orderId" value="${order.id}" />
+	<input type="hidden" id='version' name="version" value="${order.version}" />
+	<input type="hidden" id='surplusSeat' name="surplusSeat" value="${order.surplusSeat}" />
+	<div class="weui_cells_title">您约车的信息如下</div>
+	<div class="weui-form-preview">
+		<div class="weui-form-preview-hd">
+			<label class="weui-form-preview-label"><span class='f-orange'>出发时间</span></label>
+			<span class="weui-form-preview-value"><span class='f-orange'>${order.goTime}</span></span>
+			<label class="weui-form-preview-label"><span class='f-black'>从</span></label>
+			<span class="weui-form-preview-value">${order.startAddr} </span><label
+				class="weui-form-preview-label"><span class='f-black'>到</span></label>
+			<span class="weui-form-preview-value">${order.endAddr}</span> <label
+				class="weui-form-preview-label"><span class='f-black'>拼车单价</span></label>
+			<span class="weui-form-preview-value"><span class='f-red'>¥${order.price}元/人</span></span>
+
+			<label class="weui-form-preview-label"><span class='f-black'>司机</span></label>
+			<span class="weui-form-preview-value">${order.name}</span> <label
+				class="weui-form-preview-label"><span class='f-black'>联系司机</span></label>
+			<span class="weui-form-preview-value"><a
+				href="tel:${order.mobile}">点击呼叫</a></span> <label
+				class="weui-form-preview-label"><span class='f-black'>车牌号码</span></label>
+			<span class="weui-form-preview-value">${order.plates}</span>
 		</div>
-	</div>
-	<div class="weui_media_box">
-		<p class="weui_media_title list-line-margin-bottom">司机信息</p>
-		<p class="weui_media_desc list-line-margin-bottom">司机:
-			${order.name}</p>
-		<p class="weui_media_desc list-line-margin-bottom">电话:<a href="tel:${order.mobile}">联系司机</a></p>
-	</div>
-	<div class="weui_media_box">
-		<p class="weui_media_title list-line-margin-bottom">车辆信息</p>
-		<!-- 		<p class="weui_media_desc list-line-margin-bottom">车型: -->
-		<%-- 			${order.plates}</p> --%>
-		<p class="weui_media_desc list-line-margin-bottom">车牌:
-			${order.plates}</p>
-		<!-- 		<p class="weui_media_desc list-line-margin-bottom">颜色: -->
-		<%-- 			${order.plates}</p> --%>
-		<p class="weui_media_desc list-line-margin-bottom">空余座位:
-			${order.surplusSeat}</p>
 	</div>
 </body>
 </html>

@@ -17,7 +17,7 @@
 	<input type="hidden" id='orderId' name="orderId" value="${order.id}" />
 	<input type="hidden" id='version' name="version" value="${order.version}" />
 	<input type="hidden" id='surplusSeat' name="surplusSeat" value="${order.surplusSeat}" />
-	<div class="weui_cells_title">您约车的信息如下</div>
+	<div class="weui_cells_title">您约车单信息如下</div>
 	<div class="weui-form-preview">
 		<div class="weui-form-preview-hd">
 			<label class="weui-form-preview-label"><span class='f-orange'>出发时间</span></label>

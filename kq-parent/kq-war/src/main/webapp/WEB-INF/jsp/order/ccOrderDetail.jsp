@@ -8,26 +8,67 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>出车单详情</title>
+<title>出车单详细信息</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
-<body ontouchstart style="background-color: #FFFFFF;">
-	<div href="javascritp:;" class="weui_media_box weui_media_appmsg">
-		<div class="weui_media_bd">
-			<h4 class="weui_media_title list-line-margin-bottom">${order.goTime}&nbsp;&nbsp;&nbsp;&nbsp;单价&nbsp;${order.price}&nbsp;元</h4>
-			<p class="weui_media_desc list-line-margin-bottom">起点:
-				${order.startAddr}</p>
-			<p class="weui_media_desc list-line-margin-bottom">终点:
-				${order.endAddr}</p>
-			<p class="weui_media_desc list-line-margin-bottom">订单状态:
-				${order.status}</p>
-			<br />
-			<p class="weui_media_desc list-line-margin-bottom">乘客信息</p>
-			<c:forEach var="op"   items="${opList}">
-				<p class="weui_media_desc list-line-margin-bottom">
-				${op.name}&nbsp;&nbsp;&nbsp;&nbsp;${op.count}人&nbsp;&nbsp;&nbsp;&nbsp;${op.mobile}</p>
+<body ontouchstart class="page-bg">
+	<input type="hidden" id='openId' name="openId" value="${openId}" />
+	<input type="hidden" id='orderId' name="orderId" value="${order.id}" />
+	<input type="hidden" id='version' name="version"
+		value="${order.version}" />
+	<input type="hidden" id='surplusSeat' name="surplusSeat"
+		value="${order.surplusSeat}" />
+	<div class="weui-form-preview">
+		<div class="weui-form-preview-bd">
+			<div class="weui-loadmore weui-loadmore-line">
+				<span class="weui-loadmore-tips"><span class='f-red'>乘客信息</span></span>
+			</div>
+			<c:forEach var="op" items="${opList}">
+				<p>
+					<label class="weui-form-preview-label"> <c:if
+							test="${order.status == '0'}">
+							<a id="tr_id_${op.openId}" data-openId="${op.openId}"
+								data-name="${op.name}">${op.name}</a>
+						</c:if> <c:if test="${order.status != '0'}">
+						${op.name}
+					</c:if> &nbsp;&nbsp;约${op.count}人
+					</label> <span class="weui-form-preview-value"><a
+						href="tel:${op.mobile}">点击呼叫</a></span>
+				</p>
 			</c:forEach>
+		</div>
+		<div class="weui-form-preview-hd">
+			<label class="weui-form-preview-label">出发时间</label> <em
+				class="weui-form-preview-value">${order.goTime}</em> <label
+				class="weui-form-preview-label">拼车单价</label> <em
+				class="weui-form-preview-value">¥${order.price}/人</em>
+		</div>
+		<div class="weui-form-preview-bd">
+			<p>
+				<label class="weui-form-preview-label">从</label> <span
+					class="weui-form-preview-value">${order.startAddr}</span>
+			</p>
+			<p>
+				<label class="weui-form-preview-label">到</label> <span
+					class="weui-form-preview-value">${order.endAddr}</span>
+			</p>
+			<p>
+				<label class="weui-form-preview-label">途经</label> <span
+					class="weui-form-preview-value">无</span>
+			</p>
+			<p>
+				<label class="weui-form-preview-label">车牌号码</label> <span
+					class="weui-form-preview-value">${order.plates}</span>
+			</p>
+			<p>
+				<label class="weui-form-preview-label">司机</label> <span
+					class="weui-form-preview-value">${order.name}</span>
+			</p>
+			<p>
+				<label class="weui-form-preview-label">司机电话</label> <span
+					class="weui-form-preview-value">${order.mobile}</span>
+			</p>
 		</div>
 	</div>
 </body>

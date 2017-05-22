@@ -19,12 +19,11 @@
 		value="${order.version}" />
 	<input type="hidden" id='surplusSeat' name="surplusSeat"
 		value="${order.surplusSeat}" />
-
 	<div class="weui-form-preview">
-		<div class="weui_cells_title">
-			<span class='f-red'>已约乘客信息</span>
-		</div>
 		<div class="weui-form-preview-bd">
+			<div class="weui-loadmore weui-loadmore-line">
+				<span class="weui-loadmore-tips"><span class='f-red'>乘客信息</span></span>
+			</div>
 			<c:forEach var="op" items="${opList}">
 				<p>
 					<label class="weui-form-preview-label">

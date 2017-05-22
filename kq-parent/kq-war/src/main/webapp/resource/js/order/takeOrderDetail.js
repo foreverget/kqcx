@@ -40,7 +40,6 @@ $(function() {
 						dataType : 'json',
 						success : function(data) {
 							if (data.code == 0) {
-								//$.alert("恭喜您,预约成功");
 								$.toast("恭喜您,预约成功");
 								// 跳转到我的约车单页面
 								window.location.href = _ctx

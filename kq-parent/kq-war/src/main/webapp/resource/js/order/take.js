@@ -2,7 +2,7 @@
  * 我要约车相关JS
  */
 $(function() {
-	var openId = $("#openId").val();
+	var passengerOpenId = $("#openId").val();
 	// 每页展示5个
 	var size = 5;
 	// 今天
@@ -30,7 +30,7 @@ $(function() {
 						page_0 = 1;
 					}
 					var __html = '';
-					var _action = '/order/getTakeOrderList?type=1&page=' + page_0 + '&size=' + size + '&openId='+openId;
+					var _action = '/order/getTakeOrderList?type=1&page=' + page_0 + '&size=' + size + '&openId='+passengerOpenId;
 					// 发送请求获取更多数据
 					$.ajax({
 						type : 'GET',
@@ -51,14 +51,14 @@ $(function() {
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'
+									__html += '<li id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">今</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
 											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：潮白新居、456期、友谊大桥</p>'
+											+'<p class="text">途径：</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -89,7 +89,7 @@ $(function() {
 						page_1 = 1;
 					}
 					var __html = '';
-					var _action = '/order/getTakeOrderList?type=2&page=' + page_1 + '&size=' + size + '&openId='+openId;
+					var _action = '/order/getTakeOrderList?type=2&page=' + page_1 + '&size=' + size + '&openId='+passengerOpenId;
 					// 发送请求获取更多数据
 					$.ajax({
 						type : 'GET',
@@ -110,14 +110,14 @@ $(function() {
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'
+									__html += '<li id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">明</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
 											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：潮白新居、456期、友谊大桥</p>'
+											+'<p class="text">途径：</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -169,14 +169,14 @@ $(function() {
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'
+									__html += '<li id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">后</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
 											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：潮白新居、456期、友谊大桥</p>'
+											+'<p class="text">途径：</p>'
 											+'</li>';
 								}
 								//alert(__html);

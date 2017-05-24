@@ -58,7 +58,7 @@ $(function() {
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：</p>'
+											+'<p class="text">途径：'+arr[i].memo+'</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -117,7 +117,7 @@ $(function() {
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：</p>'
+											+'<p class="text">途径：'+arr[i].memo+'</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -176,7 +176,7 @@ $(function() {
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：</p>'
+											+'<p class="text">途径：'+arr[i].memo+'</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -188,7 +188,7 @@ $(function() {
 							}
 						},
 						error : function(xhr, type) {
-							$.toptips("网络异常", "warning");
+							$.toptips("网络或服务异常", "warning");
 						}
 					});
 					return __html;

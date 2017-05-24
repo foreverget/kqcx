@@ -67,10 +67,6 @@ public class OrderInfo extends BaseEntity {
 	 * 剩余座位数
 	 */
 	private int surplusSeat;
-	/**
-	 * 数据版本
-	 */
-	private int version;
 
 	/**
 	 * @return the id
@@ -273,14 +269,6 @@ public class OrderInfo extends BaseEntity {
 
 	public void setSurplusSeat(int surplusSeat) {
 		this.surplusSeat = surplusSeat;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 }

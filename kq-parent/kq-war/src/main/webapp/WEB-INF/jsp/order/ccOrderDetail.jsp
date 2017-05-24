@@ -55,7 +55,7 @@
 			</p>
 			<p>
 				<label class="weui-form-preview-label">途经</label> <span
-					class="weui-form-preview-value">无</span>
+					class="weui-form-preview-value">${order.memo}</span>
 			</p>
 			<p>
 				<label class="weui-form-preview-label">车牌号码</label> <span

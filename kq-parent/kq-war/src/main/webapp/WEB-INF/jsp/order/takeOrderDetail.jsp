@@ -52,7 +52,7 @@
 		</div>
 		<div class="weui_cell weui_cell_switch">
 			<div class="weui_cell_hd weui_cell_primary">
-				<span class='f-blue'>遵守系统使用条约</span>
+				<span >遵守<a id='rulelink' href="javascript:;">《系统使用条约及免责声明》</a></span>
 			</div>
 			<div class="weui_cell_ft">
 				<input class="weui_switch" type="checkbox" id='ck_rule' />
@@ -69,5 +69,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/takeOrderDetail.js?v=20170534"></script>
+<script src="${ctx}/resource/js/order/takeOrderDetail.js?v=20170537"></script>
 </html>

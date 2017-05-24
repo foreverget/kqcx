@@ -116,5 +116,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/take.js?v=20170539"></script>
+<script src="${ctx}/resource/js/order/take.js?v=20170540"></script>
 </html>

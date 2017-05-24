@@ -40,7 +40,7 @@ public interface UserDAO {
 	/**
 	 * 根据userId查询用户信息
 	 * 
-	 * @param openId
+	 * @param userId
 	 * @return
 	 */
 	@Select({ "SELECT", "id,name,mobile,addr,email,gender,head_img,status,open_id ", "FROM pc_user ",

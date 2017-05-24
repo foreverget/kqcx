@@ -18,10 +18,6 @@ public class OrderPassenger extends BaseEntity {
 	 */
 	private long orderId;
 	/**
-	 * 用户Id
-	 */
-	private long userId;
-	/**
 	 * 状态
 	 */
 	private String status;
@@ -56,14 +52,6 @@ public class OrderPassenger extends BaseEntity {
 
 	public void setOrderId(long orderId) {
 		this.orderId = orderId;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
 	}
 
 	public String getStatus() {

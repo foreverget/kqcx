@@ -4,7 +4,7 @@
 $(function() {
 
 	$("#goTime").datetimePicker({
-		title : "请选择出发时间"
+		title : "<span class='f-red'>请选择出发时间</span>"
 	});
 
 	var max = $('#count_max').text();
@@ -19,10 +19,24 @@ $(function() {
 			$(this).closest('.weui_cell').removeClass('weui_cell_warn');
 		}
 	});
+
+	// 绑定事件
+	$("#rulelink").on('click',function(){
+		$.alert('1.文明出车 \n;2.不准迟到','<span class="f-blue">系统免责声明</span>');
+	});
+	
 	var $form = $("#form");
 	$form.form();
 	// 提交
 	$("#formSubmitBtn").on("click",function() {
+		// 未选择条约
+		var $ck = $('#ck_rule:checked').val();
+		if ($ck == 'on') {
+			
+		} else {
+			$.alert("抱歉,您未同意遵守本系统条约");
+			return;
+		}
 		$form.validate(function(error) {
 			if (!error) {$.confirm("您确定要发布吗?","",function() {
 									// 校验成功后提交数据
@@ -41,11 +55,11 @@ $(function() {
 														+ "/order/toMyReleaseOrder?openId="
 														+ $('[name=openId]').val();
 											} else {
-												$.toast("发布失败","forbidden");
+												$.alert(data.message, "提示");
 											}
 										},
 										error : function(error) {
-											$.toptips("网络异常","warning");
+											$.toptips("网络或服务异常","warning");
 										}
 									});
 								}, function() {
@@ -88,7 +102,7 @@ function initSelectAddr(openId) {
 			}
 			// 绑定事件
 			$("#selectaddr").select({
-				title : "选择常用地址",
+				title : "<span class='f-red'>请选择常用地址</span>",
 				items : arr,
 				onChange : function(c) {
 					if (c.titles.length > 0) {
@@ -101,7 +115,7 @@ function initSelectAddr(openId) {
 			});
 		},
 		error : function(xhr, type) {
-			$.toptips("网络异常", "warning");
+			$.toptips("网络或服务异常", "warning");
 		}
 	});
 }
@@ -128,7 +142,7 @@ function initSelectCar(openId) {
 			}
 			// 绑定事件
 			$("#selectcar").select({
-				title : "选择车辆",
+				title : "<span class='f-red'>请选择车辆</span>",
 				items : arr,
 				onChange : function(c) {
 					if (c.titles.length > 0) {
@@ -138,7 +152,7 @@ function initSelectCar(openId) {
 			});
 		},
 		error : function(xhr, type) {
-			$.toptips("网络异常", "warning");
+			$.toptips("网络或服务异常", "warning");
 		}
 	});
 }

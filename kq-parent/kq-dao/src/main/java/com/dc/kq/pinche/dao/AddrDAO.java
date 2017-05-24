@@ -49,7 +49,7 @@ public interface AddrDAO {
 	/**
 	 * 删除地址信息
 	 * 
-	 * @param userId
+	 * @param openId
 	 * @param id
 	 * @return
 	 */

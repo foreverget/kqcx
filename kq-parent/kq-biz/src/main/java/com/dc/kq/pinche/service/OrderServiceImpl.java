@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.dc.kq.pinche.common.BaseResponse;
@@ -48,15 +47,22 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest) {
 		BaseResponse resp = new BaseResponse();
-		// 校验订单信息是否符合
-		OrderInfo nOrderInfo = checkAndBuildOrder(orderInfoRequest);
-		nOrderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
 		try {
+			// 校验订单信息是否符合,如果有未完成订单，不允许发布
+//			String openId = orderInfoRequest.getOpenId();
+//			List<OrderInfo> orderList = orderDao.getUnEndOrderList(openId);
+//			if(null!=orderList&& orderList.size()>0){
+//				resp.setEnum(ResponseEnum.RELEASE_ERROR);
+//				return resp;
+//			}
+			OrderInfo nOrderInfo = buildOrder(orderInfoRequest);
+			nOrderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
 			long id = orderDao.insert(nOrderInfo);
 			resp.setValue(id);
+			// TODO 发布后向车主推送消息
 		} catch (Exception e) {
-			resp.setValue("发布失败");
-			LOGGER.error("save order error ", e);
+			resp.setValue("发布失败," + e.getMessage());
+			LOGGER.error("doReleaseOrder error.", e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return resp;
@@ -69,20 +75,7 @@ public class OrderServiceImpl implements OrderService {
 	 * @param orderInfo
 	 * @return
 	 */
-	private OrderInfo checkAndBuildOrder(OrderInfoRequest orderInfoRequest) {
-		// 出车时间
-		// 始
-		// 终
-		// 备注 可为空
-		// 车牌号码 外键关联车辆信息
-		// 拼车人数 先限制最大为7
-		// 车费单价 先固定为5元，限制黑车行为，保证为私家车使用
-
-		// 以下2项，如未填写，在用户基本信息表获取
-		// 司机姓名
-		// 联系电话
-
-		// 检查是否重复发布
+	private OrderInfo buildOrder(OrderInfoRequest orderInfoRequest) {
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setOpenId(orderInfoRequest.getOpenId());
 		orderInfo.setName(orderInfoRequest.getName());
@@ -95,6 +88,9 @@ public class OrderServiceImpl implements OrderService {
 		orderInfo.setPrice(orderInfoRequest.getPrice());
 		orderInfo.setMobile(orderInfoRequest.getMobile());
 		orderInfo.setSurplusSeat(orderInfoRequest.getReqNum());
+		orderInfo.setVersion(0);
+		orderInfo.setCreateBy("司机");
+		orderInfo.setCreateTime(new Date());
 		return orderInfo;
 	}
 
@@ -279,10 +275,23 @@ public class OrderServiceImpl implements OrderService {
 		BaseResponse resp = new BaseResponse();
 		try {
 			// 根据order查询订单详情
-			OrderInfo order = orderDao.selectOrderById(orderId);
-			if (null != order) {
-				if (order.getOpenId().equals(openId)) {
-					orderPassengerDao.updateStatusByParam(orderId, opId);
+			OrderInfo orderInfo = orderDao.selectOrderById(orderId);
+			if (null != orderInfo) {
+				if (orderInfo.getOpenId().equals(openId)) {
+					// 获取有效乘客
+					OrderPassenger orderPassenger = orderPassengerDao.selectOneOrderPassengerById(openId, orderId, "1");
+					orderPassenger.setStatus("0");
+					orderPassenger.setCreateBy("司机");
+					orderPassenger.setUpdateTime(new Date());
+					orderPassengerDao.updateOrderPassengerById(orderPassenger);
+					// 将关联司机出车单剩余座位数加回
+					orderInfo.setSurplusSeat(orderInfo.getSurplusSeat() + orderPassenger.getCount());
+					// 状态改为发布中
+					orderInfo.setStatus("0");
+					orderInfo.setUpdateBy("司机");
+					orderInfo.setUpdateTime(new Date());
+					orderDao.updateOrderById(orderInfo);
+					// TODO 移除乘客后向乘客发送推送消息
 				} else {
 					resp.setEnum(ResponseEnum.OPERATION_ULTRA_VIRES);
 				}
@@ -377,6 +386,13 @@ public class OrderServiceImpl implements OrderService {
 			}
 			// version 相等 更新订单表，更新version和剩余座位，剩余座位等于之前的之前剩余座位-此次乘车人数
 			order.setSurplusSeat(order.getSurplusSeat() - count);
+			// 如果已经约满，订单状态改为客满出发
+			if(order.getSurplusSeat()==0){
+				order.setStatus("1");
+			}
+			order.setUpdateBy("乘客");
+			order.setUpdateTime(new Date());
+			order.setVersion(version+1);
 			orderDao.updateOrderById(order);
 			// 根据openId查询乘车人信息
 			UserInfo userInfo = userDAO.selectUserByOpenId(openId);
@@ -388,6 +404,8 @@ public class OrderServiceImpl implements OrderService {
 			orderPassenger.setCount(count);
 			orderPassenger.setName(userInfo.getName());
 			orderPassenger.setMobile(userInfo.getMobile());
+			orderPassenger.setCreateBy("乘客");
+			orderPassenger.setCreateTime(new Date());
 			orderPassenger.setVersion(0);
 			orderPassengerDao.insert(orderPassenger);
 		} catch (Exception e) {

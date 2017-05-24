@@ -15,20 +15,18 @@
 <body ontouchstart class="page-bg">
 	<input type="hidden" id='openId' name="openId" value="${openId}" />
 	<input type="hidden" id='orderId' name="orderId" value="${order.id}" />
-	<input type="hidden" id='version' name="version"
-		value="${order.version}" />
-	<input type="hidden" id='surplusSeat' name="surplusSeat"
-		value="${order.surplusSeat}" />
+	<input type="hidden" id='version' name="version" value="${order.version}" />
+	<input type="hidden" id='surplusSeat' name="surplusSeat" value="${order.surplusSeat}" />
 	<div class="weui-form-preview">
 		<div class="weui-form-preview-bd">
 			<div class="weui-loadmore weui-loadmore-line">
-				<span class="weui-loadmore-tips"><span class='f-red'>乘客信息</span></span>
+				<span class="weui-loadmore-tips"><span class='f-red'>乘客信息</span>-剩余<span class='f-red'>{${order.surplusSeat}}</span>座位</span>
 			</div>
 			<c:forEach var="op" items="${opList}">
-				<p>
+				<p id = 'ppp'>
 					<label class="weui-form-preview-label">
 					<c:if test="${order.status == '0'}">
-						<a id="tr_id_${op.openId}" data-openId="${op.openId}" data-name="${op.name}">${op.name}</a>
+						<a id="tr_id_${op.openId}" data-openId="${op.openId}" data-name="${op.name}" data-value="${op.count}" >${op.name}</a>
 					</c:if>
 					<c:if test="${order.status != '0'}">
 						${op.name}
@@ -57,7 +55,7 @@
 			</p>
 			<p>
 				<label class="weui-form-preview-label">途经</label> <span
-					class="weui-form-preview-value">无</span>
+					class="weui-form-preview-value">${order.memo}</span>
 			</p>
 			<p>
 				<label class="weui-form-preview-label">车牌号码</label> <span
@@ -82,5 +80,5 @@
 		</c:if>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/releaseOrderDetail.js?v=20170524"></script>
+<script src="${ctx}/resource/js/order/releaseOrderDetail.js?v=20170533"></script>
 </html>

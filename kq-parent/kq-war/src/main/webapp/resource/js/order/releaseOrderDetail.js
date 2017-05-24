@@ -10,6 +10,10 @@ $(function() {
 			function() {
 				var openId = $('[name=openId]').val();
 				var orderId = $('[name=orderId]').val();
+				if(!($('#ppp').attr('id')==undefined)){
+					$.alert("已有乘客约车,请电话通知乘客");
+					return;
+				}
 				$.confirm("您确定要取消订单吗?", "确认?", function() {
 					$.ajax({
 						type : "POST",
@@ -75,7 +79,8 @@ $(function() {
 		//获取被踢的openId
 		var opId=$(this).attr('data-openId');
 		var pname=$(this).attr('data-name');
-		$.confirm("您确定要移除乘客<span class='f-red'>"+pname+"</span>吗?", "确认?", function() {
+		var pcount=$(this).attr('data-value');
+		$.confirm("移除将释放<span class='f-red'>"+pcount+"</span>座位给其他乘客约车，您确定要移除乘客<span class='f-red'>"+pname+"</span>吗?", "确认?", function() {
 			$.ajax({
 				type : "POST",
 				url : _ctx + "/order/removePassenger?openId=" + openId

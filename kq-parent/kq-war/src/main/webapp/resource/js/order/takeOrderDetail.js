@@ -2,6 +2,10 @@
  * 约车详细信息页面相关JS
  */
 $(function() {
+	// 绑定事件
+	$("#rulelink").on('click',function(){
+		$.alert('1.文明约车 \n;2.不准迟到','<span class="f-blue">系统免责声明</span>');
+	});
 	/**
 	 * 我约触发事件
 	 */

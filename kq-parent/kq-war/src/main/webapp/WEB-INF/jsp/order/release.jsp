@@ -22,7 +22,7 @@
 	<!-- 	</div> -->
 	<form id="form">
 		<input type="hidden" name="openId" value="${openId}">
-		<div class="weui_cells_title" style="color: #F00; font-weight: bold;">出车信息发布</div>
+		<div class="weui_cells_title" style="font-weight: bold;"><span class="f-green">出车信息发布</span></div>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
@@ -58,9 +58,9 @@
 			<div class="weui_cell">
 				<div class="weui_cell_bd weui_cell_primary">
 					<textarea id='memo' name="memo" class="weui_textarea"
-						placeholder="可输入途径等重要信息" rows="3"></textarea>
+						placeholder="可输入途径等重要信息" rows="1"></textarea>
 					<div class="weui_textarea_counter">
-						<span id='count'>0</span>/<span id='count_max'>200</span>
+						<span id='count'>0</span>/<span id='count_max'>50</span>
 					</div>
 				</div>
 			</div>
@@ -119,10 +119,18 @@
 						emptyTips="请输入手机号">
 				</div>
 			</div>
+			<div class="weui_cell weui_cell_switch">
+				<div class="weui_cell_hd weui_cell_primary">
+					<span >遵守<a id='rulelink' href="javascript:;">《系统使用条约及免责声明》</a></span>
+				</div>
+				<div class="weui_cell_ft">
+					<input class="weui_switch" type="checkbox" id='ck_rule' />
+				</div>
+			</div>
 			<div class="weui_btn_area">
 				<a id="formSubmitBtn" class="weui_btn bg-orange">马上发布</a>
 			</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/order/release.js?v=20170518"></script>
+<script src="${ctx}/resource/js/order/release.js?v=20170523"></script>
 </html>

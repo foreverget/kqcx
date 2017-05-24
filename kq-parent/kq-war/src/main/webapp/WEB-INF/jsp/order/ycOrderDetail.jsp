@@ -38,6 +38,10 @@
 				class="weui-form-preview-label"><span class='f-black'>车牌号码</span></label>
 			<span class="weui-form-preview-value">${order.plates}</span>
 		</div>
+		<div  class="weui_cells_title">
+			<span class="f-red">如果您想取消本次约车,请点击呼叫联系司机进行取消</span>
+			
+		</div>
 	</div>
 </body>
 </html>

@@ -10,7 +10,7 @@
 
 	<!-- <substitutionProperty name="log.base" value="${catalina.base}/logs" 
 		/> -->
-	<substitutionProperty name="log.base" value="E:/logs" />
+	<substitutionProperty name="log.base" value="C:/kqpc/logs" />
 
 	<appender name="rollingFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">

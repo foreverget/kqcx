@@ -3,6 +3,29 @@
  */
 $(function() {
 	var passengerOpenId = $("#openId").val();
+	$("#time").picker({
+		title : "请选择今天出发时间",
+		cols : [ {
+			textAlign : 'center',
+			values : (function() {
+				var arr = [];
+				for (var i = 0; i <= 23; i++) {
+					arr.push(i < 10 ? '0' + i : i);
+				}
+				return arr;
+			})()
+
+		}, {
+			textAlign : 'center',
+			values : (function() {
+				var arr = [];
+				for (var i = 0; i <= 59; i++) {
+					arr.push(i < 10 ? '0' + i : i);
+				}
+				return arr;
+			})(),
+		} ]
+	});
 	// 每页展示5个
 	var size = 5;
 	// 今天

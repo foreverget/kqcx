@@ -102,19 +102,115 @@
 	</div>
 	<div id="listloading0" class="listloading-tab" style="display: block;">
 		<div>
+			<ul>
+				<div class='page-hd'>
+					<a id="searchlink0" href="javascript:;" class="weui_btn weui_btn_primary open-popup "
+						data-target="#popup0">检索</a>
+				</div>
+			</ul>
 			<ul id="order-list-0" class="order-list"></ul>
 		</div>
 	</div>
 	<div id="listloading1" class="listloading-tab">
 		<div>
+			<ul>
+				<div class='page-hd'>
+					<a id="searchlink1" href="javascript:;" class="weui_btn weui_btn_primary open-popup "
+						data-target="#popup1">检索</a>
+				</div>
+			</ul>
 			<ul id="order-list-1" class="order-list"></ul>
 		</div>
 	</div>
 	<div id="listloading2" class="listloading-tab">
 		<div>
+			<ul>
+				<div class='page-hd'>
+					<a id="searchlink2" href="javascript:;" class="weui_btn weui_btn_primary open-popup "
+						data-target="#popup2">检索</a>
+				</div>
+			</ul>
 			<ul id="order-list-2" class="order-list"></ul>
 		</div>
 	</div>
+	
+	<div id="popup0" class="weui-popup-container">
+		<div class="weui-popup-modal">
+			<form id="form">
+				<div class="weui_cells weui_cells_form ">
+					<div class="weui_cell">
+						<div class="weui_cell_hd">
+							<label for="" class="weui_label">出发地点:</label>
+						</div>
+						<div class="weui_cell_bd weui_cell_primary">
+							<input class="weui_input" type="text" value="" id='text1' />
+						</div>
+
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_hd">
+							<label for="" class="weui_label">目的地点:</label>
+						</div>
+						<div class="weui_cell_bd weui_cell_primary">
+							<input class="weui_input" type="text" value="" id='text2' />
+
+						</div>
+
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_hd">
+							<label for="" class="weui_label">出发时间:</label>
+						</div>
+						<div class="weui_cell_bd weui_cell_primary">
+							<input class="weui_input" type="text" value="" id='time' />
+						</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_hd">
+							<label for="" class="weui_label"></label>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="weui-form-preview">
+				<div class="weui-form-preview-ft">
+					<a id="p0_close"
+						class="weui-form-preview-btn weui-form-preview-btn-default close-popup"
+						href="javascript:;"><span class='f116'>取消检索</span></a>
+					<button id="p0_reset"
+						class="weui-form-preview-btn weui-form-preview-btn-primary"><span class='f116 f-orange'>重置条件</span></button>
+				</div>
+			</div>
+			<div class="weui_btn_area">
+				<a id="p0_ok" href="javascript:;"
+					class="weui_btn weui_btn_primary close-popup" onclick="">开始检索</a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="popup1" class="weui-popup-container">
+		<div class="weui-popup-modal">
+			<div class="weui_article">
+				<h2 class="title">按条件检索明天出车信息</h2>
+			</div>
+			<p class='page-bd-15'>
+				<a href="javascript:;"
+					class="weui_btn weui_btn_plain_primary close-popup" id="p1">确定</a>
+			</p>
+		</div>
+	</div>
+	
+	<div id="popup2" class="weui-popup-container">
+		<div class="weui-popup-modal">
+			<div class="weui_article">
+				<h2 class="title">按条件检索后天出车信息</h2>
+			</div>
+			<p class='page-bd-15'>
+				<a href="javascript:;"
+					class="weui_btn weui_btn_plain_primary close-popup" id="p2">确定</a>
+			</p>
+		</div>
+	</div>
 </body>
-<script src="${ctx}/resource/js/order/take.js?v=20170540"></script>
+<script src="${ctx}/resource/js/order/take.js?v=20170546"></script>
 </html>

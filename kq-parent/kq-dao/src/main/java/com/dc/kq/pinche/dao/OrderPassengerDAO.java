@@ -79,7 +79,7 @@ public interface OrderPassengerDAO {
 	 * @param openId
 	 * @return
 	 */
-	@Update({ "<script> ", "UPDATE pc_order_passenger set status=0 WHERE order_id=  #{orderId,jdbcType=BIGINT}"
+	@Update({ "<script> ", "UPDATE pc_order_passenger <set> status=0 WHERE order_id=  #{orderId,jdbcType=BIGINT}"
 			+ "  AND open_id = #{openId,jdbcType=VARCHAR} ",
 			"<if test=\"updateTime != null\">update_time=#{updateTime},</if>",
 			"<if test=\"updateBy != null\">update_by=#{updateBy}</if>", "</set> where id=#{id} ", "</script>" })

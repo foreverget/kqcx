@@ -3,9 +3,9 @@
  */
 $(function() {
 	// 绑定事件
-	$("#rulelink").on('click',function(){
-		$.alert('1.文明约车 \n;2.不准迟到','<span class="f-blue">系统免责声明</span>');
-	});
+//	$("#rulelink").on('click',function(){
+//		$.alert('1.文明约车 \n;2.不准迟到','<span class="f-blue">系统免责声明</span>');
+//	});
 	/**
 	 * 我约触发事件
 	 */
@@ -44,7 +44,7 @@ $(function() {
 						dataType : 'json',
 						success : function(data) {
 							if (data.code == 0) {
-								$.toast("恭喜您,预约成功");
+								$.toast("预约成功");
 								// 跳转到我的约车单页面
 								window.location.href = _ctx
 										+ "/order/toMyTakeOrder?openId="
@@ -55,7 +55,7 @@ $(function() {
 						},
 						error : function(error) {
 							// $.alert("网络异常");
-							$.toast("网络异常", "forbidden");
+							$.toast("网络或服务异常", "forbidden");
 						}
 					});
 				}, function() {

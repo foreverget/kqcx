@@ -27,7 +27,7 @@
 				class="weui-form-preview-label"><span class='f-black'>到</span></label>
 			<span class="weui-form-preview-value">${order.endAddr}</span><label
 				class="weui-form-preview-label"><span class='f-black'>途经</span></label>
-			<span class="weui-form-preview-value">${order.memo}</span><label
+			<span class="weui-form-preview-value">&nbsp;${order.memo}</span><label
 				class="weui-form-preview-label"><span class='f-black'>拼车单价</span></label>
 			<span class="weui-form-preview-value"><span class='f-red'>¥${order.price}元/人</span></span>
 			<label class="weui-form-preview-label"><span class='f-black'>司机</span></label>

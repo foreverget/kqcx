@@ -3,8 +3,38 @@
  */
 $(function() {
 	var passengerOpenId = $("#openId").val();
-	$("#time").picker({
-		title : "<span class='f-red'>请选择今天出发时间<span>",
+	$("#timeStart0").picker({
+		title : "<span class='f-red'>请选择时间点<span>",
+		cols : [ {
+			textAlign : 'center',
+			values : (function() {
+				var arr = [];
+				for (var i = 0; i <= 23; i++) {
+					arr.push(i < 10 ? '0' + i : i);
+				}
+				return arr;
+			})()
+
+		}, {
+			textAlign : 'center',
+			values : (function() {
+				var arr = [];
+				arr.push(':');
+				return arr;
+			})()
+		}, {
+			textAlign : 'center',
+			values : (function() {
+				var arr = [];
+				for (var i = 0; i <= 59; i++) {
+					arr.push(i < 10 ? '0' + i : i);
+				}
+				return arr;
+			})()
+		} ]
+	});
+	$("#timeEnd0").picker({
+		title : "<span class='f-red'>请选择时间点<span>",
 		cols : [ {
 			textAlign : 'center',
 			values : (function() {
@@ -88,7 +118,7 @@ $(function() {
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：'+arr[i].memo+'</p>'
+											+'<p class="text">途经：'+arr[i].memo+'</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -100,7 +130,7 @@ $(function() {
 							}
 						},
 						error : function(xhr, type) {
-							$.toptips("网络异常", "warning");
+							$.toptips("网络或服务异常", "warning");
 						}
 					});
 					return __html;
@@ -147,7 +177,7 @@ $(function() {
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：'+arr[i].memo+'</p>'
+											+'<p class="text">途经：'+arr[i].memo+'</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -159,7 +189,7 @@ $(function() {
 							}
 						},
 						error : function(xhr, type) {
-							$.toptips("网络异常", "warning");
+							$.toptips("网络或服务异常", "warning");
 						}
 					});
 					return __html;
@@ -206,7 +236,7 @@ $(function() {
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p class="text">从：'+arr[i].startAddr+'</p>'
 											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途径：'+arr[i].memo+'</p>'
+											+'<p class="text">途经：'+arr[i].memo+'</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -369,6 +399,26 @@ $(function() {
 			"iscroll" : _ctx+"/resource/listloading/src/jslib/iscroll",
 			"listloading" :_ctx+ "/resource/listloading/src/jslib/listloading"
 		}
+	});
+	
+	$("#p0_ok_btn").on('click',function(){
+		// 接收检索参数
+		var $form = $("#searchform0");
+		$form.form();
+		var obj = getFormJson($form);
+		
+		alert(JSON.stringify(obj));
+		return;
+		// 分页参数初始化
+		// 今天
+		page_0 = 1;
+		// 明天
+		page_1 = 1;
+		// 后天
+		page_2 = 1;
+		// 删除列表
+		
+		// 请求列表
 	});
 
 });

@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dc.kq.pinche.common.BaseResponse;
+import com.dc.kq.pinche.dmo.CarInfo;
 import com.dc.kq.pinche.dmo.OrderInfo;
 import com.dc.kq.pinche.dmo.OrderPassenger;
+import com.dc.kq.pinche.dmo.UserInfo;
 import com.dc.kq.pinche.request.OrderInfoRequest;
+import com.dc.kq.pinche.service.CarService;
 import com.dc.kq.pinche.service.OrderService;
+import com.dc.kq.pinche.service.UserService;
 
 /**
  * 订单controller
@@ -29,6 +33,13 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private CarService carService;
+	
+
 	/**
 	 * 跳转到出车发布页面
 	 * 
@@ -38,7 +49,16 @@ public class OrderController {
 	 */
 	@RequestMapping("toRelease")
 	public String toRelease(HttpServletRequest request, String openId) {
+		// 根据openid获取 姓名 及 电话、车牌号码
+		UserInfo userInfo = userService.selectUserByOpenId(openId);
+		List<CarInfo> carInfoList = carService.getCarList(openId);
+		if(null!=carInfoList&&carInfoList.size()==1){
+			CarInfo carInfo = carInfoList.get(0);
+			request.setAttribute("plates", carInfo.getPlates());
+		}
 		request.setAttribute("openId", openId);
+		request.setAttribute("name", userInfo.getName());
+		request.setAttribute("mobile", userInfo.getMobile());
 		return "order/release";
 	}
 

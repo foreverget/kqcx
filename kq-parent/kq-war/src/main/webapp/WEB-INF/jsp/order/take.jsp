@@ -53,7 +53,7 @@
 			border-radius: 50%;
 			background: #FFC107;
 			text-align: center;
-			font-size: 36px;
+			font-size: 20px;
 		}
 		
 		.svg-icon {
@@ -103,9 +103,9 @@
 	<div id="listloading0" class="listloading-tab" style="display: block;">
 		<div>
 			<ul>
-				<div class='page-hd'>
-					<a id="searchlink0" href="javascript:;" class="weui_btn weui_btn_primary open-popup "
-						data-target="#popup0">检索</a>
+				<div>
+					<a id="searchlink0" href="javascript:;" class="weui_btn weui_btn_plain_primary open-popup "
+						data-target="#popup0">我要检索</a>
 				</div>
 			</ul>
 			<ul id="order-list-0" class="order-list"></ul>
@@ -116,7 +116,7 @@
 			<ul>
 				<div class='page-hd'>
 					<a id="searchlink1" href="javascript:;" class="weui_btn weui_btn_primary open-popup "
-						data-target="#popup1">检索</a>
+						data-target="#popup1">我要检索</a>
 				</div>
 			</ul>
 			<ul id="order-list-1" class="order-list"></ul>
@@ -127,7 +127,7 @@
 			<ul>
 				<div class='page-hd'>
 					<a id="searchlink2" href="javascript:;" class="weui_btn weui_btn_primary open-popup "
-						data-target="#popup2">检索</a>
+						data-target="#popup2">我要检索</a>
 				</div>
 			</ul>
 			<ul id="order-list-2" class="order-list"></ul>
@@ -136,14 +136,15 @@
 	
 	<div id="popup0" class="weui-popup-container">
 		<div class="weui-popup-modal">
-			<form id="form">
+			<form id="searchform0">
 				<div class="weui_cells weui_cells_form ">
+					<div class="weui_cell"></div>
 					<div class="weui_cell">
 						<div class="weui_cell_hd">
 							<label for="" class="weui_label">出发地点:</label>
 						</div>
 						<div class="weui_cell_bd weui_cell_primary">
-							<input class="weui_input" type="text" value="" id='text1' />
+							<input  id='addrStart0' name="addrStart" class="weui_input" type="text" value="" placeholder="请输入出发地点进行匹配"/>
 						</div>
 
 					</div>
@@ -152,38 +153,44 @@
 							<label for="" class="weui_label">目的地点:</label>
 						</div>
 						<div class="weui_cell_bd weui_cell_primary">
-							<input class="weui_input" type="text" value="" id='text2' />
-
+							<input id='addrEnd0' name="addrEnd" class="weui_input" type="text" value="" placeholder="请输入目的地点进行匹配"/>
 						</div>
-
+					</div>
+					<div class="weui-loadmore weui-loadmore-line">
+						<span class="weui-loadmore-tips"><span class='f-red'>今天出发时间在以下范围内</span></span>
 					</div>
 					<div class="weui_cell">
 						<div class="weui_cell_hd">
-							<label for="" class="weui_label">出发时间:</label>
+							<label for="" class="weui_label">从:</label>
 						</div>
 						<div class="weui_cell_bd weui_cell_primary">
-							<input class="weui_input" type="text" value="" id='time' />
+							<input id='timeStart0' name="timeStart" class="weui_input" type="text" value="" placeholder="点击选择时间点"/>
 						</div>
 					</div>
 					<div class="weui_cell">
 						<div class="weui_cell_hd">
-							<label for="" class="weui_label"></label>
+							<label for="" class="weui_label">到:</label>
+						</div>
+						<div class="weui_cell_bd weui_cell_primary">
+							<input id='timeEnd0' name="timeEnd" class="weui_input" type="text" value="" placeholder="点击选择时间点"/>
 						</div>
 					</div>
+					<div class="weui_cell"></div>
 				</div>
 			</form>
 			<div class="weui-form-preview">
 				<div class="weui-form-preview-ft">
-					<a id="p0_close"
+					<a id="p0_close_btn"
 						class="weui-form-preview-btn weui-form-preview-btn-default close-popup"
 						href="javascript:;"><span class='f116'>取消检索</span></a>
-					<button id="p0_reset"
-						class="weui-form-preview-btn weui-form-preview-btn-primary"><span class='f116 f-orange'>重置条件</span></button>
+					<button id="p0_reset_btn"
+						class="weui-form-preview-btn weui-form-preview-btn-primary">
+						<span class='f116 f-orange'>重置条件</span></button>
 				</div>
 			</div>
 			<div class="weui_btn_area">
-				<a id="p0_ok" href="javascript:;"
-					class="weui_btn weui_btn_primary close-popup" onclick="">开始检索</a>
+				<a id="p0_ok_btn" href="javascript:;"
+					class="weui_btn weui_btn_primary close-popup" href="javascript:;">开始检索</a>
 			</div>
 		</div>
 	</div>
@@ -212,5 +219,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/take.js?v=20170546"></script>
+<script src="${ctx}/resource/js/order/take.js?v=20170551"></script>
 </html>

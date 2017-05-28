@@ -41,7 +41,17 @@
 			margin: 10px;
 			border-radius: 3px;
 			box-shadow: 1px 1px 2px #ccc;
-			background: #fff;
+			background: #E9F01D;
+		}
+		
+		.order-list>li.over {
+			height: 100px;
+			line-height: 24px;
+			padding: 10px 15px 10px 10px;
+			margin: 10px;
+			border-radius: 3px;
+			box-shadow: 1px 1px 2px #ccc;
+			background: #CDC9C9;
 		}
 		
 		.order-list>li>span.icon {
@@ -51,9 +61,9 @@
 			line-height: 50px;
 			margin-right: 10px;
 			border-radius: 50%;
-			background: #FFC107;
+			background: #C7FFEC;
 			text-align: center;
-			font-size: 36px;
+			font-size: 20px;
 		}
 		
 		.svg-icon {
@@ -93,8 +103,8 @@
 		}
 		
 		#listloadingtab>span.active {
-			background: #FFC107;
-			color: #fff;
+			background: #C7FFEC;
+			color: #030303;
 		}
 	</style>
 	<div id="listloadingtab">
@@ -111,5 +121,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/myHistoryOrder.js?v=20170516"></script>
+<script src="${ctx}/resource/js/order/myHistoryOrder.js?v=20170520"></script>
 </html>

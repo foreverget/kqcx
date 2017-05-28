@@ -44,19 +44,25 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
+									var liclass="";
 									if ("1" == arr[i].status) {
-										statusStr = "已出发";
+										statusStr = "已约满";
+										liclass = "over";
 									} else if ("2" == arr[i].status) {
 										statusStr = "已送达";
+										liclass = "over";
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
+										liclass = "over";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'
+									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+openId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">今</span>'
-											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位&nbsp;&nbsp;</p>'
+											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
+											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
-											+'<p class="text">从：'+arr[i].startAddr+'</p>'
-											+'<p class="text">到：'+arr[i].endAddr+'</p>'
+											+'<p>从：'+arr[i].startAddr+'</p>'
+											+'<p>到：'+arr[i].endAddr+'</p>'
+											+'<p id=orderstatus_'+arr[i].id+' class="r"></p>'
 											+'<p class="r">车牌号：'+arr[i].plates+'</p>'
 											+'</li>';
 								}
@@ -102,19 +108,25 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
+									var liclass="";
 									if ("1" == arr[i].status) {
-										statusStr = "已出发";
+										statusStr = "已约满";
+										liclass = "over";
 									} else if ("2" == arr[i].status) {
 										statusStr = "已送达";
+										liclass = "over";
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
+										liclass = "over";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'
+									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+openId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">明</span>'
-											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位&nbsp;&nbsp;</p>'
+											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
+											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
-											+'<p class="text">从：'+arr[i].startAddr+'</p>'
-											+'<p class="text">到：'+arr[i].endAddr+'</p>'
+											+'<p>从：'+arr[i].startAddr+'</p>'
+											+'<p>到：'+arr[i].endAddr+'</p>'
+											+'<p id=orderstatus_'+arr[i].id+' class="r"></p>'
 											+'<p class="r">车牌号：'+arr[i].plates+'</p>'
 											+'</li>';
 								}
@@ -160,19 +172,25 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
+									var liclass="";
 									if ("1" == arr[i].status) {
-										statusStr = "已出发";
+										statusStr = "已约满";
+										liclass = "over";
 									} else if ("2" == arr[i].status) {
 										statusStr = "已送达";
+										liclass = "over";
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
+										liclass = "over";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'
+									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+openId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">后</span>'
-											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位&nbsp;&nbsp;</p>'
+											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
+											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
-											+'<p class="text">从：'+arr[i].startAddr+'</p>'
-											+'<p class="text">到：'+arr[i].endAddr+'</p>'
+											+'<p>从：'+arr[i].startAddr+'</p>'
+											+'<p>到：'+arr[i].endAddr+'</p>'
+											+'<p id=orderstatus_'+arr[i].id+' class="r"></p>'
 											+'<p class="r">车牌号：'+arr[i].plates+'</p>'
 											+'</li>';
 								}
@@ -215,6 +233,8 @@ $(function() {
 						//alert(__html);
 						if(__html!=''){
 							$('#order-list-0').html(__html);
+						}else{
+							$('#order-list-0').html("<div class='weui_msg_box'><p><i class='icon icon-40 f20 f-green'></i>暂无数据</p></div>");
 						}
 						// 执行完执行方法之后必须执行回调
 						// 回调的作用是通知默认加载已经全部执行完毕，程序需要去创建iscroll或者做下拉刷新动作
@@ -254,6 +274,8 @@ $(function() {
 							//alert(__html);
 							if(__html!=''){
 								$('#order-list-1').html(__html);
+							}else{
+								$('#order-list-1').html("<div class='weui_msg_box'><p><i class='icon icon-40 f20 f-green'></i>暂无数据</p></div>");
 							}
 							// 执行完执行方法之后必须执行回调
 							// 回调的作用是通知默认加载已经全部执行完毕，程序需要去创建iscroll或者做下拉刷新动作
@@ -294,6 +316,8 @@ $(function() {
 							//alert(__html);
 							if(__html!=''){
 								$('#order-list-2').html(__html);
+							}else{
+								$('#order-list-2').html("<div class='weui_msg_box'><p><i class='icon icon-40 f20 f-green'></i>暂无数据</p></div>");
 							}
 							// 执行完执行方法之后必须执行回调
 							// 回调的作用是通知默认加载已经全部执行完毕，程序需要去创建iscroll或者做下拉刷新动作
@@ -350,9 +374,11 @@ function initBindEvent() {
 //		alert(openId);
 //		alert(orderId);
 //		return;
+		var orderstatus = $("#orderstatus_"+orderId);
 		window.location.href = _ctx
 				+ "/order/toYcOrderDetail?orderId=" + orderId
 				+ "&openId=" + openId;
+		
 	
 	});
 }

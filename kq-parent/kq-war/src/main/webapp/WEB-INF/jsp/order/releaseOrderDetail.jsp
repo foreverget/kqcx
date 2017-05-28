@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>信息详情</title>
+<title>我的出车信息详情</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
@@ -20,18 +20,18 @@
 	<div class="weui-form-preview">
 		<div class="weui-form-preview-bd">
 			<div class="weui-loadmore weui-loadmore-line">
-				<span class="weui-loadmore-tips"><span class='f-red'>乘客信息</span>-剩余<span class='f-red'>{${order.surplusSeat}}</span>座位</span>
+				<span class="weui-loadmore-tips"><span class='f-red'>已约乘客信息</span>-当前剩余<span class='f-red'>${order.surplusSeat}</span>个座位</span>
 			</div>
 			<c:forEach var="op" items="${opList}">
 				<p id = 'ppp'>
-					<label class="weui-form-preview-label">
+					<label class="weui-form-preview-label f-green">
 					<c:if test="${order.status == '0'}">
 						<a id="tr_id_${op.openId}" data-openId="${op.openId}" data-name="${op.name}" data-value="${op.count}" >${op.name}</a>
 					</c:if>
 					<c:if test="${order.status != '0'}">
 						${op.name}
 					</c:if>
-					&nbsp;&nbsp;约${op.count}人
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;约${op.count}人
 					</label>
 					<span class="weui-form-preview-value"><a
 						href="tel:${op.mobile}">点击呼叫</a></span>
@@ -55,7 +55,7 @@
 			</p>
 			<p>
 				<label class="weui-form-preview-label">途经</label> <span
-					class="weui-form-preview-value">${order.memo}</span>
+					class="weui-form-preview-value">&nbsp;${order.memo}</span>
 			</p>
 			<p>
 				<label class="weui-form-preview-label">车牌号码</label> <span
@@ -70,14 +70,21 @@
 					class="weui-form-preview-value">${order.mobile}</span>
 			</p>
 		</div>
-		<c:if test="${order.status == '0'}">
-			<div class="weui-form-preview-ft">
-				<a id="channelBtn"
-					class="weui-form-preview-btn weui-form-preview-btn-default">取消出车</a>
-				<a id="okBtn"
-					class="weui-form-preview-btn weui-form-preview-btn-primary">满员出发</a>
-			</div>
-		</c:if>
+	</div>
+    <p class="weui_btn_area  weui_btn_area_inline">
+        <a id='channelBtn' class="weui_btn weui_btn_default" >取消出车</a>
+        <c:if test="${order.surplusSeat != 0}">
+        	<a id="okBtn" class="weui_btn weui_btn_primary"><i class="icon icon-71 f20"></i>停止约单</a>
+        </c:if>
+        <c:if test="${order.surplusSeat == 0}">
+        	<a id="okBtn" class="weui_btn weui_btn_primary"><i class="icon icon-71 f20"></i>已约满</a>
+        </c:if>
+    </p>
+	<div class="weui_cells_title">
+		<span class="f-red">邻里诚信守则</span><br>
+		<span class="f-black">1.如果有已约乘客告知您要取消约车,请点击该乘客名称进行删除。</span><br>
+		<span class="f-black">2.如果您想删除某已约乘客,请点击呼叫该乘客进行原因告知，避免发生误解。</span><br>
+		<span class="f-black">3.如果您想取消本次出车,请点击呼叫联系所有已约乘客告知本次出车取消原因，避免发生误解，然后点击乘客姓名删除所有乘客，后才可取消出车。</span>
 	</div>
 </body>
 <script src="${ctx}/resource/js/order/releaseOrderDetail.js?v=20170533"></script>

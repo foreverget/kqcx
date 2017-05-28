@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ include file="../common/tag.jsp"%>
+<%@include file="/WEB-INF/jsp/common/meta.jsp"%>
+<%@include file="/WEB-INF/jsp/common/css.jsp"%>
+<%@include file="/WEB-INF/jsp/common/js.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>车辆信息</title>
+<title>我的车辆信息</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="${ctx}/resource/weuix/style/weui.css" />
@@ -15,6 +18,28 @@
 </head>
 <body ontouchstart style="background-color: #f8f8f8;">
 	<input type="hidden" id="openId" value="${openId}">
+	<div class="slide" id="slidediv">
+		<ul>
+			<li><a href="#"> <img
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+					data-src="http://7xr193.com1.z0.glb.clouddn.com/1.jpg" alt="">
+			</a>
+				<div class="slide-desc">广告位招租</div></li>
+			<li><a href="#"> <img
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+					data-src="http://7xr193.com1.z0.glb.clouddn.com/2.jpg" alt="">
+			</a>
+				<div class="slide-desc">广告位招租</div></li>
+			<li><a href="#"> <img
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+					data-src="http://7xr193.com1.z0.glb.clouddn.com/3.jpg" alt="">
+			</a>
+				<div class="slide-desc">广告位招租</div></li>
+		</ul>
+		<div class="dot">
+			<span></span> <span></span> <span></span>
+		</div>
+	</div>
 	<div class="weui_cells_title">您的爱车列表</div>
 	<div class="weui_cells weui_cells_form">
 		<div class="weui_cells weui_cells_access">
@@ -34,5 +59,5 @@
 	</div>
 
 </body>
-<script src="${ctx}/resource/js/car/myCarList.js?v=20170511"></script>
+<script src="${ctx}/resource/js/car/myCarList.js?v=20170512"></script>
 </html>

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>出车单详细信息</title>
+<title>作为车主-我的出车单详细信息</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 </head>
@@ -22,7 +22,7 @@
 	<div class="weui-form-preview">
 		<div class="weui-form-preview-bd">
 			<div class="weui-loadmore weui-loadmore-line">
-				<span class="weui-loadmore-tips"><span class='f-red'>乘客信息</span></span>
+				<span class="weui-loadmore-tips"><span class='f-red'>已约乘客信息</span></span>
 			</div>
 			<c:forEach var="op" items="${opList}">
 				<p>

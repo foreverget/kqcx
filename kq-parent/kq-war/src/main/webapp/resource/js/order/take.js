@@ -4,7 +4,7 @@
 $(function() {
 	var passengerOpenId = $("#openId").val();
 	$("#timeStart0").picker({
-		title : "<span class='f-red'>请选择时间点<span>",
+		title : "<span class='f-red'>请选择时间点[时:分]<span>",
 		cols : [ {
 			textAlign : 'center',
 			values : (function() {
@@ -34,7 +34,7 @@ $(function() {
 		} ]
 	});
 	$("#timeEnd0").picker({
-		title : "<span class='f-red'>请选择时间点<span>",
+		title : "<span class='f-red'>请选择时间点[时:分]<span>",
 		cols : [ {
 			textAlign : 'center',
 			values : (function() {
@@ -104,21 +104,26 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
+									var liclass="";
 									if ("1" == arr[i].status) {
-										statusStr = "已出发";
+										statusStr = "已约满";
+										liclass = "over";
 									} else if ("2" == arr[i].status) {
 										statusStr = "已送达";
+										liclass = "over";
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
+										liclass = "over";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
+									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">今</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
 											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
-											+'<p class="text">从：'+arr[i].startAddr+'</p>'
-											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途经：'+arr[i].memo+'</p>'
+											+'<p>从：'+arr[i].startAddr+'</p>'
+											+'<p>到：'+arr[i].endAddr+'</p>'
+											+'<p id=orderstatus_'+arr[i].id+' class="r">'+statusStr+'</p>'
+											+'<p class="r">车牌号：'+arr[i].plates+'&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -163,21 +168,27 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
+									var liclass="";
 									if ("1" == arr[i].status) {
-										statusStr = "已出发";
+										statusStr = "已约满";
+										liclass = "over";
 									} else if ("2" == arr[i].status) {
 										statusStr = "已送达";
+										liclass = "over";
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
+										liclass = "over";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
+
+									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">明</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
 											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
-											+'<p class="text">从：'+arr[i].startAddr+'</p>'
-											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途经：'+arr[i].memo+'</p>'
+											+'<p>从：'+arr[i].startAddr+'</p>'
+											+'<p>到：'+arr[i].endAddr+'</p>'
+											+'<p id=orderstatus_'+arr[i].id+' class="r">'+statusStr+'</p>'
+											+'<p class="r">车牌号：'+arr[i].plates+'&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -223,20 +234,21 @@ $(function() {
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
 									if ("1" == arr[i].status) {
-										statusStr = "已出发";
+										statusStr = "已约满";
 									} else if ("2" == arr[i].status) {
 										statusStr = "已送达";
 									} else if ("3" == arr[i].status) {
 										statusStr = "已取消";
 									}
-									__html += '<li id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
+									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+passengerOpenId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">后</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
 											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
-											+'<p class="text">从：'+arr[i].startAddr+'</p>'
-											+'<p class="text">到：'+arr[i].endAddr+'</p>'
-											+'<p class="text">途经：'+arr[i].memo+'</p>'
+											+'<p>从：'+arr[i].startAddr+'</p>'
+											+'<p>到：'+arr[i].endAddr+'</p>'
+											+'<p id=orderstatus_'+arr[i].id+' class="r">'+statusStr+'</p>'
+											+'<p class="r">车牌号：'+arr[i].plates+'&nbsp;&nbsp;&nbsp;&nbsp;</p>'
 											+'</li>';
 								}
 								//alert(__html);
@@ -278,6 +290,8 @@ $(function() {
 						//alert(__html);
 						if(__html!=''){
 							$('#order-list-0').html(__html);
+						}else{
+							$('#order-list-0').html("<div class='weui_msg_box'><p><i class='icon icon-40 f20 f-green'></i>暂无数据</p></div>");
 						}
 						// 执行完执行方法之后必须执行回调
 						// 回调的作用是通知默认加载已经全部执行完毕，程序需要去创建iscroll或者做下拉刷新动作
@@ -298,6 +312,7 @@ $(function() {
 						disableTime : true, // 是否需要显示时间
 						pullUpAction : function(cb) { // 上拉加载更多
 							var __html = createHtml1('up',flg_1);
+							alert("__html="+__html);
 							if (__html=='') {
 								flg_1 = true;
 							} else {
@@ -317,6 +332,8 @@ $(function() {
 							//alert(__html);
 							if(__html!=''){
 								$('#order-list-1').html(__html);
+							}else{
+								$('#order-list-1').html("<div class='weui_msg_box'><p><i class='icon icon-40 f20 f-green'></i>暂无数据</p></div>");
 							}
 							// 执行完执行方法之后必须执行回调
 							// 回调的作用是通知默认加载已经全部执行完毕，程序需要去创建iscroll或者做下拉刷新动作
@@ -357,6 +374,8 @@ $(function() {
 							//alert(__html);
 							if(__html!=''){
 								$('#order-list-2').html(__html);
+							}else{
+								$('#order-list-2').html("<div class='weui_msg_box'><p><i class='icon icon-40 f20 f-green'></i>暂无数据</p></div>");
 							}
 							// 执行完执行方法之后必须执行回调
 							// 回调的作用是通知默认加载已经全部执行完毕，程序需要去创建iscroll或者做下拉刷新动作
@@ -433,9 +452,15 @@ function initBindEvent() {
 //		alert(openId);
 //		alert(orderId);
 //		return;
-		window.location.href = _ctx
-				+ "/order/toTakeOrderDetail?orderId=" + orderId
-				+ "&openId=" + openId;
+		var orderstatus = $("#orderstatus_"+orderId);
+		if(orderstatus=='发布中'){
+			window.location.href = _ctx
+					+ "/order/toTakeOrderDetail?orderId=" + orderId
+					+ "&openId=" + openId;
+		}else{
+			$.toptips("该单已过期", "warning");
+			return;
+		}
 	
 	});
 }

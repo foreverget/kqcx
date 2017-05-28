@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>常用地址</title>
+<title>我的常用地址</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="${ctx}/resource/weuix/style/weui.css" />

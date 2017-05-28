@@ -30,7 +30,7 @@ $(function() {
 								}
 							},
 							error : function(error) {
-								alert(error);
+								$.alert(error);
 							}
 						});
 					}
@@ -62,7 +62,7 @@ $(function() {
 							}
 						},
 						error : function(error) {
-							alert(error);
+							$.alert(error);
 						}
 					});
 

@@ -18,7 +18,7 @@ $(function() {
 	$('#saveBtn').on("click",function(){
 		var value = $('[name='+key+"]").val();
 		if(!value){
-			$.alert("请输入信息");
+			$.alert("请您输入信息");
 			return;
 		}
 		var obj = {};
@@ -35,7 +35,7 @@ $(function() {
 				 if(data.code == 0){
 					 window.location.href=_ctx + "/user/toUserInfo?openId="+obj.openId;
 				 }else{
-					 $.alert("修改失败!", "提示");
+					 $.alert("修改失败", "提示");
 				 }
 			},
 			error : function(error) {

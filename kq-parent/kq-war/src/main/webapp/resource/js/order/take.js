@@ -64,7 +64,7 @@ $(function() {
 		} ]
 	});
 	// 每页展示5个
-	var size = 5;
+	var size = 10;
 	// 今天
 	var page_0 = 1;
 	// 明天

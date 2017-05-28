@@ -1,10 +1,10 @@
 /**
- * 我要约车相关JS
+ * 我的约车单相关JS
  */
 $(function() {
 	var openId = $("#openId").val();
-	// 每页展示5个
-	var size = 5;
+	// 每页展示10个
+	var size = 10;
 	// 今天
 	var page_0 = 1;
 	// 明天

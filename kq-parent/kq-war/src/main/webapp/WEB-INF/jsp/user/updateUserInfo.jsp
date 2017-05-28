@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>个人中心</title>
+<title>个人信息修改</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="${ctx}/resource/weuix/style/weui.css" />
@@ -22,7 +22,7 @@
 			</div>
 			<div class="weui_cell_bd weui_cell_primary">
 				<input class="weui_input" type="text" name="name" value="${value}"
-					required emptyTips="请输入姓名" />
+					required emptyTips="请您输入姓名" />
 			</div>
 		</div>
 
@@ -32,7 +32,7 @@
 			</div>
 			<div class="weui_cell_bd weui_cell_primary">
 				<input class="weui_input" type="text" name="mobile" value="${value}"
-					required emptyTips="请输入手机号" />
+					required emptyTips="请您输入手机号" />
 			</div>
 		</div>
 		<div class="weui_cell" id="email_cell"  style="display:none" >
@@ -41,7 +41,7 @@
 			</div>
 			<div class="weui_cell_bd weui_cell_primary">
 				<input class="weui_input" type="text" name="email" value="${value}"
-					required emptyTips="请输入邮箱" />
+					required emptyTips="请您输入邮箱" />
 			</div>
 		</div>
 		<div class="weui_cell"  id="addr_cell"  style="display:none" >
@@ -50,7 +50,7 @@
 			</div>
 			<div class="weui_cell_bd weui_cell_primary">
 				<input class="weui_input" type="text" name="addr" value="${value}"
-					required emptyTips="请输入住址" />
+					required emptyTips="请您输入住址" />
 			</div>
 		</div>
 		<div id="gender_cell"  style="display:none" >
@@ -85,5 +85,5 @@
 <script type="text/javascript">
 var key = '${key}';
 </script>
-<script src="${ctx}/resource/js/user/updateUserInfo.js?v=20170511"></script>
+<script src="${ctx}/resource/js/user/updateUserInfo.js?v=20170512"></script>
 </html>

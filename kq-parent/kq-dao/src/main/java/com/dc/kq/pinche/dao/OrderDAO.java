@@ -135,7 +135,7 @@ public interface OrderDAO {
 	 */
 	@Select({ "<script>" + "SELECT DISTINCT po.id,po.open_id,po.name,po.mobile,po.go_time,po.memo,"
 			+ "po.start_addr,po.end_addr,po.plates,po.req_num," + "po.price,po.status,po.score,po.create_time "
-			+ "FROM pc_order po,pc_order_passenger pop " + "WHERE pop.order_id = po.id " + "AND pop.status = 1 "
+			+ "FROM pc_order po,pc_order_passenger pop " + "WHERE pop.order_id = po.id "
 			+ "AND pop.open_id = #{opendId,jdbcType=VARCHAR} "
 			+ "<if test=\"type == 0\"> <![CDATA[ AND unix_timestamp(str_to_date(po.go_time, '%Y-%m-%d %H')) < unix_timestamp(str_to_date(#{time}, '%Y-%m-%d %H')) ]]> </if>"
 			+ "<if test=\"type != 0\">  AND po.go_time like CONCAT(#{time},'%') </if>"
@@ -277,8 +277,8 @@ public interface OrderDAO {
 	 * @return
 	 */
 	@Select({ "<script>"+"SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,memo,"
-			+ "plates,req_num,price,status,score,surplus_seat,create_time " + "FROM pc_order  " + "WHERE status = '0' "
-			+ " AND go_time like CONCAT(#{time},'%') <![CDATA[ AND surplus_seat > 0 ]]>"
+			+ "plates,req_num,price,status,score,surplus_seat,create_time " + "FROM pc_order where 1=1 "
+			+ " AND go_time like CONCAT(#{time},'%') "
 			+ " ORDER BY go_time DESC  LIMIT  #{startPage,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}"+"</script>" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),

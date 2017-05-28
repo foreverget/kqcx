@@ -23,6 +23,7 @@ $(function() {
 				$.ajax({
 						type : "POST",
 						url : _ctx + "/addr/saveAddr",
+						cache:false,
 						data : JSON.stringify(obj),
 						contentType : "application/json;charset=UTF-8",
 						dataType : 'json',
@@ -51,6 +52,7 @@ $(function() {
 				$.ajax({
 					type : "POST",
 					url : _ctx + "/addr/deleteAddr?openId="+openId+"&id="+id,
+					cache:false,
 					contentType : "application/json;charset=UTF-8",
 					dataType : 'json',
 					success : function(data) {

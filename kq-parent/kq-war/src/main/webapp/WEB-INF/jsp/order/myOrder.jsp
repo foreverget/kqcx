@@ -61,5 +61,5 @@
 		</a> 
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/myOrder.js?v=20170512"></script>
+<script src="${ctx}/resource/js/order/myOrder.js?_time=<%=_timestamp%>"></script>
 </html>

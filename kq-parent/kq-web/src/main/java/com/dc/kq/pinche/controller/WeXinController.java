@@ -89,7 +89,7 @@ public class WeXinController {
 				}
 			}
 		} else {
-			LOGGER.info("获取网页授权code失败！");
+			LOGGER.error("获取网页授权code失败！");
 		}
 		return "";
 	}

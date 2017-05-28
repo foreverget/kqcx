@@ -41,6 +41,7 @@ $(function() {
 								+ "&orderId=" + orderId + "&count=" + count
 								+ "&version=" + version,
 						contentType : "application/json;charset=UTF-8",
+						cache:false,
 						dataType : 'json',
 						success : function(data) {
 							if (data.code == 0) {

@@ -49,5 +49,5 @@
 		</c:forEach>
 	</div>
 </body>
-<script src="${ctx}/resource/js/addr/updateAddr.js?v=20170512"></script>
+<script src="${ctx}/resource/js/addr/updateAddr.js?_time=<%=_timestamp%>"></script>
 </html>

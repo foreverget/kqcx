@@ -95,15 +95,14 @@
 				<input class="weui_switch" type="checkbox" id='ck_rule' checked/>
 			</div>
 		</div>
-
-		<div class="weui_btn_area">
-			<c:if test="${order.surplusSeat == 0}">
-				<a class="weui_btn weui_btn_disabled weui_btn_default">已满</a>
-			</c:if>
-			<c:if test="${order.surplusSeat > 0}">
-				<a class="weui_btn weui_btn_primary" id="takeBtn">我约</a>
-			</c:if>
-		</div>
+	</div>
+	<div class="weui_btn_area">
+		<c:if test="${order.surplusSeat == 0}">
+			<a class="weui_btn weui_btn_disabled weui_btn_default">已满</a>
+		</c:if>
+		<c:if test="${order.surplusSeat > 0}">
+			<a class="weui_btn weui_btn_primary" id="takeBtn">我约</a>
+		</c:if>
 	</div>
 	<div id="popup1" class="weui-popup-container">
 		<div class="weui-popup-modal">
@@ -147,5 +146,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/takeOrderDetail.js?v=20170540"></script>
+<script src="${ctx}/resource/js/order/takeOrderDetail.js?_time=<%=_timestamp%>"></script>
 </html>

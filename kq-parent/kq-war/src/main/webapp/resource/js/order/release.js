@@ -44,6 +44,7 @@ $(function() {
 									$.ajax({
 										type : "POST",
 										url : _ctx + "/order/release",
+										cache:false,
 										data : JSON.stringify(obj),
 										contentType : "application/json;charset=UTF-8",
 										dataType : 'json',
@@ -86,6 +87,7 @@ function initSelectAddr(openId) {
 	$.ajax({
 		type : 'GET',
 		url : _ctx + "/addr/selectAddrList?openId=" + openId,
+		cache:false,
 		dataType : 'json',
 		success : function(data) {
 			// 获取结果集
@@ -127,6 +129,7 @@ function initSelectCar(openId) {
 	$.ajax({
 		type : 'GET',
 		url : _ctx + "/car/selectCarList?openId=" + openId,
+		cache:false,
 		dataType : 'json',
 		success : function(data) {
 			// 获取结果集

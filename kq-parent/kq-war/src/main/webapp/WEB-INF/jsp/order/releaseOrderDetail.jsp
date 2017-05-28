@@ -25,12 +25,15 @@
 			<c:forEach var="op" items="${opList}">
 				<p id = 'ppp'>
 					<label class="weui-form-preview-label f-green">
+					<!--  
 					<c:if test="${order.status == '0'}">
 						<a id="tr_id_${op.openId}" data-openId="${op.openId}" data-name="${op.name}" data-value="${op.count}" >${op.name}</a>
 					</c:if>
 					<c:if test="${order.status != '0'}">
 						${op.name}
 					</c:if>
+					-->
+					<a id="tr_id_${op.openId}" data-openId="${op.openId}" data-name="${op.name}" data-value="${op.count}" >${op.name}</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;约${op.count}人
 					</label>
 					<span class="weui-form-preview-value"><a
@@ -87,5 +90,5 @@
 		<span class="f-black">3.如果您想取消本次出车,请点击呼叫联系所有已约乘客告知本次出车取消原因，避免发生误解，然后点击乘客姓名删除所有乘客，后才可取消出车。</span>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/releaseOrderDetail.js?v=20170533"></script>
+<script src="${ctx}/resource/js/order/releaseOrderDetail.js?_time=<%=_timestamp%>"></script>
 </html>

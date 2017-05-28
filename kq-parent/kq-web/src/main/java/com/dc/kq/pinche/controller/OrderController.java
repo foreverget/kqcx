@@ -51,6 +51,10 @@ public class OrderController {
 	public String toRelease(HttpServletRequest request, String openId) {
 		// 根据openid获取 姓名 及 电话、车牌号码
 		UserInfo userInfo = userService.selectUserByOpenId(openId);
+		// 账户不可用
+		if(userInfo.getStatus()!=1){
+			return "user/error";
+		}
 		List<CarInfo> carInfoList = carService.getCarList(openId);
 		if(null!=carInfoList&&carInfoList.size()==1){
 			CarInfo carInfo = carInfoList.get(0);
@@ -77,6 +81,12 @@ public class OrderController {
 	
 	@RequestMapping("toTake")
 	public String toTake(HttpServletRequest request, String openId) {
+		// 根据openid获取 姓名 及 电话、车牌号码
+//		UserInfo userInfo = userService.selectUserByOpenId(openId);
+//		// 账户不可用
+//		if(userInfo.getStatus()!=1){
+//			return "user/error";
+//		}
 		request.setAttribute("openId", openId);
 		return "order/take";
 	}

@@ -64,7 +64,7 @@ $(function() {
 		} ]
 	});
 	// 每页展示5个
-	var size = 5;
+	var size = 10;
 	// 今天
 	var page_0 = 1;
 	// 明天
@@ -96,6 +96,7 @@ $(function() {
 						type : 'GET',
 						async: false,
 						url : _ctx + _action,
+						cache:false,
 						dataType : 'json',
 						success : function(data) {					
 							// 获取结果集
@@ -160,6 +161,7 @@ $(function() {
 						type : 'GET',
 						async: false,
 						url : _ctx + _action,
+						cache:false,
 						dataType : 'json',
 						success : function(data) {					
 							// 获取结果集
@@ -225,6 +227,7 @@ $(function() {
 						type : 'GET',
 						async: false,
 						url : _ctx + _action,
+						cache:false,
 						dataType : 'json',
 						success : function(data) {					
 							// 获取结果集
@@ -453,7 +456,8 @@ function initBindEvent() {
 //		alert(orderId);
 //		return;
 		var orderstatus = $("#orderstatus_"+orderId);
-		if(orderstatus=='发布中'){
+//		alert(orderstatus.html());
+		if(orderstatus.html()=='发布中'){
 			window.location.href = _ctx
 					+ "/order/toTakeOrderDetail?orderId=" + orderId
 					+ "&openId=" + openId;

@@ -171,5 +171,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/release.js?v=20170527"></script>
+<script src="${ctx}/resource/js/order/release.js?_time=<%=_timestamp%>"></script>
 </html>

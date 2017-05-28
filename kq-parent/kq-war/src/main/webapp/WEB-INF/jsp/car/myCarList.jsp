@@ -59,5 +59,5 @@
 	</div>
 
 </body>
-<script src="${ctx}/resource/js/car/myCarList.js?v=20170512"></script>
+<script src="${ctx}/resource/js/car/myCarList.js?_time=<%=_timestamp%>"></script>
 </html>

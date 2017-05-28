@@ -125,5 +125,5 @@
 	</div>
 	-->
 </body>
-<script src="${ctx}/resource/js/user/userInfo.js?v=20170514"></script>
+<script src="${ctx}/resource/js/user/userInfo.js?_time=<%=_timestamp%>"></script>
 </html>

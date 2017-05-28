@@ -34,6 +34,7 @@ $(function() {
 						type : 'GET',
 						async: false,
 						url : _ctx + _action,
+						cache:false,
 						dataType : 'json',
 						success : function(data) {					
 							// 获取结果集
@@ -97,6 +98,7 @@ $(function() {
 						type : 'GET',
 						async: false,
 						url : _ctx + _action,
+						cache:false,
 						dataType : 'json',
 						success : function(data) {					
 							// 获取结果集

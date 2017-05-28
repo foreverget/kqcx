@@ -121,5 +121,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/myHistoryOrder.js?v=20170520"></script>
+<script src="${ctx}/resource/js/order/myHistoryOrder.js?_time=<%=_timestamp%>"></script>
 </html>

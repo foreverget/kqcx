@@ -16,6 +16,7 @@ $(function() {
 						$.ajax({
 							type : "POST",
 							url : _ctx + "/car/saveCar",
+							cache:false,
 							data : JSON.stringify(obj),
 							contentType : "application/json;charset=UTF-8",
 							dataType : 'json',
@@ -30,7 +31,7 @@ $(function() {
 								}
 							},
 							error : function(error) {
-								alert(error);
+								$.alert(error);
 							}
 						});
 					}

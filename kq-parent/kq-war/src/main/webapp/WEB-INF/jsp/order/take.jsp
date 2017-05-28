@@ -335,5 +335,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/order/take.js?v=20170563"></script>
+<script src="${ctx}/resource/js/order/take.js?_time=<%=_timestamp%>"></script>
 </html>

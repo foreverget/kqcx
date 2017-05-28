@@ -21,6 +21,7 @@ $(function() {
 				$.ajax({
 					type : "POST",
 					url : _ctx + "/user/register",
+					cache:false,
 					data : JSON.stringify(obj),
 					contentType : "application/json;charset=UTF-8",
 		            dataType:'json',

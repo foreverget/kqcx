@@ -24,7 +24,7 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" type="text" name="models" required
-						placeholder="请输入车型" emptyTips="请输入车型" />
+						placeholder="请您输入车型" emptyTips="请您输入车型" />
 				</div>
 			</div>
 
@@ -34,7 +34,7 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" type="text" name="plates" required
-						placeholder="输入车牌号" emptyTips="请输入车牌号" />
+						placeholder="请您输入车牌号" emptyTips="请您输入车牌号" />
 				</div>
 			</div>
 			<div class="weui_cell">
@@ -42,8 +42,9 @@
 					<label class="weui_label">座位数</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" name="seat" required
-						placeholder="请输入座位数量" emptyTips="请输入座位数量" />
+					<input class="weui_input" name="seat" required type="tel"
+						required pattern="^[1-10]\$" placeholder="请您输入座位数量1-10"
+						emptyTips="请您输入座位数量" notMatchTips="请您输入座位数量1-10" />
 				</div>
 			</div>
 
@@ -53,14 +54,14 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" type="text" name="color" required
-						placeholder="请输入颜色" emptyTips="请输入颜色" />
+						placeholder="请您输入颜色" emptyTips="请您输入颜色" />
 				</div>
 			</div>
 		</div>
 		<div class="weui_btn_area">
-			<a class="weui_btn weui_btn_primary" href="javascript:" id="addBtn">完成添加</a>
+			<a class="weui_btn weui_btn_primary" href="javascript:" id="addBtn">确认添加</a>
 		</div>
 	</form>
 </body>
-<script src="${ctx}/resource/js/car/addCar.js?v=20170512"></script>
+<script src="${ctx}/resource/js/car/addCar.js?_time=<%=_timestamp%>"></script>
 </html>

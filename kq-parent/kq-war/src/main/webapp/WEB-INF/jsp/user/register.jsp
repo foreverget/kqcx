@@ -142,5 +142,5 @@
 		</div>
 	</div>
 </body>
-<script src="${ctx}/resource/js/user/register.js?v=20170512"></script>
+<script src="${ctx}/resource/js/user/register.js?_time=<%=_timestamp%>"></script>
 </html>

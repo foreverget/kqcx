@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,8 @@ import com.dc.kq.pinche.request.OrderInfoRequest;
 public class OrderServiceImpl implements OrderService {
 
 	public static Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
+	// 锁对象
+	private Lock lock = new ReentrantLock();
 
 	@Autowired
 	private OrderDAO orderDao;
@@ -359,6 +363,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public BaseResponse takeOrder(long orderId, String openId, int count, int version) {
 		BaseResponse resp = new BaseResponse();
+		// 获取锁
+		lock.lock();
 		try {
 			// 根据orderId查询订单信息
 			OrderInfo order = orderDao.selectOrderById(orderId);
@@ -377,10 +383,10 @@ public class OrderServiceImpl implements OrderService {
 				}
 			}
 			// 比较version 如果version不相等 则订单信息已经发生了变化，则返回
-			if (order.getVersion() != version) {
-				resp.setEnum(ResponseEnum.ORDER_VERSION_ERROR);
-				return resp;
-			}
+//			if (order.getVersion() != version) {
+//				resp.setEnum(ResponseEnum.ORDER_VERSION_ERROR);
+//				return resp;
+//			}
 			// 比较剩余座位数如果小于此次乘车人数则返回错误提示
 			if (order.getSurplusSeat() < count) {
 				resp.setEnum(ResponseEnum.NO_SEAT);
@@ -414,7 +420,10 @@ public class OrderServiceImpl implements OrderService {
 			LOGGER.error("takeOrder error ", e);
 			resp.setEnum(ResponseEnum.TAKE_ERROR);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  
-		}
+		} finally {
+			// 释放锁  
+            lock.unlock();
+        }
 		return resp;
 	}
 

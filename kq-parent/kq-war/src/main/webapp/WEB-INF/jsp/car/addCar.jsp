@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>新增车辆信息</title>
+<title>添加车辆信息</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,user-scalable=0">
 <link rel="stylesheet" href="${ctx}/resource/weuix/style/weui.css" />
@@ -17,6 +17,7 @@
 <body ontouchstart style="background-color: #f8f8f8;">
 	<form id="form">
 		<input type="hidden" name="openId" value="${openId}">
+		<h4><span class='f-red'>请您保证信息准确</span></h4>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">
@@ -24,7 +25,7 @@
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" type="text" name="models" required
-						placeholder="请您输入车型" emptyTips="请您输入车型" />
+						placeholder="请输入车型" emptyTips="请输入车型" />
 				</div>
 			</div>
 

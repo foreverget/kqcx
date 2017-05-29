@@ -18,6 +18,7 @@
 	<form id="form">
 		<input type="hidden" id='openId' name="openId" value="${openId}">
 		<input type="hidden" id='id' name="id" value="${carInfo.id}">
+		<h4><span class='f-red'>请您保证信息准确</span></h4>
 		<div class="weui_cells weui_cells_form">
 			<div class="weui_cell">
 				<div class="weui_cell_hd">

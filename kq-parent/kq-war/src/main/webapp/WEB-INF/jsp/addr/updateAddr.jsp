@@ -15,8 +15,8 @@
 </head>
 <body ontouchstart style="background-color: #f8f8f8;">
 	<input type="hidden" id="openId" value="${openId}">
+	<h4><span class='f-red'>请您填写具体常用往返地点</span></h4>
 	<div class="weui_cells weui_cells_form">
-		<div class="weui_cells_title">起点</div>
 		<div class="weui_cells">
 			<div class="weui_cell id="start_cell"">
 				<div class="weui_cell_bd weui_cell_primary">
@@ -24,9 +24,6 @@
 					emptyTips="请输入起点描述">
 				</div>
 			</div>
-		</div>
-		<div class="weui_cells_title">终点</div>
-		<div class="weui_cells">
 			<div class="weui_cell" id="end_cell">
 				<div class="weui_cell_bd weui_cell_primary">
 					<input class="weui_input" placeholder="请输入终点描述" type="text" name="end" required
@@ -36,7 +33,7 @@
 		</div>
 		<div class="weui_btn_area">
 			<a class="weui_btn weui_btn_primary" href="javascript:"
-				id="addAddrBtn">添加</a>
+				id="addAddrBtn">确认添加</a>
 		</div>
 	</div>
 	<div class="weui_cells">

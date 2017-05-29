@@ -40,7 +40,7 @@
 			<span></span> <span></span> <span></span>
 		</div>
 	</div>
-	<div class="weui_cells_title">您的爱车列表</div>
+	<div class="weui_cells_title f-red">您的爱车列表</div>
 	<div class="weui_cells weui_cells_form">
 		<div class="weui_cells weui_cells_access">
 			<c:forEach var="car" items="${list}">

@@ -43,9 +43,9 @@
 					<label class="weui_label">座位数</label>
 				</div>
 				<div class="weui_cell_bd weui_cell_primary">
-					<input class="weui_input" type="text" value="${carInfo.seat}" name="seat" requiredtype="tel"
-						required pattern="^[1-10]\$" placeholder="请您输入座位数量1-10"
-						emptyTips="请您输入座位数量" notMatchTips="请您输入座位数量1-10" />
+					<input class="weui_input" name="seat" value="${carInfo.seat}" required type="tel"
+						pattern="^[1-8]\$" placeholder="请您输入车辆座位数1-8"
+						emptyTips="请您输入正确车辆座位数" notMatchTips="请您输入正确车辆座位数" />
 				</div>
 			</div>
 

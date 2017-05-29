@@ -1,12 +1,16 @@
 package com.dc.kq.pinche.request;
 
+import java.math.BigDecimal;
+
+import com.dc.kq.pinche.base.BaseEntity;
+
 /**
  * 用户信息
  * 
  * @author xiaogang
  *
  */
-public class UserInfoRequest {
+public class UserInfoRequest extends BaseEntity {
 	/**
 	 * 名称
 	 */
@@ -32,6 +36,10 @@ public class UserInfoRequest {
 	 * 微信Id
 	 */
 	private String openId;
+	/**
+	 * 积分
+	 */
+	private BigDecimal score;
 
 	private String key;
 
@@ -83,6 +91,20 @@ public class UserInfoRequest {
 
 	public void setOpenId(String openId) {
 		this.openId = openId;
+	}
+
+	/**
+	 * @return the score
+	 */
+	public BigDecimal getScore() {
+		return score;
+	}
+
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(BigDecimal score) {
+		this.score = score;
 	}
 
 	public String getKey() {

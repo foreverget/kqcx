@@ -101,6 +101,10 @@ function initSelectAddr(openId) {
 					obj.value = addrList[i].id;
 					arr.push(obj);
 				}
+			}else{
+				$.toptips('请您到[我的-个人中心-常用地址]绑定常用地址','warning');
+				window.location.href = _ctx + "/user/toUserInfo?openId=" + openId;
+				//return;
 			}
 			// 绑定事件
 			$("#selectaddr").select({
@@ -112,7 +116,6 @@ function initSelectAddr(openId) {
 						$('#startAddr').val(arr[0]);
 						$('#endAddr').val(arr[1]);
 					}
-
 				}
 			});
 		},
@@ -142,6 +145,10 @@ function initSelectCar(openId) {
 					obj.value = carList[i].id;
 					arr.push(obj);
 				}
+			}else{
+				$.toptips('请您到[我的-个人中心-车辆信息]绑定车辆信息','warning');
+				window.location.href = _ctx + "/user/toUserInfo?openId=" + openId;
+				//return;
 			}
 			// 绑定事件
 			$("#selectcar").select({

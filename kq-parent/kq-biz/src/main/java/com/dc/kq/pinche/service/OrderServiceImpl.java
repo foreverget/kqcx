@@ -48,13 +48,15 @@ public class OrderServiceImpl implements OrderService {
 	public BaseResponse doReleaseOrder(OrderInfoRequest orderInfoRequest) {
 		BaseResponse resp = new BaseResponse();
 		try {
-			// 校验订单信息是否符合,如果有未完成订单，不允许发布
-//			String openId = orderInfoRequest.getOpenId();
-//			List<OrderInfo> orderList = orderDao.getUnEndOrderList(openId);
-//			if(null!=orderList&& orderList.size()>0){
-//				resp.setEnum(ResponseEnum.RELEASE_ERROR);
-//				return resp;
-//			}
+			// 校验订单信息是否符合,如果有当天有未完成订单，不允许发布
+			String openId = orderInfoRequest.getOpenId();
+			String goTime = orderInfoRequest.getGoTime();
+			String time = goTime.substring(0, 10);
+			List<OrderInfo> orderList = orderDao.getUnEndOrderList(openId,time);
+			if(null!=orderList&& orderList.size()>0){
+				resp.setEnum(ResponseEnum.RELEASE_ERROR);
+				return resp;
+			}
 			OrderInfo nOrderInfo = buildOrder(orderInfoRequest);
 			nOrderInfo.setStatus(Constants.ORDER_STATUS_RELEASED);
 			long id = orderDao.insert(nOrderInfo);

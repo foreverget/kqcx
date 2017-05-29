@@ -97,7 +97,7 @@
 	</form>
 	
 	<div class="weui_btn_area">
-		<a class="weui_btn weui_btn_primary" href="javascript:" id="btn">完成注册</a>
+		<a class="weui_btn weui_btn_primary" href="javascript:" id="btn">确认注册</a>
 	</div>
 	
 	<div id="popup1" class="weui-popup-container">

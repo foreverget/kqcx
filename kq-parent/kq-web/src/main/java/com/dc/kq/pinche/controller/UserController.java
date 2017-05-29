@@ -1,5 +1,8 @@
 package com.dc.kq.pinche.controller;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +59,11 @@ public class UserController {
 		info.setEmail(userInfo.getEmail());
 		info.setGender(userInfo.getGender());
 		info.setOpenId(userInfo.getOpenId());
-		info.setStatus(STATUS_AUDIT_SUCCESS);// TODO 目前初始为审核通过
+		// TODO 目前初始为审核通过
+		info.setStatus(STATUS_AUDIT_SUCCESS);
+		info.setScore(new BigDecimal(0));
+		info.setCreateBy("用户");
+		info.setCreateTime(new Date());
 		return userService.registerUser(info);
 	}
 

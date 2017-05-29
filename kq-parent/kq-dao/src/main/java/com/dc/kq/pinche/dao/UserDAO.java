@@ -62,10 +62,14 @@ public interface UserDAO {
 	 * @param userInfo
 	 * @return
 	 */
-	@Insert({ "INSERT INTO pc_user (name, mobile, addr, email, gender, head_img, status, open_id)",
+	@Insert({ "INSERT INTO pc_user (name, mobile, addr, email, gender, head_img, status, open_id, score,",
+			"create_time, create_by, version, update_time, update_by )",
 			"VALUES ( #{name,jdbcType=VARCHAR}, ", "#{mobile,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, ",
 			"#{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, ",
-			"#{headImg,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ", "#{openId,jdbcType=VARCHAR})" })
+			"#{headImg,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, ", "#{openId,jdbcType=VARCHAR},",
+			"#{score,jdbcType=DECIMAL},",
+			"#{createTime},#{createBy,jdbcType=VARCHAR},#{version,jdbcType=INTEGER},",
+			"#{updateTime},#{updateBy,jdbcType=VARCHAR})" })
 	@Options(keyProperty = "id", useGeneratedKeys = true)
 	int insert(UserInfo userInfo);
 

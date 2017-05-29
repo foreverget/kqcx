@@ -240,7 +240,7 @@ public interface OrderDAO {
 	 */
 	@Select({ "<script>" + "SELECT id,open_id,name,mobile,go_time,start_addr,end_addr,memo,"
 			+ "plates,req_num,price,status,score,create_time " + "FROM pc_order  "
-			+ "WHERE status=0 AND open_id = #{opendId,jdbcType=VARCHAR} "
+			+ "WHERE status=0 AND open_id = #{opendId,jdbcType=VARCHAR}  AND go_time like CONCAT(#{time},'%') "
 			+ "</script>" })
 	@Results({ @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
 			@Result(column = "open_id", property = "openId", jdbcType = JdbcType.VARCHAR),
@@ -248,7 +248,7 @@ public interface OrderDAO {
 			@Result(column = "mobile", property = "mobile", jdbcType = JdbcType.VARCHAR),
 			@Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER),
 			@Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER) })
-	List<OrderInfo> getUnEndOrderList(@Param("opendId") String opendId);
+	List<OrderInfo> getUnEndOrderList(@Param("opendId") String opendId,@Param("time") String time);
 
 	/**
 	 * 取消订单

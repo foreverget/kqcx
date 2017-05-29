@@ -2,6 +2,7 @@ package com.dc.kq.pinche.controller;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,12 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dc.kq.pinche.common.Oauth2Token;
 import com.dc.kq.pinche.dmo.UserInfo;
 import com.dc.kq.pinche.service.OAuthService;
 import com.dc.kq.pinche.service.UserService;
+import com.dc.kq.pinche.theard.TokenThread;
 
 /**
  * 微信controller
@@ -34,6 +37,11 @@ public class WeXinController {
 
 	@Autowired
 	private UserService userService;
+
+	@PostConstruct
+	public void init() {
+		new Thread(new TokenThread()).start();
+	}
 
 	/**
 	 * 根据code取得openId

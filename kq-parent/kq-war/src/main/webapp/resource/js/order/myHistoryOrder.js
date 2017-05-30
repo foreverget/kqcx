@@ -43,7 +43,7 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
-									var liclass="";
+									var liclass="notover";
 									if ("1" == arr[i].status) {
 										statusStr = "已约满";
 										liclass = "over";
@@ -66,7 +66,7 @@ $(function() {
 								}
 								//alert(__html);
 								// 绑定事件
-								initBindEvent();
+								initYcBindEvent();
 							// 如果没有数据
 							} else {
 								page_0 = 1;
@@ -107,7 +107,7 @@ $(function() {
 							if (!!arr && arr.length > 0) {// 循环数据，拼装html
 								for (var i = 0; i < arr.length; i++) {
 									var statusStr = "发布中";
-									var liclass="";
+									var liclass="notover";
 									if ("1" == arr[i].status) {
 										statusStr = "已约满";
 										liclass = "over";
@@ -130,7 +130,7 @@ $(function() {
 								}
 								//alert(__html);
 								// 绑定事件
-								initBindEvent();
+								initCcBindEvent();
 							// 如果没有数据
 							} else {
 								page_1 = 1;
@@ -253,30 +253,23 @@ $(function() {
 /**
  * 绑定事件
  */
-function initBindEvent() {
+function initYcBindEvent() {
 	// 查看约车单详情
 	$('[id^=yc_list_]').live('click',function(){
 		var openId = $(this).attr('open-id');
 		var orderId = $(this).attr('order-id');
-//		alert(openId);
-//		alert(orderId);
-//		return;
 		window.location.href = _ctx
 				+ "/order/toYcOrderDetail?orderId=" + orderId
 				+ "&openId=" + openId;
-	
 	});
-
-	// 查看出车单详情
+}
+function initCcBindEvent() {
+	// 查看出车单详情 
 	$('[id^=cc_list_]').live('click',function(){
 		var openId = $(this).attr('open-id');
 		var orderId = $(this).attr('order-id');
-//		alert(openId);
-//		alert(orderId);
-//		return;
 		window.location.href = _ctx
 				+ "/order/toCcOrderDetail?orderId=" + orderId
 				+ "&openId=" + openId;
-	
 	});
 }

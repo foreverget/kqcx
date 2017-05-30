@@ -44,6 +44,16 @@
 			background: #E9F01D;
 		}
 		
+		.order-list>li.notover {
+			height: 100px;
+			line-height: 24px;
+			padding: 10px 15px 10px 10px;
+			margin: 10px;
+			border-radius: 3px;
+			box-shadow: 1px 1px 2px #ccc;
+			background: #E9F01D;
+		}
+		
 		.order-list>li.over {
 			height: 100px;
 			line-height: 24px;

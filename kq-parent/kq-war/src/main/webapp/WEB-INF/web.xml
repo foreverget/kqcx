@@ -11,6 +11,17 @@
 		<!-- 默认页 -->
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	<filter>
+		<filter-name>XSS</filter-name>
+		<display-name>XSS</display-name>
+		<description></description>
+		<filter-class>com.dc.kq.pinche.filter.XSSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>XSS</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- Character Encoding filter 字符编码 start -->
 	<filter>

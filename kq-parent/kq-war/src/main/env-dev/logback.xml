@@ -201,19 +201,19 @@
 
 	<!-- third part log -->
 	<!-- 以下log 只拦截INFO以上级别 -->
-	<logger name="org.springframework" level="DEBUG">
+	<logger name="org.springframework" level="ERROR">
 		<appender-ref ref="ThirdPartLoggerFileOut" />
 	</logger>
 
-	<logger name="org.mybatis" level="DEBUG">
+	<logger name="org.mybatis" level="ERROR">
 		<appender-ref ref="ThirdPartLoggerFileOut" />
 	</logger>
-	<logger name="org.apache.commons" level="DEBUG">
+	<logger name="org.apache.commons" level="ERROR">
 		<appender-ref ref="ThirdPartLoggerFileOut" />
 	</logger>
 
 	<root>
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="stdout" />
 		<!-- <appender-ref ref="rollingFile" /> -->
 	</root>

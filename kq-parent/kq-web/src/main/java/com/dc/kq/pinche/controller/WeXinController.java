@@ -101,7 +101,8 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 		}
 		return "";
 	}
-
+	
+	@Deprecated
 	public class TokenThread implements Runnable {
 
 		public Token accessToken = null;
@@ -136,6 +137,6 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		new Thread(new TokenThread()).run();
+		//new Thread(new TokenThread()).run();
 	}
 }

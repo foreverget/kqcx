@@ -15,7 +15,8 @@
 	http://www.springframework.org/schema/task/spring-task-4.2.xsd" >
 
 	<description>框架全局配置</description>
-
+	<!-- 定时任务 -->
+	<task:annotation-driven />
 	<!-- 自动扫描包 -->
 	<context:component-scan base-package="com.dc.*" annotation-config="true" />
 </beans>

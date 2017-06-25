@@ -233,7 +233,7 @@ public class OrderServiceImpl implements OrderService {
 				if (order.getOpenId().equals(openId)) {
 					orderDao.channelOrder(orderId);
 					// 取消订单后向订单中乘客发送推送消息
-					sendToUserWhenChannelOrder(order);
+					// sendToUserWhenChannelOrder(order);
 				} else {
 					resp.setEnum(ResponseEnum.OPERATION_ULTRA_VIRES);
 				}
@@ -453,16 +453,17 @@ public class OrderServiceImpl implements OrderService {
 	private void sendToDriverWhenJoin(OrderInfo order, OrderPassenger orderPassenger) {
 		// 构建消息模板
 		Template template = new Template();
-		template.setTemplateId("Nh-3MmriH7v1YpUXtkkGwQJ8vwGibw4lYtlhYP4se3w");
+		template.setTemplateId("8DiTU8JIZxcSuUpVBCDKBNVtV8ALYbU-QDJDFNPyhqE");
+		//司机接收
 		template.setToUser(order.getOpenId());
 		// 构建消息模板参数
 		List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
-		TemplateParam tp = new TemplateParam("first", "尊敬的 车主先生/女士：  有新的拼友预定了您的座位。", "");
-		TemplateParam tp1 = new TemplateParam("keyword1", orderPassenger.getName() + " 先生/女士", "");
-		TemplateParam tp2 = new TemplateParam("keyword2", orderPassenger.getCount() + "人", "");
-		TemplateParam tp3 = new TemplateParam("keyword3", orderPassenger.getMobile(), "");
-		TemplateParam tp4 = new TemplateParam("keyword4", order.getStartAddr(), "");
-		TemplateParam tp5 = new TemplateParam("remark", "主动电话联系他/她。 相聚是缘，多点理解，多点爱心，生活就很美好。", "");
+		TemplateParam tp = new TemplateParam("first", "车主您好:有新的邻居预定了您车牌号为【"+order.getPlates()+"】的座位", "");
+		TemplateParam tp1 = new TemplateParam("keyword1", order.getGoTime(), "");
+		TemplateParam tp2 = new TemplateParam("keyword2", "从  "+order.getStartAddr()+"  到    "+order.getEndAddr(), "");
+		TemplateParam tp3 = new TemplateParam("keyword3", orderPassenger.getName()+" 约"+orderPassenger.getCount()+"位", "");
+		TemplateParam tp4 = new TemplateParam("keyword4", orderPassenger.getMobile(), "");
+		TemplateParam tp5 = new TemplateParam("remark", "孔雀拼车,邻里互助,诚实守信,感谢有你,请您准时到达!", "");
 		templateParamList.add(tp);
 		templateParamList.add(tp1);
 		templateParamList.add(tp2);
@@ -485,20 +486,25 @@ public class OrderServiceImpl implements OrderService {
 	private void sendToUserWhenJoin(OrderInfo order, OrderPassenger orderPassenger) {
 		// 构建消息模板
 		Template template = new Template();
-		template.setTemplateId("OMEFGT1UZQR9PUUNJX1slNBDjwMfo0VJZP4s4H9YtrQ");
-		template.setToUser(order.getOpenId());
+		template.setTemplateId("T10AjpRxtZFjsqo1zdaV6Hs-tRhHhNzTuMsfdTZ7eFo");
+		// 乘客接收
+		template.setToUser(orderPassenger.getOpenId());
 		// 构建消息模板参数
 		List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
-		TemplateParam tp = new TemplateParam("first", "拼车成功", "");
+		TemplateParam tp = new TemplateParam("first", "乘客您好:您预约车牌号为【"+order.getPlates()+"】 "+orderPassenger.getCount()+"个座位已成功", "");
 		TemplateParam tp1 = new TemplateParam("keyword1", order.getStartAddr(), "");
 		TemplateParam tp2 = new TemplateParam("keyword2", order.getEndAddr(), "");
 		TemplateParam tp3 = new TemplateParam("keyword3", order.getGoTime(), "");
-		TemplateParam tp4 = new TemplateParam("remark", "您已经拼车成功，请点击【详情】查看。", "");
+		TemplateParam tp4 = new TemplateParam("keyword4", order.getName(), "");
+		TemplateParam tp5 = new TemplateParam("keyword5", order.getMobile(), "");
+		TemplateParam tp6 = new TemplateParam("remark", "孔雀拼车,邻里互助,诚实守信,感谢有你,请您准时到达!", "");
 		templateParamList.add(tp);
 		templateParamList.add(tp1);
 		templateParamList.add(tp2);
 		templateParamList.add(tp3);
 		templateParamList.add(tp4);
+		templateParamList.add(tp5);
+		templateParamList.add(tp6);
 		template.setTemplateParamList(templateParamList);
 		// 获取token
 		String token = redisTemplate.opsForValue().get("access_token");
@@ -513,36 +519,32 @@ public class OrderServiceImpl implements OrderService {
 	 * @param orderPassenger
 	 */
 	private void sendToUserWhenRemoveUser(OrderInfo order, OrderPassenger orderPassenger) {
-		// 通过订单Id查询乘客信息
-		List<OrderPassenger> list = orderDao.getPassengerList(order.getId());
-		if (!CollectionUtils.isEmpty(list)) {
-			for (OrderPassenger op : list) {
-				// 构建消息模板
-				Template template = new Template();
-				template.setTemplateId("oykLDUfxWzEHgMNJsBUHwtatIwfK1m6lf0TyGorTMWo");
-				template.setToUser(op.getOpenId());
-				// 构建消息模板参数
-				List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
-				TemplateParam tp = new TemplateParam("first", "乘客您好，您已经被司机移除拼车订单！", "");
-				TemplateParam tp1 = new TemplateParam("keyword1", order.getGoTime(), "");
-				TemplateParam tp2 = new TemplateParam("keyword2", "司机：" + order.getName(), "");
-				TemplateParam tp3 = new TemplateParam("remark", "请您及时预约其他车辆", "");
-				templateParamList.add(tp);
-				templateParamList.add(tp1);
-				templateParamList.add(tp2);
-				templateParamList.add(tp3);
-				template.setTemplateParamList(templateParamList);
-				// 获取token
-				String token = redisTemplate.opsForValue().get("access_token");
-				// 发送模板信息
-				WxMsgUtil.sendTemplateMsg(token, template);
-			}
-		}
+		// 构建消息模板
+		Template template = new Template();
+		template.setTemplateId("oykLDUfxWzEHgMNJsBUHwtatIwfK1m6lf0TyGorTMWo");
+		template.setToUser(orderPassenger.getOpenId());
+		// 构建消息模板参数
+		List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+		TemplateParam tp = new TemplateParam("first", "乘客您好:您已经被司机取消预约座位,车牌号为【"+order.getPlates()+"】", "");
+		TemplateParam tp1 = new TemplateParam("keyword1", order.getGoTime(), "");
+		TemplateParam tp2 = new TemplateParam("keyword2", order.getName()+"(司机)", "");
+		TemplateParam tp3 = new TemplateParam("remark", "如有疑问请尽快联系司机,电话为:【"+order.getMobile()+"】  孔雀拼车,邻里互助,诚实守信,感谢有你!", "");
+		templateParamList.add(tp);
+		templateParamList.add(tp1);
+		templateParamList.add(tp2);
+		templateParamList.add(tp3);
+		template.setTemplateParamList(templateParamList);
+		// 获取token
+		String token = redisTemplate.opsForValue().get("access_token");
+		// 发送模板信息
+		WxMsgUtil.sendTemplateMsg(token, template);
+
 	}
 
 	/**
 	 * 取消订单后向订单中乘客发送推送消息
 	 */
+	@Deprecated
 	private void sendToUserWhenChannelOrder(OrderInfo order) {
 		// 通过订单Id查询乘客信息
 		List<OrderPassenger> list = orderDao.getPassengerList(order.getId());

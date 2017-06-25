@@ -120,6 +120,12 @@
 						data-target="#popup0">我要检索</a>
 				</div>
 			</ul>
+			<ul>
+				<div>
+					<span>您目前正在检索:时间段为{}出发地为{}目的地为{}<span><br>
+					<a id="" href="javascript:;" >清除检索条件</a> 
+				</div>
+			</ul>
 			-->
 			<ul id="order-list-0" class="order-list"></ul>
 		</div>

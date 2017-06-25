@@ -48,10 +48,10 @@ $(function() {
 										statusStr = "已约满";
 										liclass = "over";
 									} else if ("2" == arr[i].status) {
-										statusStr = "已送达";
+										statusStr = "已过期";
 										liclass = "over";
 									} else if ("3" == arr[i].status) {
-										statusStr = "已取消";
+										statusStr = "已过期";
 										liclass = "over";
 									}
 									__html += '<li class='+liclass+' id=yc_list_'+arr[i].id+' open-id='+arr[i].openId+' order-id='+arr[i].id+'>'

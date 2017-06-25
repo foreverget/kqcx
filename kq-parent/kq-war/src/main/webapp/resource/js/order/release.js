@@ -34,7 +34,7 @@ $(function() {
 		if ($ck == 'on') {
 			
 		} else {
-			$.alert("抱歉,您未同意遵守本系统条约");
+			$.alert("同意遵守本系统条约才可进行发布");
 			return;
 		}
 		$form.validate(function(error) {

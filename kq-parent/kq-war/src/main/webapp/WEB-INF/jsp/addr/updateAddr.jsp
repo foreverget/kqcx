@@ -46,5 +46,6 @@
 		</c:forEach>
 	</div>
 </body>
+<script src="${ctx}/resource/weuix/jssdkapi.js?_time=<%=_timestamp%>"></script>
 <script src="${ctx}/resource/js/addr/updateAddr.js?_time=<%=_timestamp%>"></script>
 </html>

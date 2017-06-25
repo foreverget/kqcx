@@ -64,5 +64,6 @@
 		</div>
 	</form>
 </body>
+<script src="${ctx}/resource/weuix/jssdkapi.js?_time=<%=_timestamp%>"></script>
 <script src="${ctx}/resource/js/car/addCar.js?_time=<%=_timestamp%>"></script>
 </html>

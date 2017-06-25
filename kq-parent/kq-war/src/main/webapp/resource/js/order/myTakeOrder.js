@@ -50,16 +50,16 @@ $(function() {
 										statusStr = "已约满";
 										liclass = "over";
 									} else if ("2" == arr[i].status) {
-										statusStr = "已送达";
+										statusStr = "已过期";
 										liclass = "over";
 									} else if ("3" == arr[i].status) {
-										statusStr = "已取消";
+										statusStr = "已过期";
 										liclass = "over";
 									}
 									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+openId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">今</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
-											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
+											//+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p>从：'+arr[i].startAddr+'</p>'
 											+'<p>到：'+arr[i].endAddr+'</p>'
@@ -114,16 +114,16 @@ $(function() {
 										statusStr = "已约满";
 										liclass = "over";
 									} else if ("2" == arr[i].status) {
-										statusStr = "已送达";
+										statusStr = "已过期";
 										liclass = "over";
 									} else if ("3" == arr[i].status) {
-										statusStr = "已取消";
+										statusStr = "已过期";
 										liclass = "over";
 									}
 									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+openId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">明</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
-											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
+											//+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p>从：'+arr[i].startAddr+'</p>'
 											+'<p>到：'+arr[i].endAddr+'</p>'
@@ -178,16 +178,16 @@ $(function() {
 										statusStr = "已约满";
 										liclass = "over";
 									} else if ("2" == arr[i].status) {
-										statusStr = "已送达";
+										statusStr = "已过期";
 										liclass = "over";
 									} else if ("3" == arr[i].status) {
-										statusStr = "已取消";
+										statusStr = "已过期";
 										liclass = "over";
 									}
 									__html += '<li class='+liclass+' id=order_'+arr[i].id+' open-id='+openId+' order-id='+arr[i].id+'>'
 											+'<span class="icon">后</span>'
 											+ '<p class="r"><font class="font-red">'+arr[i].price+'</font>元/位</p>'
-											+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
+											//+ '<p class="r">空<font class="font-red">'+arr[i].surplusSeat+'</font>位&nbsp;&nbsp; </p>'
 											+ '<p class="title">'+arr[i].goTime+'</p>'
 											+'<p>从：'+arr[i].startAddr+'</p>'
 											+'<p>到：'+arr[i].endAddr+'</p>'

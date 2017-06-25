@@ -1,11 +1,14 @@
 package com.dc.kq.pinche.common;
 
 public class Constants {
-	
 	/**
 	 * 每页数量
 	 */
 	public static final int PAGE_SIZE = 10;
+	
+	public static final String WX_APP_ID = "wxcbec67470e5bfae3";
+	
+	public static final String WX_APP_SECRET = "89ac8d3274ed17390300658fffda23a4";
 	
 	/**
 	 * 订单状态（0：发布中，1：已满，2：已送达，3：已取消）

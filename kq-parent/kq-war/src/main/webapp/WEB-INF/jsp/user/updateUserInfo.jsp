@@ -85,5 +85,6 @@
 <script type="text/javascript">
 var key = '${key}';
 </script>
+<script src="${ctx}/resource/weuix/jssdkapi.js?_time=<%=_timestamp%>"></script>
 <script src="${ctx}/resource/js/user/updateUserInfo.js?_time=<%=_timestamp%>"></script>
 </html>

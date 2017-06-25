@@ -15,12 +15,17 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dc.kq.pinche.common.BaseResponse;
+import com.dc.kq.pinche.common.Constants;
 import com.dc.kq.pinche.common.Oauth2Token;
 import com.dc.kq.pinche.dmo.UserInfo;
 import com.dc.kq.pinche.service.OAuthService;
 import com.dc.kq.pinche.service.UserService;
 import com.dc.kq.pinche.util.WeiXinAccessTokenUtil;
+import com.dc.kq.pinche.util.JsapiSignatureUtil;
+import com.dc.kq.pinche.wx.JsapiSignature;
 import com.dc.kq.pinche.wx.Token;
 
 /**
@@ -39,10 +44,6 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 	private OAuthService oAuthService;
 	@Autowired
 	private UserService userService;
-	// 微信企业号ID
-	public String appid = "wx71ede00e0504ae80";
-	// 微信企业号凭证密钥
-	public String appsecret = "cc075e0ae620412e87a4107ed2d9d799";
 
 	/**
 	 * 根据code取得openId
@@ -66,7 +67,8 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 			// 用户同意授权
 			if (!"authdeny".equals(code)) {
 				// 获取网页授权access_token
-				Oauth2Token oauth2Token = oAuthService.getOauth2AccessToken(appid, appsecret, code);
+				Oauth2Token oauth2Token = oAuthService.getOauth2AccessToken(Constants.WX_APP_ID,
+						Constants.WX_APP_SECRET, code);
 				// 执行保存绑定
 				String openId = oauth2Token.getOpenId();
 				LOGGER.info("微信的openId=" + openId);
@@ -101,7 +103,18 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 		}
 		return "";
 	}
-	
+
+	@RequestMapping("jssdk")
+	@ResponseBody
+	public BaseResponse jssdk(HttpServletRequest request, String url){
+		System.out.println("url=" + url);
+		BaseResponse resp = new BaseResponse();
+		String jsapi_ticket = stringRedisTemplate.opsForValue().get("jsapi_ticket");
+		JsapiSignature jsapiSignature = JsapiSignatureUtil.sign(jsapi_ticket, url);
+		resp.setValue(jsapiSignature);
+		return resp;
+	}
+
 	@Deprecated
 	public class TokenThread implements Runnable {
 
@@ -110,7 +123,7 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 		public void run() {
 			while (true) {
 				try {
-					accessToken = WeiXinAccessTokenUtil.getAccessToken(appid, appsecret);
+					accessToken = WeiXinAccessTokenUtil.getAccessToken(Constants.WX_APP_ID, Constants.WX_APP_SECRET);
 					if (null != accessToken && StringUtils.isNotBlank(accessToken.getAccessToken())) {
 						LOGGER.info("定时获取access_token成功并保存，有效时长" + accessToken.getExpiresIn() + "秒 accToken:"
 								+ accessToken.getAccessToken());
@@ -137,6 +150,6 @@ public class WeXinController implements ApplicationListener<ContextRefreshedEven
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		//new Thread(new TokenThread()).run();
+		// new Thread(new TokenThread()).run();
 	}
 }

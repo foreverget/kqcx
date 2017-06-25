@@ -92,7 +92,7 @@
 				<span >同意遵守<a id='rulelink' class="open-popup" href="javascript:;" data-target="#popup1">《平台使用条约及免责声明》</a></span>
 			</div>
 			<div class="weui_cell_ft">
-				<input class="weui_switch" type="checkbox" id='ck_rule' checked/>
+				<input class="weui_switch" type="checkbox" id='ck_rule' />
 			</div>
 		</div>
 	</div>

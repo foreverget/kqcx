@@ -2,10 +2,6 @@
  * 约车详细信息页面相关JS
  */
 $(function() {
-	// 绑定事件
-//	$("#rulelink").on('click',function(){
-//		$.alert('1.文明约车 \n;2.不准迟到','<span class="f-blue">系统免责声明</span>');
-//	});
 	/**
 	 * 我约触发事件
 	 */
@@ -28,7 +24,7 @@ $(function() {
 				if ($ck == 'on') {
 					
 				} else {
-					$.alert("抱歉,您未同意遵守本系统条约");
+					$.alert("同意遵守本系统条约才可约车");
 					return;
 				}
 				$.confirm("您确定要约<span class='f-red'>"+count+"人</span>吗?", "确认?", function() {
